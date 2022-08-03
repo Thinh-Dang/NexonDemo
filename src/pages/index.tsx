@@ -1,21 +1,42 @@
-import { CiCircleFilled } from '@ant-design/icons';
-import { Button, Space } from 'antd';
+import { Form, Button } from 'antd';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function Home() {
+  const { data: session } = useSession();
+  const Google = () => {
+    if (session) {
+      return (
+        <>
+          Signed in as {session?.user?.email} <br />
+          <button onClick={() => signOut()}>Sign out</button>
+        </>
+      );
+    }
+    return (
+      <>
+        Not signed in <br />
+        <button onClick={() => signIn()}>Sign in</button>
+      </>
+    );
+  };
   return (
-    <div style={{ padding: 100 }}>
-      <Space direction="vertical">
-        <Button type="primary">Primary Button</Button>
-        <Button type="ghost">Ghost Button</Button>
+    <>
+      <Form.Item label=" " colon={false}>
         <Link href="/register">
-          <Button type="ghost">Register</Button>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
         </Link>
+      </Form.Item>
+      <Form.Item label=" " colon={false}>
         <Link href="/login">
-          <Button type="ghost">Login</Button>
+          <Button type="primary" htmlType="submit">
+            Login
+          </Button>
         </Link>
-        <CiCircleFilled />
-      </Space>
-    </div>
+      </Form.Item>
+      <Google />
+    </>
   );
 }

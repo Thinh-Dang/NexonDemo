@@ -1,24 +1,18 @@
 import { Button, Form, Input } from 'antd';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { loginGoogle } from '@/api/login';
 import { useRouter } from 'next/router';
 import { Login } from '@/types';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 import type { NextPage } from 'next';
 const LoginPage: NextPage = () => {
-  const route = useRouter();
   const onFinish = () => {
     console.log();
   };
-
-  const onSuccess = async (response: any) => {
-    const credential: string = response.credential;
-
-    const result = await loginGoogle({ token: credential });
-    const { isCreated } = result.data.data;
-    if (isCreated) route.push(`/`);
-    else route.push(`/register`);
+  const onSignIn = () => {
+    signIn();
   };
+
   return (
     <Form<Login>
       name="login-form"
@@ -44,17 +38,11 @@ const LoginPage: NextPage = () => {
           Next
         </Button>
       </Form.Item>
-
-      <GoogleOAuthProvider
-        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
-      >
-        <GoogleLogin
-          onSuccess={onSuccess}
-          onError={() => {
-            console.log(`Login Failed`);
-          }}
-        />
-      </GoogleOAuthProvider>
+      <Form.Item label=" " colon={false}>
+        <Button type="primary" htmlType="submit" onClick={onSignIn}>
+          Sign In
+        </Button>
+      </Form.Item>
     </Form>
   );
 };
