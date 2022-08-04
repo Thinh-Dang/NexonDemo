@@ -1,14 +1,17 @@
+import { firebaseApp } from '@/config/firebase-config';
 import { Login } from '@/types';
 import { Button, Form, Input } from 'antd';
-import { signIn } from 'next-auth/react';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 import type { NextPage } from 'next';
 const LoginPage: NextPage = () => {
+  const firebaseAuth = getAuth(firebaseApp);
+  const provider = new GoogleAuthProvider();
   const onFinish = () => {
     console.log();
   };
-  const onSignIn = () => {
-    signIn();
+  const onSignIn = async () => {
+    await signInWithPopup(firebaseAuth, provider);
   };
 
   return (
