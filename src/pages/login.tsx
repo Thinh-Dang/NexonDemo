@@ -1,8 +1,6 @@
-import { Button, Form, Input } from 'antd';
-import { loginGoogle } from '@/api/login';
-import { useRouter } from 'next/router';
 import { Login } from '@/types';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { Button, Form, Input } from 'antd';
+import { signIn } from 'next-auth/react';
 
 import type { NextPage } from 'next';
 const LoginPage: NextPage = () => {

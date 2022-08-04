@@ -1,4 +1,4 @@
-import { loginGoogle } from '@/api/login';
+import { loginGoogle } from '@/services/login.api';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 

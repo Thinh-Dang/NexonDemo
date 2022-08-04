@@ -4,3 +4,8 @@ export enum Method {
   put = `put`,
   delete = `delete`,
 }
+export enum GenderEnum {
+  male = `male`,
+  female = `female`,
+  other = `other`,
+}
