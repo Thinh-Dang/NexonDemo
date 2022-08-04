@@ -2,6 +2,7 @@ import { Login } from '@/types';
 import { GenderEnum } from '@/types/enum';
 import { Button, Form, Input, Select } from 'antd';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 
 const RegisterPage: NextPage = () => {
   const onFinish = () => {
@@ -94,9 +95,16 @@ const RegisterPage: NextPage = () => {
           options={genderOptions}
         />
       </Form.Item>
-
-      {/* Register */}
       <Form.Item {...tailLayout}>
+        {/* Home */}
+        <Link href="/">
+          <Button htmlType="button">Home</Button>
+        </Link>
+        {/* Login */}
+        <Link href="/login">
+          <Button htmlType="button">Login</Button>
+        </Link>
+        {/* Register */}
         <Button htmlType="button" onClick={onRegister}>
           Register
         </Button>
