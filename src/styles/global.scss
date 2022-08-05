@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+button, textarea, input, select {
+  outline: none;
+  border: 1px solid #ccc;
+}

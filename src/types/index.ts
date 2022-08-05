@@ -10,3 +10,8 @@ export type ResponseType<T> = {
   message: string;
   error: string;
 };
+
+export type LoginWithOtp = {
+  phone: string;
+  code: string;
+};
