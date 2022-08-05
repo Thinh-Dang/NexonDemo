@@ -1,3 +1,4 @@
+import OtpForm from '@/components/otp-form';
 import { firebaseApp } from '@/config/firebase-config';
 import { facebookProvider, googleProvider } from '@/config/providers';
 import { useContext } from '@/context/UserContext';
@@ -26,6 +27,9 @@ const LoginPage: NextPage = () => {
     // console.log(`providerData`, providerData);
   };
 
+  // const sendOtp = () => {
+  //   return <OtpForm onFinish={onFinishOtp} />;
+  // };
   return (
     <Form<Login>
       name="login-form"
