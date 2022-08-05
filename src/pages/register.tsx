@@ -1,115 +1,98 @@
-import { Login } from '@/types';
-import { GenderEnum } from '@/types/enum';
-import { Button, Form, Input, Select } from 'antd';
+import OtpForm from '@/components/otp-form';
+import SignUpForm from '@/components/sign-up-form';
+import { CreateUserDto } from '@/dto/create-user.dto';
+import { ResponseToken } from '@/dto/response-token.dto';
+import { ResponseDto } from '@/dto/response.dto';
+import { CodeStatus, GenderEnum, Method } from '@/types/enum';
 import type { NextPage } from 'next';
-import Link from 'next/link';
+import { useState } from 'react';
 
 const RegisterPage: NextPage = () => {
-  const onFinish = () => {
-    console.log();
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
-  };
-
-  const onRegister = () => {
-    console.log();
-  };
-  const genderOptions = Object.keys(GenderEnum).map((gender) => {
-    return { label: gender, value: gender };
+  const [step, setStep] = useState(1);
+  const [formdata, setFormdata] = useState<CreateUserDto>({
+    phone: `0987654321`,
+    email: `abcd@gmail.com`,
+    nickName: `nguyen van a`,
+    fullName: `nguyen van a`,
+    gender: GenderEnum.male,
+    otp: `123456`,
   });
-  const onGenderChange = () => {
-    console.log();
+
+  const onFinish = (value: any) => {
+    setFormdata({ ...value, otp: `` });
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/verify-user`, {
+      method: Method.post,
+      body: JSON.stringify({
+        phone: value.phone,
+      }),
+      headers: {
+        'Content-Type': `application/json`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data: ResponseDto<string>) => {
+        if (data.code === CodeStatus.Success) {
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/send-otp`, {
+            method: Method.post,
+            body: JSON.stringify({
+              phone: value.phone,
+            }),
+            headers: {
+              'Content-Type': `application/json`,
+            },
+          })
+            .then((response) => response.json())
+            .then((data: ResponseDto<string>) => {
+              if (data.code === CodeStatus.Success) {
+                alert(`OTP has been sent to your phone.`);
+                setStep(2);
+              } else {
+                alert(`Error occurs.`);
+              }
+            });
+        } else {
+          alert(data.error);
+        }
+      });
   };
+
+  const onFinishOtp = (value: any) => {
+    setFormdata((v) => ({ ...v, otp: value.otp }));
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, {
+      method: Method.post,
+      body: JSON.stringify({
+        email: formdata.email,
+        nickname: formdata.nickName,
+        fullname: formdata.fullName,
+        phone: formdata.phone,
+        gender: formdata.gender,
+        otp: value.otp,
+      }),
+      headers: {
+        'Content-Type': `application/json`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data: ResponseDto<string | ResponseToken>) => {
+        if (data.code === CodeStatus.Success) {
+          const token = data.data as ResponseToken;
+          alert(`your jwt token: ` + token.token);
+        } else {
+          alert(data.error);
+        }
+      });
+  };
+
   return (
-    <Form<Login>
-      name="login-form"
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 14,
-      }}
-      layout="horizontal"
-      onFinish={onFinish}
-      initialValues={{ remember: true }}
-    >
-      {/* phone */}
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[{ required: true, message: `Please input your phone number!` }]}
-      >
-        <Input style={{ width: `100%` }} />
-      </Form.Item>
-
-      {/* email */}
-      <Form.Item
-        name={`email`}
-        label="Email"
-        rules={[
-          {
-            required: true,
-            message: `Fill valid email`,
-            type: `email`,
-          },
-        ]}
-      >
-        <Input style={{ width: `100%` }} />
-      </Form.Item>
-
-      {/* fullname */}
-      <Form.Item
-        name="fullname"
-        label="Fullname"
-        rules={[
-          {
-            required: true,
-            message: `Please input your full name`,
-          },
-        ]}
-      >
-        <Input placeholder="Please input your full name" />
-      </Form.Item>
-
-      {/* Nickname */}
-      <Form.Item
-        name="nickname"
-        label="Nickname"
-        rules={[
-          {
-            required: true,
-            message: `Please input your nickname`,
-          },
-        ]}
-      >
-        <Input placeholder="Please input your nickname" />
-      </Form.Item>
-
-      {/* Gender */}
-      <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-        <Select
-          placeholder="Select a option and change input text above"
-          onChange={onGenderChange}
-          allowClear
-          options={genderOptions}
-        />
-      </Form.Item>
-      <Form.Item {...tailLayout}>
-        {/* Home */}
-        <Link href="/">
-          <Button htmlType="button">Home</Button>
-        </Link>
-        {/* Login */}
-        <Link href="/login">
-          <Button htmlType="button">Login</Button>
-        </Link>
-        {/* Register */}
-        <Button htmlType="button" onClick={onRegister}>
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+    <>
+      {step === 1 ? (
+        <SignUpForm onFinish={onFinish} />
+      ) : (
+        <OtpForm onFinish={onFinishOtp} />
+      )}
+    </>
   );
 };
 export default RegisterPage;
