@@ -3,20 +3,22 @@ import SignUpForm from '@/components/sign-up-form';
 import { CreateUserDto } from '@/dto/create-user.dto';
 import { ResponseToken } from '@/dto/response-token.dto';
 import { ResponseDto } from '@/dto/response.dto';
-import { CodeStatus, GenderEnum, Method } from '@/types/enum';
+import { CodeStatus, ErrorCode, GenderEnum, Method } from '@/types/enum';
 import type { NextPage } from 'next';
+import React from 'react';
 import { useState } from 'react';
 
 const RegisterPage: NextPage = () => {
   const [step, setStep] = useState(1);
   const [formdata, setFormdata] = useState<CreateUserDto>({
-    phone: `0987654321`,
-    email: `abcd@gmail.com`,
-    nickName: `nguyen van a`,
-    fullName: `nguyen van a`,
+    phone: ``,
+    email: ``,
+    nickname: ``,
+    fullname: ``,
     gender: GenderEnum.male,
-    otp: `123456`,
+    otp: ``,
   });
+  const signUpBtn = React.useRef<HTMLButtonElement>(null);
 
   const onFinish = (value: any) => {
     setFormdata({ ...value, otp: `` });
@@ -33,28 +35,24 @@ const RegisterPage: NextPage = () => {
       .then((response) => response.json())
       .then((data: ResponseDto<string>) => {
         if (data.code === CodeStatus.Success) {
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/send-otp`, {
-            method: Method.post,
-            body: JSON.stringify({
-              phone: value.phone,
-            }),
-            headers: {
-              'Content-Type': `application/json`,
-            },
-          })
-            .then((response) => response.json())
-            .then((data: ResponseDto<string>) => {
-              if (data.code === CodeStatus.Success) {
-                alert(`OTP has been sent to your phone.`);
-                setStep(2);
-              } else {
-                alert(`Error occurs.`);
-              }
-            });
+          alert(`OTP has been sent to your phone.`);
+          setStep(2);
         } else {
           alert(data.error);
         }
       });
+  };
+
+  const diableSignUp = () => {
+    console.log(`disable button`);
+    const btn = signUpBtn.current;
+    console.log(btn);
+    if (btn) {
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.disabled = false;
+      }, 60000);
+    }
   };
 
   const onFinishOtp = (value: any) => {
@@ -64,8 +62,8 @@ const RegisterPage: NextPage = () => {
       method: Method.post,
       body: JSON.stringify({
         email: formdata.email,
-        nickname: formdata.nickName,
-        fullname: formdata.fullName,
+        nickname: formdata.nickname,
+        fullname: formdata.fullname,
         phone: formdata.phone,
         gender: formdata.gender,
         otp: value.otp,
@@ -81,6 +79,11 @@ const RegisterPage: NextPage = () => {
           alert(`your jwt token: ` + token.token);
         } else {
           alert(data.error);
+          if (data.error === ErrorCode.EXCEED_TIMES_WRONG_OTP) {
+            setStep(1);
+            diableSignUp();
+            alert(`You have to wait a few minutes to register again`);
+          }
         }
       });
   };
@@ -88,7 +91,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       {step === 1 ? (
-        <SignUpForm onFinish={onFinish} />
+        <SignUpForm onFinish={onFinish} data={formdata} ref={signUpBtn} />
       ) : (
         <OtpForm onFinish={onFinishOtp} />
       )}
