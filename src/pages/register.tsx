@@ -17,7 +17,6 @@ const RegisterPage: NextPage = () => {
     gender: GenderEnum.male,
     otp: `123456`,
   });
-
   const onFinish = (value: any) => {
     setFormdata({ ...value, otp: `` });
 
@@ -33,24 +32,8 @@ const RegisterPage: NextPage = () => {
       .then((response) => response.json())
       .then((data: ResponseDto<string>) => {
         if (data.code === CodeStatus.Success) {
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/send-otp`, {
-            method: Method.post,
-            body: JSON.stringify({
-              phone: value.phone,
-            }),
-            headers: {
-              'Content-Type': `application/json`,
-            },
-          })
-            .then((response) => response.json())
-            .then((data: ResponseDto<string>) => {
-              if (data.code === CodeStatus.Success) {
-                alert(`OTP has been sent to your phone.`);
-                setStep(2);
-              } else {
-                alert(`Error occurs.`);
-              }
-            });
+          alert(`OTP has been sent to your phone.`);
+          setStep(2);
         } else {
           alert(data.error);
         }
