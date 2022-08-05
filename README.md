@@ -1,7 +1,7 @@
 ## Preview
 
-* [Main demo](https://tinper-git-main-truongzodinet.vercel.app/)
-* [Dev demo](https://tinper-git-dev-truongzodinet.vercel.app/)
+- [Main demo](https://tinper-git-main-truongzodinet.vercel.app/)
+- [Dev demo](https://tinper-git-dev-truongzodinet.vercel.app/)
 
 ## Features
 
