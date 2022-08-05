@@ -1,17 +1,29 @@
 import { firebaseApp } from '@/config/firebase-config';
+import { facebookProvider, googleProvider } from '@/config/providers';
+import { useContext } from '@/context/UserContext';
 import { Login } from '@/types';
 import { Button, Form, Input } from 'antd';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithPopup } from 'firebase/auth';
 
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 const LoginPage: NextPage = () => {
+  const route = useRouter();
   const firebaseAuth = getAuth(firebaseApp);
-  const provider = new GoogleAuthProvider();
-  const onFinish = () => {
-    console.log();
+  const { verifyUser } = useContext();
+  const onSignInGoogle = async () => {
+    const { user } = await signInWithPopup(firebaseAuth, googleProvider);
+    const result = await verifyUser(user.providerData[0]);
+    if (result.isNewUser) route.push(`/register`);
+    else route.push(`/`);
   };
-  const onSignIn = async () => {
-    await signInWithPopup(firebaseAuth, provider);
+  const onSignInFacebook = async () => {
+    const response = await signInWithPopup(firebaseAuth, facebookProvider);
+    console.log(response);
+
+    // const { refreshToken, providerData } = user;
+    // console.log(`refreshToken`, refreshToken);
+    // console.log(`providerData`, providerData);
   };
 
   return (
@@ -24,7 +36,7 @@ const LoginPage: NextPage = () => {
         span: 14,
       }}
       layout="horizontal"
-      onFinish={onFinish}
+      // onFinish={}
       initialValues={{ remember: true }}
     >
       <Form.Item
@@ -40,8 +52,11 @@ const LoginPage: NextPage = () => {
         </Button>
       </Form.Item>
       <Form.Item label=" " colon={false}>
-        <Button type="primary" htmlType="submit" onClick={onSignIn}>
-          Sign In
+        <Button type="primary" htmlType="submit" onClick={onSignInGoogle}>
+          Sign In Google
+        </Button>
+        <Button type="primary" htmlType="submit" onClick={onSignInFacebook}>
+          Sign In Facebook
         </Button>
       </Form.Item>
     </Form>
