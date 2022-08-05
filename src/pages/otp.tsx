@@ -1,6 +1,6 @@
-import { loginOtp } from '@/services/login.api';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { loginOtp } from '@/services/login.api';
 
 const Otp: React.FC = () => {
   const router = useRouter();

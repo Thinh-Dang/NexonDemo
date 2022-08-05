@@ -1,4 +1,3 @@
-import OtpForm from '@/components/otp-form';
 import { firebaseApp } from '@/config/firebase-config';
 import { facebookProvider, googleProvider } from '@/config/providers';
 import { useContext } from '@/context/UserContext';
