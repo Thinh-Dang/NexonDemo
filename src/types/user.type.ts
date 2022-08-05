@@ -1,18 +1,39 @@
-import { GenderEnum } from '@/types/enum';
-export type RegisterContextType = {
+import { GenderEnum } from './enum';
+
+export type LoginGoogleContextType = {
+  token: string;
+};
+
+export type Register = {
   phone: string;
   email: string;
   fullname: string;
   nickname: string;
-  gender: GenderEnum;
+  gender?: GenderEnum;
   avatar: string;
+  otp: string;
+};
+
+export type UserProviderData = {
+  email: string | null;
+  phoneNumber: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+};
+
+export type VerifyResponseType = {
+  isNewUser: boolean;
+};
+
+export type RegisterResponseType = {
+  token: string;
 };
 export type UserContextType = {
-  registerForm: RegisterContextType;
-  setRegisterForm: React.Dispatch<React.SetStateAction<RegisterContextType>>;
-  submitRegister: (registerForm: RegisterContextType) => void;
+  registerForm: Register;
+  userInfoForm: Register;
+  verifyUser: (values: UserProviderData) => Promise<VerifyResponseType>;
+  setRegisterForm: React.Dispatch<React.SetStateAction<Register>>;
+  submitRegister: (registerForm: Register) => void;
   loginWithGoogle: (values: LoginGoogleContextType) => void;
-};
-export type LoginGoogleContextType = {
-  token: string;
+  registerUser: (values: Register) => Promise<RegisterResponseType>;
 };
