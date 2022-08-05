@@ -1,4 +1,3 @@
-import { loginOtp } from '@/services/login.api';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { googleProvider } from '@/config/providers';
@@ -7,6 +6,7 @@ import { firebaseApp } from '@/config/firebase-config';
 import { useContext } from '@/context/UserContext';
 import { Button } from 'antd';
 import type { NextPage } from 'next';
+import { loginOtp } from '@/services/login.api';
 
 const Otp: NextPage = () => {
   const router = useRouter();
