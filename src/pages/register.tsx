@@ -1,22 +1,17 @@
 import OtpForm from '@/components/otp-form';
 import SignUpForm from '@/components/sign-up-form';
-import { CreateUserDto } from '@/dto/create-user.dto';
+import { useContext } from '@/context/UserContext';
 import { ResponseToken } from '@/dto/response-token.dto';
 import { ResponseDto } from '@/dto/response.dto';
-import { CodeStatus, GenderEnum, Method } from '@/types/enum';
+import { CodeStatus, Method } from '@/types/enum';
+import { Register } from '@/types/user.type';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 
 const RegisterPage: NextPage = () => {
   const [step, setStep] = useState(1);
-  const [formdata, setFormdata] = useState<CreateUserDto>({
-    phone: `0987654321`,
-    email: `abcd@gmail.com`,
-    nickName: `nguyen van a`,
-    fullName: `nguyen van a`,
-    gender: GenderEnum.male,
-    otp: `123456`,
-  });
+  const { userInfoForm } = useContext();
+  const [formdata, setFormdata] = useState<Register>(userInfoForm);
 
   const onFinish = (value: any) => {
     setFormdata({ ...value, otp: `` });
@@ -64,8 +59,8 @@ const RegisterPage: NextPage = () => {
       method: Method.post,
       body: JSON.stringify({
         email: formdata.email,
-        nickname: formdata.nickName,
-        fullname: formdata.fullName,
+        nickname: formdata.nickname,
+        fullname: formdata.fullname,
         phone: formdata.phone,
         gender: formdata.gender,
         otp: value.otp,
@@ -88,7 +83,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       {step === 1 ? (
-        <SignUpForm onFinish={onFinish} />
+        <SignUpForm data={userInfoForm} onFinish={onFinish} />
       ) : (
         <OtpForm onFinish={onFinishOtp} />
       )}

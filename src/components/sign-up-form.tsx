@@ -1,6 +1,9 @@
+import { GenderEnum } from '@/types/enum';
+import { Register } from '@/types/user.type';
 import { Form, Input, Select, Button } from 'antd';
 
 type Props = {
+  data: Register;
   onFinish: (data: any) => void;
 };
 const layout = {
@@ -10,8 +13,11 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
+const genderOptions = Object.keys(GenderEnum).map((gender) => {
+  return { label: gender, value: gender };
+});
 
-export default function SignUpForm({ onFinish }: Props) {
+export default function SignUpForm({ data, onFinish }: Props) {
   return (
     <Form
       {...layout}
@@ -33,6 +39,7 @@ export default function SignUpForm({ onFinish }: Props) {
                 : Promise.reject(`Phone is not in correct form!`),
           },
         ]}
+        initialValue={data.phone}
       >
         <Input />
       </Form.Item>
@@ -44,22 +51,25 @@ export default function SignUpForm({ onFinish }: Props) {
           { required: true, message: `Please enter your email!` },
           { type: `email`, message: `Email is not in correct form!` },
         ]}
+        initialValue={data.email}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
         label="Full name"
-        name="fullName"
+        name="fullname"
         rules={[{ required: true, message: `Please enter your full name!` }]}
+        initialValue={data.fullname}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
         label="Nick name"
-        name="nickName"
+        name="nickname"
         rules={[{ required: true, message: `Please enter your email!` }]}
+        initialValue={data.nickname}
       >
         <Input />
       </Form.Item>
@@ -69,11 +79,11 @@ export default function SignUpForm({ onFinish }: Props) {
         label="Gender"
         rules={[{ required: true, message: `Please select gender!` }]}
       >
-        <Select placeholder="Select your gender">
-          <Select.Option value="male">Male</Select.Option>
-          <Select.Option value="female">Female</Select.Option>
-          <Select.Option value="other">Other</Select.Option>
-        </Select>
+        <Select
+          placeholder="Select your gender"
+          options={genderOptions}
+          defaultValue={data.gender}
+        ></Select>
       </Form.Item>
 
       <Form.Item {...tailLayout}>
