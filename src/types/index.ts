@@ -11,6 +11,11 @@ export type ResponsesType<T> = {
   message: string;
   error: string;
 };
+
+export type LoginWithOtp = {
+  phone: string;
+  code: string;
+};
 export type VerifyUserByEmailType = {
   email: string;
 };
