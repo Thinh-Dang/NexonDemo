@@ -1,10 +1,11 @@
 export type Login = {
   phone: string;
 };
+
 export type LoginWithGoogle = {
   token: string;
 };
-export type ResponseType<T> = {
+export type ResponsesType<T> = {
   code: number;
   data: null | string | T | T[];
   message: string;
@@ -14,4 +15,7 @@ export type ResponseType<T> = {
 export type LoginWithOtp = {
   phone: string;
   code: string;
+};
+export type VerifyUserByEmailType = {
+  email: string;
 };

@@ -4,15 +4,10 @@ import '@/styles/global.scss';
 import 'antd/dist/antd.css';
 import { UserProvider } from '@/context/UserContext';
 
-export default function MyApp({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <UserProvider>
-        <Component {...pageProps} />
-      </UserProvider>
-    </SessionProvider>
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
   );
 }

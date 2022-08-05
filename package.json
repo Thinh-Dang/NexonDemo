@@ -15,16 +15,22 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" -fix",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "postinstall": "husky install",
-    "commit": "cz"
+    "pre-commit": "lint-staged",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "./src/**/*.{ts,js,jsx,tsx}": [
-      "eslint --ignore-path .gitignore --fix",
-      "prettier --ignore-path .gitignore --write"
-    ]
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "prettier --write . && git add -a ."
+    }
   },
   "dependencies": {
     "@ant-design/icons": "4.7.0",
@@ -37,6 +43,8 @@
     "react": "17.0.2",
     "react-auth-code-input": "3.2.1",
     "react-dom": "17.0.2",
+    "react-phone-number-input": "3.2.6",
+    "react-toastify": "9.0.7",
     "sass": "1.54.3"
   },
   "devDependencies": {

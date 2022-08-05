@@ -9,9 +9,11 @@ const Otp: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await loginOtp({ phone: phone, code: code });
-    localStorage.setItem(`access-token`, data.data.data.token);
-    router.push(`/home`);
+    if ((phone.length !== 0, code.length !== 0)) {
+      const data = await loginOtp({ phone: phone, code: code });
+      localStorage.setItem(`access-token`, data.data.data.token);
+      router.push(`/home`);
+    }
   };
 
   return (
