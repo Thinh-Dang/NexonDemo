@@ -12,7 +12,7 @@ type Props = {
   onFinish: (data: any) => void;
 };
 
-export default function OtpForm({ onFinish }: Props) {
+function OtpForm({ onFinish }: Props) {
   return (
     <Form {...layout} onFinish={onFinish}>
       <Form.Item
@@ -31,3 +31,5 @@ export default function OtpForm({ onFinish }: Props) {
     </Form>
   );
 }
+
+export default OtpForm;

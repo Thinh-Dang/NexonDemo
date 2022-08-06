@@ -3,15 +3,17 @@ import SignUpForm from '@/components/sign-up-form';
 import { useContext } from '@/context/UserContext';
 import { ResponseToken } from '@/dto/response-token.dto';
 import { ResponseDto } from '@/dto/response.dto';
-import { CodeStatus, Method } from '@/types/enum';
+import { CodeStatus, ErrorCode, Method } from '@/types/enum';
 import { Register } from '@/types/user.type';
 import type { NextPage } from 'next';
+import React from 'react';
 import { useState } from 'react';
 
 const RegisterPage: NextPage = () => {
   const [step, setStep] = useState(1);
   const { userInfoForm } = useContext();
   const [formdata, setFormdata] = useState<Register>(userInfoForm);
+  const signUpBtn = React.useRef<HTMLButtonElement>(null);
 
   const onFinish = (value: any) => {
     setFormdata({ ...value, otp: `` });
@@ -36,8 +38,18 @@ const RegisterPage: NextPage = () => {
       });
   };
 
+  const diableSignUp = () => {
+    const btn = signUpBtn.current;
+    if (btn) {
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.disabled = false;
+      }, 60000);
+    }
+  };
+
   const onFinishOtp = (value: any) => {
-    setFormdata((v) => ({ ...v, otp: value.otp }));
+    setFormdata((v: any) => ({ ...v, otp: value.otp }));
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, {
       method: Method.post,
@@ -60,6 +72,11 @@ const RegisterPage: NextPage = () => {
           alert(`your jwt token: ` + token.token);
         } else {
           alert(data.error);
+          if (data.error === ErrorCode.EXCEED_TIMES_WRONG_OTP) {
+            setStep(1);
+            diableSignUp();
+            alert(`You have to wait a few minutes to register again`);
+          }
         }
       });
   };
@@ -67,7 +84,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       {step === 1 ? (
-        <SignUpForm data={userInfoForm} onFinish={onFinish} />
+        <SignUpForm onFinish={onFinish} data={formdata} ref={signUpBtn} />
       ) : (
         <OtpForm onFinish={onFinishOtp} />
       )}

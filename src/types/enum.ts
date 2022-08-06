@@ -20,3 +20,7 @@ export enum CodeStatus {
   Conflict = 409,
   InternalServerError = 500,
 }
+
+export enum ErrorCode {
+  EXCEED_TIMES_WRONG_OTP = `EXCEED_TIMES_WRONG_OTP`,
+}
