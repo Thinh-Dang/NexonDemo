@@ -1,23 +1,18 @@
 import OtpForm from '@/components/otp-form';
 import SignUpForm from '@/components/sign-up-form';
-import { CreateUserDto } from '@/dto/create-user.dto';
+import { useContext } from '@/context/UserContext';
 import { ResponseToken } from '@/dto/response-token.dto';
 import { ResponseDto } from '@/dto/response.dto';
-import { CodeStatus, ErrorCode, GenderEnum, Method } from '@/types/enum';
+import { CodeStatus, ErrorCode, Method } from '@/types/enum';
+import { Register } from '@/types/user.type';
 import type { NextPage } from 'next';
 import React from 'react';
 import { useState } from 'react';
 
 const RegisterPage: NextPage = () => {
   const [step, setStep] = useState(1);
-  const [formdata, setFormdata] = useState<CreateUserDto>({
-    phone: ``,
-    email: ``,
-    nickname: ``,
-    fullname: ``,
-    gender: GenderEnum.male,
-    otp: ``,
-  });
+  const { userInfoForm } = useContext();
+  const [formdata, setFormdata] = useState<Register>(userInfoForm);
   const signUpBtn = React.useRef<HTMLButtonElement>(null);
 
   const onFinish = (value: any) => {
@@ -44,9 +39,7 @@ const RegisterPage: NextPage = () => {
   };
 
   const diableSignUp = () => {
-    console.log(`disable button`);
     const btn = signUpBtn.current;
-    console.log(btn);
     if (btn) {
       btn.disabled = true;
       setTimeout(() => {
@@ -56,7 +49,7 @@ const RegisterPage: NextPage = () => {
   };
 
   const onFinishOtp = (value: any) => {
-    setFormdata((v) => ({ ...v, otp: value.otp }));
+    setFormdata((v: any) => ({ ...v, otp: value.otp }));
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, {
       method: Method.post,

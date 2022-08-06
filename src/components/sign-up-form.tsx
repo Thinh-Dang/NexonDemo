@@ -1,9 +1,10 @@
-import { CreateUserDto } from '@/dto/create-user.dto';
+import { GenderEnum } from '@/types/enum';
+import { Register } from '@/types/user.type';
 import { Form, Input, Select, Button } from 'antd';
 import React from 'react';
 
 type Props = {
-  data: CreateUserDto | undefined;
+  data: Register;
   onFinish: (data: any) => void;
 };
 const layout = {
@@ -13,6 +14,9 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
+const genderOptions = Object.keys(GenderEnum).map((gender) => {
+  return { label: gender, value: gender };
+});
 
 const SignUpForm = React.forwardRef<HTMLButtonElement, Props>((props, ref) => (
   <Form
@@ -72,14 +76,13 @@ const SignUpForm = React.forwardRef<HTMLButtonElement, Props>((props, ref) => (
     <Form.Item
       name="gender"
       label="Gender"
-      initialValue={props.data ? props.data.gender : ``}
       rules={[{ required: true, message: `Please select gender!` }]}
     >
-      <Select placeholder="Select your gender">
-        <Select.Option value="male">Male</Select.Option>
-        <Select.Option value="female">Female</Select.Option>
-        <Select.Option value="other">Other</Select.Option>
-      </Select>
+      <Select
+        placeholder="Select your gender"
+        options={genderOptions}
+        defaultValue={props.data.gender}
+      ></Select>
     </Form.Item>
 
     <Form.Item {...tailLayout}>
