@@ -34,3 +34,6 @@ export enum ProviderIdEnum {
 export enum LocaleEnum {
   vi = `vi`,
 }
+export enum ErrorCode {
+  EXCEED_TIMES_WRONG_OTP = `EXCEED_TIMES_WRONG_OTP`,
+}
