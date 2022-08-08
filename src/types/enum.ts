@@ -20,3 +20,17 @@ export enum CodeStatus {
   Conflict = 409,
   InternalServerError = 500,
 }
+export enum ProviderEnum {
+  GOOGLE = `Google`,
+  FACEBOOK = `Facebook`,
+}
+export enum OperationTypeEnum {
+  SIGNIN = `signIn`,
+}
+export enum ProviderIdEnum {
+  GOOGLE = `google.com`,
+  FACEBOOK = `facebook.com`,
+}
+export enum LocaleEnum {
+  vi = `vi`,
+}
