@@ -1,43 +1,44 @@
-import { firebaseApp } from '@/config/firebase-config';
-import { googleProvider } from '@/config/providers';
-import { useContext } from '@/context/UserContext';
+import { IResponse } from '@/@type/interface/response';
+import { useAuth } from '@/context/AuthContext';
 import { loginOtp } from '@/services/login.api';
 import { Login } from '@/types';
+import { ProviderEnum } from '@/types/enum';
 import { Button, Form, Input } from 'antd';
-import { getAuth, signInWithPopup } from 'firebase/auth';
+import { AdditionalUserInfo } from 'firebase/auth';
 
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 const LoginPage: NextPage = () => {
   const route = useRouter();
-  const firebaseAuth = getAuth(firebaseApp);
   const [phone, setPhone] = useState<string>(`2633378748`);
   const [code, setCode] = useState<string>(`777777`);
-
-  const { verifyUser } = useContext();
-  const onSignInGoogle = async () => {
-    const { user } = await signInWithPopup(firebaseAuth, googleProvider);
-    const result = await verifyUser(user.providerData[0]);
-    if (result.isNewUser) route.push(`/register`);
-    else route.push(`/home`);
+  const { socialSignInRedirect, socialSignInRedirectResult, verifyUser } =
+    useAuth();
+  const onSignInSocial = (provider: ProviderEnum) => async () => {
+    await socialSignInRedirect(provider);
   };
-  // const onSignInFacebook = async () => {
-  // const response = await signInWithPopup(firebaseAuth, facebookProvider);
-  // console.log(response);
-
-  // const { refreshToken, providerData } = user;
-  // console.log(`refreshToken`, refreshToken);
-  // console.log(`providerData`, providerData);
-  // };
 
   const handleSubmit = async () => {
     if ((phone.length !== 0, code.length !== 0)) {
-      const data = await loginOtp({ phone: phone, code: code });
-      localStorage.setItem(`access-token`, data.data.data.token);
+      const data: IResponse = await loginOtp({ phone: phone, code: code });
+
+      localStorage.setItem(`access-token`, data.data.token);
       route.push(`/home`);
     }
   };
+  useEffect(() => {
+    const redirect = async () => {
+      const result: AdditionalUserInfo | undefined =
+        await socialSignInRedirectResult();
+      if (result) {
+        const path = await verifyUser(result);
+        if (path) route.push(`${path}`);
+      }
+    };
+    redirect();
+  }, [route, socialSignInRedirectResult, verifyUser]);
+
   return (
     <Form<Login>
       name="login-form"
@@ -77,12 +78,20 @@ const LoginPage: NextPage = () => {
         </Button>
       </Form.Item>
       <Form.Item label=" " colon={false}>
-        <Button type="primary" htmlType="submit" onClick={onSignInGoogle}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          onClick={onSignInSocial(ProviderEnum.GOOGLE)}
+        >
           Sign In Google
         </Button>
-        {/* <Button type="primary" htmlType="submit" onClick={onSignInFacebook}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          onClick={onSignInSocial(ProviderEnum.FACEBOOK)}
+        >
           Sign In Facebook
-        </Button> */}
+        </Button>
       </Form.Item>
     </Form>
   );
