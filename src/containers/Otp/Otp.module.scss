@@ -1,0 +1,23 @@
+@import '../../styles/init/mixin';
+@import '../../styles/init/variables';
+
+.otp {
+  @include elementCenter();
+  padding: 4rem 0;
+
+  &__container {
+    box-shadow: 0 0.6rem 2rem rgba(0, 25, 54, 0.1);
+    border-radius: 0.6rem;
+    padding: 2rem;
+    min-width: 400px;
+  }
+
+  &__item {
+    margin-bottom: 1.3rem;
+  }
+
+  &__otp {
+    @include elementCenter();
+    margin-top: 1rem;
+  }
+}

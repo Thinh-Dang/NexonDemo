@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { IResponse } from './../@type/interface/response.d';
+import { IResponse } from '../@type/responses';
 import { getItemLocalStorage } from './storage';
 
 const http = axios.create({

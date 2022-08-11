@@ -1,23 +1,6 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-button,
-textarea,
-input,
-select {
-  outline: none;
-  border: 1px solid #ccc;
-}
+/* SCSS Init */
+@import './init/font';
+@import './init/root';
+@import './init/responsive';
+@import './init/variables';
+@import './init/mixin';

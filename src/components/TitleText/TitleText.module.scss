@@ -1,0 +1,24 @@
+@import '../../styles/init/variables';
+
+.titleText {
+  margin: 3rem 0;
+
+  &__text {
+    font-size: 2.5rem;
+    line-height: 3rem;
+
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__blue {
+    font-weight: 600;
+  }
+
+  &__orange {
+    font-family: 600;
+  }
+}

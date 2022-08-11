@@ -1,0 +1,27 @@
+$mobile-width: 480px;
+$mobile-font-size: 10px;
+$tablet-width: 768px;
+$tablet-font-size: 12px;
+$desktop-width: 1024px;
+$desktop-font-size: 14px;
+
+@mixin mobile {
+  @media (max-width: #{$mobile -width - 1px}) {
+    font-size: $mobile-font-size;
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    font-size: $tablet-font-size;
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    font-size: $desktop-font-size;
+    @content;
+  }
+}

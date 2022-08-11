@@ -1,4 +1,4 @@
-import { ProviderEnum } from './../types/enum';
+import { ProviderEnum } from '../common/enums/enum';
 import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 
 const authProviders = (provider: ProviderEnum) => {

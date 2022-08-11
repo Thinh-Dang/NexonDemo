@@ -1,44 +1,31 @@
-import { loginGoogle } from '@/services/login.api';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 
 export default NextAuth({
   providers: [
-    // OAuth authentication providers...
     GoogleProvider({
-      id: `google`,
-      name: `google`,
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_ID || ``,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET || ``,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
   ],
-  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
-    async signIn({ account }) {
-      const result = await loginGoogle({
-        token: (account.id_token as string) || ``,
-      });
-      const { isNewUser } = result.data.data;
-      if (isNewUser) return `/register`;
-      return `/`;
-    },
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith(`/`)) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
-    },
-    jwt: ({ token, account }) => {
-      if (account?.access_token) {
-        token.access_token = account.access_token;
-        token[`id_token`] = account?.id_token;
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.typeSocial = account.provider;
       }
+
       return token;
     },
-    session: async ({ session, token }) => {
-      session[`access_token`] = token.access_token;
-      session[`id_token`] = token?.id_token;
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      session.typeSocial = token.typeSocial;
+
       return session;
     },
   },

@@ -35,11 +35,13 @@
   "dependencies": {
     "@ant-design/icons": "4.7.0",
     "@react-oauth/google": "0.2.6",
+    "@reduxjs/toolkit": "1.8.4",
     "antd": "4.22.3",
     "axios": "0.27.2",
     "firebase": "9.9.1",
     "firebase-admin": "11.0.1",
     "firebase-functions": "3.22.0",
+    "formik": "2.2.9",
     "fs": "0.0.1-security",
     "next": "12.1.2",
     "next-auth": "4.10.3",
@@ -47,8 +49,12 @@
     "react-auth-code-input": "3.2.1",
     "react-dom": "17.0.2",
     "react-phone-number-input": "3.2.6",
+    "react-redux": "8.0.2",
     "react-toastify": "9.0.7",
-    "sass": "1.54.3"
+    "redux-persist": "6.0.0",
+    "sass": "1.54.3",
+    "sweetalert2": "11.4.26",
+    "yup": "0.32.11"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
@@ -57,6 +63,7 @@
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "@types/react-facebook-login": "4.1.5",
+    "@types/react-redux": "7.1.24",
     "@typescript-eslint/eslint-plugin": "5.31.0",
     "@typescript-eslint/parser": "5.31.0",
     "commitizen": "4.2.5",
