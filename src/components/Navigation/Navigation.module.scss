@@ -1,0 +1,14 @@
+@import '../../styles/init/variables';
+@import '../../styles/init/mixin';
+
+.navigation {
+  @include elementCenter();
+  justify-content: space-between;
+  margin-top: 4.4rem;
+
+  &__btn {
+    @include elementCenter();
+    background-color: $clr-neutral-0;
+    font-size: 1.6rem;
+  }
+}
