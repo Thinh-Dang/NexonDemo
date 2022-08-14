@@ -1,0 +1,11 @@
+@import '../../styles/init/variables';
+
+.titleHeader {
+  padding: 1.1rem 1.6rem;
+
+  &__text {
+    color: $clr-neutral-100;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+  }
+}

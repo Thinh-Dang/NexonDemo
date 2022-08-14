@@ -44,3 +44,9 @@ export enum LocaleEnum {
 export enum ErrorCode {
   EXCEED_TIMES_WRONG_OTP = `EXCEED_TIMES_WRONG_OTP`,
 }
+
+// Component ItemContentChat
+export enum typeItemContentChat {
+  FRIEND = 'friend',
+  YOU = 'you',
+}

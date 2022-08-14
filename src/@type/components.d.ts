@@ -7,3 +7,17 @@ interface ILayout {
   isFooter?: boolean;
   title: string;
 }
+
+// Component InfoUserChat
+interface IInfoUserChat {
+  avatar: string;
+  title: string;
+  content: string;
+}
+
+// Component ItemContentChat
+interface IItemContentChat {
+  time?: string;
+  content: string;
+  type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
+}
