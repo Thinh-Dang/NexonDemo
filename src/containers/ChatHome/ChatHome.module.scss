@@ -1,0 +1,21 @@
+@import '../../styles/init/variables';
+
+.chatHome {
+  padding: 0 1.6rem;
+  font-family: $font-family-circular;
+
+  &__h2 {
+    color: $clr-neutral-100;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    padding: 1.1rem 0;
+  }
+
+  &__text {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+    padding-top: 0.8rem;
+    padding-bottom: 1.6rem;
+  }
+}
