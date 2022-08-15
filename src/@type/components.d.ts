@@ -21,3 +21,17 @@ interface IItemContentChat {
   content: string;
   type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
 }
+
+// Component ItemChatSlider
+interface IItemChatSlider {
+  img: string;
+  name: string;
+}
+
+// Component ItemMessageChat
+interface IItemMessageChat {
+  avatar: string;
+  name: string;
+  message: string;
+  time: string;
+}
