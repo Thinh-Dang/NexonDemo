@@ -35,7 +35,11 @@ export const ChatContent = () => {
           />
         </button>
         <form className={styleCss.chatContent__form}>
-          <input type="text" className={styleCss.chatContent__input} />
+          <input
+            type="text"
+            className={styleCss.chatContent__input}
+            placeholder="Aa"
+          />
           <div className={styleCss.chatContent__emoji}>
             <Image
               src="/assets/images/emoji.svg"
