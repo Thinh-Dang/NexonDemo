@@ -16,7 +16,8 @@ export const Layout: FC<ILayout> = ({
 }) => {
   const router = useRouter();
   const location = router.pathname;
-  const isLogin = useAppSelector((state: RootState) => state.userSlice.isLogin);
+  const isLogin =
+    useAppSelector((state: RootState) => state.userSlice.isLogin) || true;
 
   if (!isLogin && location !== '/auth/login' && location !== '/auth/register') {
     router.push('/auth/login');

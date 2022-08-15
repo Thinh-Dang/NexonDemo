@@ -1,0 +1,49 @@
+@import '../../styles/init/variables';
+@import '../../styles/init/mixin';
+
+.chatContent {
+  padding: 0 1.6rem;
+  position: relative;
+
+  &__content {
+    padding: 3.2rem 0;
+  }
+
+  &__func {
+    @include elementCenter();
+    justify-content: space-evenly;
+    position: fixed;
+    margin-top: 1.6rem;
+    padding: 1.6rem 0.8rem;
+    width: 100%;
+  }
+
+  &__btn {
+    @include elementCenter();
+    background-color: $clr-neutral-0;
+  }
+
+  &__form {
+    @include elementCenter();
+    position: relative;
+    width: 70%;
+  }
+
+  &__input {
+    background-color: $clr-neutral-5;
+    padding: 0rem 2.4rem;
+    border-radius: 1.8rem;
+    min-height: 3.6rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.8rem;
+    color: $clr-neutral-80;
+    width: 100%;
+  }
+
+  &__emoji {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0;
+  }
+}

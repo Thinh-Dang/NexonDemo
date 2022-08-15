@@ -1,0 +1,49 @@
+@import '../../styles/init/variables';
+
+.itemMessageChat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 1.6rem;
+
+  &:hover {
+    box-shadow: 0px 0px 24px 0px rgb(0 25 54 / 10%);
+  }
+
+  &__img {
+    border-radius: 1.6rem;
+    width: 100%;
+  }
+
+  &__content {
+    width: 60%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 1.6rem;
+  }
+
+  &__name {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 2.4rem;
+    color: $clr-neutral-100;
+    font-family: $font-family-circular;
+  }
+
+  &__message {
+    color: $clr-neutral-40;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $clr-neutral-40;
+  }
+
+  &__date {
+    color: $clr-neutral-40;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-align: right;
+  }
+}

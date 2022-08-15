@@ -1,3 +1,5 @@
+@import '../init/variables';
+
 *,
 *:before,
 *:after {
@@ -114,13 +116,14 @@ html {
 }
 
 body {
-  background-color: #ffffff;
-  display: block;
   position: relative;
-  font-family: 'SVN-Cirular', sans-serif !important;
-  font-style: normal;
+  display: block;
   overflow: hidden;
   overflow-y: scroll;
+  background-color: #ffffff;
+  color: $clr-neutral-100;
+  font-family: 'SVN-Gilroy', sans-serif;
+  font-style: normal;
   font-size: 2.4rem;
   line-height: 3.2rem;
   font-weight: 500;

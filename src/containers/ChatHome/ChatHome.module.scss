@@ -1,0 +1,59 @@
+@import '../../styles/init/variables';
+
+.chatHome {
+  --space: 1.6rem;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+
+  &__header {
+    padding: 1.1rem 0;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    font-weight: 700;
+  }
+
+  &__like {
+    margin: 0.8rem 0;
+  }
+
+  &__titleText {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.4rem;
+  }
+
+  &__slider {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1.6rem;
+    grid-auto-columns: 25%;
+    grid-auto-rows: 1fr;
+    padding: 1.6rem 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scroll-padding-inline: var(--space, 1.4rem);
+  }
+
+  &__slider::-webkit-scrollbar,
+  &__content::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__content {
+    height: 76%;
+  }
+
+  &__list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
