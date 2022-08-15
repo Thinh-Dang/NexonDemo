@@ -1,0 +1,57 @@
+@import '../../styles/init/variables';
+
+.infoUserChat {
+  padding: 1.6rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+
+  &__logo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__avatar {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 1.6rem;
+  }
+
+  &__heart {
+    position: absolute;
+    bottom: 0;
+    right: -25%;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  &__content {
+    margin-left: 2rem;
+    font-family: $font-family-circular;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+  }
+
+  &__info {
+    margin-top: 0.4rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6rem;
+    color: $clr-neutral-40;
+  }
+
+  &__right {
+    position: absolute;
+    right: 0;
+  }
+
+  &__btn {
+    background-color: $clr-neutral-0;
+  }
+}
