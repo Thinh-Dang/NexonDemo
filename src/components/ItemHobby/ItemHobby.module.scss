@@ -1,0 +1,13 @@
+@import '../../styles/init/variables';
+
+.itemHobby {
+  border-radius: 32px;
+  padding: 7px 16px;
+
+  &-title {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    font-weight: 500;
+    margin: 0;
+  }
+}
