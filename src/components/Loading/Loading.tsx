@@ -6,7 +6,7 @@ type Props = {};
 const Loading = (props: Props) => {
   return (
     <div className={styleScss.loading}>
-      <h1 className={styleScss.loading__title}>Tinher</h1>
+      <h2 className={styleScss.loading__title}>Tinher</h2>
     </div>
   );
 };
