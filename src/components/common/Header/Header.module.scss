@@ -1,0 +1,12 @@
+@import '../../../styles/init/variables';
+@import '../../../styles/init/font';
+.header {
+  padding: 2rem 0;
+  &__title {
+    cursor: pointer;
+    color: $clr-primary-90;
+    font-weight: 800;
+    font-family: 'SVN-Gilroy XBold';
+    margin-bottom: 0;
+  }
+}
