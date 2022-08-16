@@ -1,0 +1,49 @@
+/* Variables Color */
+/* Variables Font Family */
+.infoUserChat {
+  padding: 1.6rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+}
+.infoUserChat__logo {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+.infoUserChat__avatar {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 1.6rem;
+}
+.infoUserChat__heart {
+  position: absolute;
+  bottom: 0;
+  right: -25%;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.infoUserChat__content {
+  margin-left: 2rem;
+  font-family: 'SVN-Circular';
+}
+.infoUserChat__title {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 700;
+}
+.infoUserChat__info {
+  margin-top: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6rem;
+  color: #aaa9b5;
+}
+.infoUserChat__right {
+  position: absolute;
+  right: 0;
+}
+.infoUserChat__btn {
+  background-color: #fff;
+} /*# sourceMappingURL=InfoUserChat.module.css.map */

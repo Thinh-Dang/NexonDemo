@@ -1,0 +1,23 @@
+@import '../../styles/init/variables';
+.container {
+  display: flex;
+  -webkit-flex-direction: row; /* Safari */
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
+  .friend_info {
+    display: flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+
+    &__div_image {
+      margin-right: 8px;
+      &__image {
+        border-radius: 20px;
+      }
+    }
+  }
+  &__icon_info {
+    padding-right: 8px;
+  }
+}

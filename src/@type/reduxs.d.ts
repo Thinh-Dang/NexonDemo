@@ -39,3 +39,8 @@ interface IInitialStateChat {
   messages: IMessage[] | undefined;
   loaded: boolean;
 }
+
+// map location
+interface IInitialStateMapLocation {
+  userPosition: IMap;
+}

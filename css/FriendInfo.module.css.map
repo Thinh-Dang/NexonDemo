@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/styles/init/_variables.scss","../src/components/FriendInfo/FriendInfo.module.scss","FriendInfo.module.css"],"names":[],"mappings":"AAAA,oBAAA;AAeA,0BAAA;ACdA;EACE,aAAA,EACA,WAAA;EACA,mBAAA;ACEF;ADAE;EACE,WAAA;ACEJ;ADDI;EACE,mBAAA;ACGN;ADCE;EACE,kBAAA;ACCJ","file":"FriendInfo.module.css"}

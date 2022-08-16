@@ -18,3 +18,8 @@ interface IRegisterContainer {
 interface ITokenContainer {
   formik: FormikConfig<IFormLoginPage>;
 }
+
+// Map Container
+interface IMapLocationContainer {
+  listNearUser: IMap[];
+}

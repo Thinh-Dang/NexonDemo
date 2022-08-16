@@ -1,0 +1,622 @@
+/* SCSS Init */
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-BoldItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-LightItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular Book';
+  src: url('../../../public/fonts/SVN-Circular-BookItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-BookItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular Book';
+  src: url('../../../public/fonts/SVN-Circular-Book.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Book.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Bold.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular ExtraBlack';
+  src: url('../../../public/fonts/SVN-Circular-ExtraBlackItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-ExtraBlackItalic.woff')
+      format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Black.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-BlackItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular ExtraBlack';
+  src: url('../../../public/fonts/SVN-Circular-ExtraBlack.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-ExtraBlack.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Medium.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Italic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular Mono';
+  src: url('../../../public/fonts/SVN-Circular-Mono.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Mono.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Regular.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Thin.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-ThinItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-Light.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Circular-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Circular';
+  src: url('../../../public/fonts/SVN-Circular-MediumItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-Circular-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+/* /////////////////////////////// */
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyBlackItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyBlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyBoldItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyBoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyBlack.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyBlack.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyHeavy.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyHeavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyBold.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyHeavyItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyHeavyItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyMedium.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyMediumItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyMediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyLightItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyLightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyLight.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyLight.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyThin.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyThin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-Gilroy.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-Gilroy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroySemiBoldItalic.woff2')
+      format('woff2'),
+    url('../../../public/fonts/SVN-GilroySemiBoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy XBold';
+  src: url('../../../public/fonts/SVN-GilroyXBoldItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyXBoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroySemiBold.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroySemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy';
+  src: url('../../../public/fonts/SVN-GilroyThinItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy XBold';
+  src: url('../../../public/fonts/SVN-GilroyXBold.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyXBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy XLight';
+  src: url('../../../public/fonts/SVN-GilroyXLightItalic.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyXLightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SVN-Gilroy XLight';
+  src: url('../../../public/fonts/SVN-GilroyXLight.woff2') format('woff2'),
+    url('../../../public/fonts/SVN-GilroyXLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+/* Variables Color */
+/* Variables Font Family */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #ffffff;
+  color: #2a2846;
+  font-family: 'SVN-Gilroy', sans-serif;
+  font-style: normal;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  font-weight: 500;
+}
+
+img {
+  width: 100%;
+}
+
+button {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 700;
+}
+
+caption {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  font-weight: 700;
+}
+
+small {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: 700;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 4rem;
+  line-height: 5.2rem;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 3.2rem;
+  line-height: 4.2rem;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+}
+
+h4 {
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 2.6rem;
+}
+
+/* Variables Color */
+/* Variables Font Family */
+.chatFrame {
+  --space: 1.4rem;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.chatFrame .header {
+  height: 54px;
+  width: 100%;
+}
+.chatFrame .header-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 1rem var(--space);
+}
+.chatFrame .footer {
+  height: 54px;
+  width: 100%;
+}
+.chatFrame .footer-title {
+  padding: 1rem var(--space);
+}
+
+.chat {
+  height: calc(100% - 108px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.chat-likes-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: var(--space);
+}
+.chat-likes-container-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.chat-likes-container-friends-slider {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 16px;
+  grid-auto-columns: 25%;
+  grid-auto-rows: 1fr;
+  padding: 1rem 0;
+  padding-right: var(--space);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -ms-scroll-snap-type: inline mandatory;
+  scroll-snap-type: inline mandatory;
+  scroll-padding-inline: var(--space, 1.4rem);
+}
+.chat-likes-container-friends-slider::-webkit-scrollbar {
+  display: none;
+}
+.chat-likes-container-friends-slider-item {
+  scroll-snap-align: start;
+}
+.chat-likes-container-friends-slider-item-avatar {
+  border-radius: 12px 12px 0 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  inline-size: 100%;
+  height: 89px;
+}
+.chat-likes-container-friends-slider-item-name {
+  width: 100%;
+  border: 1px solid #e9eaec;
+  border-radius: 0 0 12px 12px;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.chat-messages-container {
+  padding: var(--space);
+  height: 76%;
+}
+.chat-messages-container-list {
+  height: 90%;
+  overflow-y: auto;
+  margin-top: var(--space);
+  display: flex;
+  flex-direction: column;
+}
+.chat-messages-container-list::-webkit-scrollbar {
+  display: none;
+}
+.chat-messages-container-list-conversation {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.3rem;
+  justify-content: space-between;
+}
+.chat-messages-container-list-conversation-avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 16px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.chat-messages-container-list-conversation-content {
+  width: 60%;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.chat-messages-container-list-conversation-content > * {
+  padding: 0;
+  margin: 0;
+}
+.chat-messages-container-list-conversation-content-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2a2846;
+}
+.chat-messages-container-list-conversation-content-message {
+  color: #aaa9b5;
+  font-weight: 400;
+}
+.chat-messages-container-list-conversation-date-content {
+  color: #aaa9b5;
+  font-weight: 400;
+}
+.chat-messages-container-list-conversation:hover {
+  box-shadow: 0px 0px 24px 0px rgba(0, 25, 54, 0.1);
+} /*# sourceMappingURL=global.css.map */

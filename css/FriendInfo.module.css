@@ -1,0 +1,15 @@
+/* Variables Color */
+/* Variables Font Family */
+.container {
+  display: flex; /* Safari */
+  flex-direction: row;
+}
+.container__div_image {
+  margin: 8px;
+}
+.container__div_image__image {
+  border-radius: 20px;
+}
+.container__info {
+  margin-top: 1.2rem;
+} /*# sourceMappingURL=FriendInfo.module.css.map */
