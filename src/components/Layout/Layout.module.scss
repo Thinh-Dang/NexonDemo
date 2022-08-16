@@ -2,4 +2,11 @@
   &__children {
     display: block;
   }
+
+  &__alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+  }
 }
