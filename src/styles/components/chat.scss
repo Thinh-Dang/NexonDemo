@@ -56,6 +56,8 @@
       }
       &-item {
         scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
         &-avatar {
           border-radius: 12px 12px 0 0;
           object-fit: cover;
@@ -117,11 +119,13 @@
           &-message {
             color: $clr-neutral-40;
             font-weight: 400;
+            font-size: 1.6rem;
           }
         }
         &-date {
           &-content {
             color: $clr-neutral-40;
+            font-size: 1.6rem;
             font-weight: 400;
           }
         }

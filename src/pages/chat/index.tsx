@@ -13,7 +13,7 @@ const ChatFrame = () => {
             <div className="chat-likes-container-friends-slider-item">
               <img
                 className="chat-likes-container-friends-slider-item-avatar"
-                src="./assets/frog.jpg"
+                src="./assets/images/frog.jpg"
                 alt=""
               />
               <div className="chat-likes-container-friends-slider-item-name">
@@ -23,7 +23,7 @@ const ChatFrame = () => {
             <div className="chat-likes-container-friends-slider-item">
               <img
                 className="chat-likes-container-friends-slider-item-avatar"
-                src="./assets/Frame 12823.svg"
+                src="./assets/images/Frame 12823.svg"
                 alt=""
               />
               <div className="chat-likes-container-friends-slider-item-name">
@@ -33,7 +33,7 @@ const ChatFrame = () => {
             <div className="chat-likes-container-friends-slider-item">
               <img
                 className="chat-likes-container-friends-slider-item-avatar"
-                src="./assets/frog.jpg"
+                src="./assets/images/frog.jpg"
                 alt=""
               />
               <div className="chat-likes-container-friends-slider-item-name">
@@ -43,7 +43,7 @@ const ChatFrame = () => {
             <div className="chat-likes-container-friends-slider-item">
               <img
                 className="chat-likes-container-friends-slider-item-avatar"
-                src="./assets/frog.jpg"
+                src="./assets/images/frog.jpg"
                 alt=""
               />
               <div className="chat-likes-container-friends-slider-item-name">
@@ -53,7 +53,7 @@ const ChatFrame = () => {
             <div className="chat-likes-container-friends-slider-item">
               <img
                 className="chat-likes-container-friends-slider-item-avatar"
-                src="./assets/frog.jpg"
+                src="./assets/images/frog.jpg"
                 alt=""
               />
               <div className="chat-likes-container-friends-slider-item-name">
@@ -70,7 +70,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/frog.jpg"
+                  src="./assets/images/frog.jpg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -92,7 +92,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -114,7 +114,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -136,7 +136,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -158,7 +158,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -180,7 +180,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -202,7 +202,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -224,7 +224,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -246,7 +246,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -268,7 +268,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -290,7 +290,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -312,7 +312,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
@@ -334,7 +334,7 @@ const ChatFrame = () => {
               <div className="chat-messages-container-list-conversation">
                 <img
                   className="chat-messages-container-list-conversation-avatar"
-                  src="./assets/Frame 12823.svg"
+                  src="./assets/images/Frame 12823.svg"
                   alt=""
                 />
                 <div className="chat-messages-container-list-conversation-content">
