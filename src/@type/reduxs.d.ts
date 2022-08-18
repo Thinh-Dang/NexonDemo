@@ -11,6 +11,7 @@ interface IInitialStateUser {
   isSocial: boolean;
   phone: string;
   isGetPhone: boolean;
+  isVerifyOtp: boolean;
   inforUser: {
     name: string;
     email: string;

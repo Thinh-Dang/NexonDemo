@@ -35,11 +35,11 @@ http.interceptors.response.use(
   function (response) {
     return response.data as IResponse;
   },
+
   function (error) {
-    console.log(error);
     return {
       status: false,
-      error: error,
+      error_code: error,
       data: null,
       message: null,
     } as IResponse;

@@ -25,6 +25,7 @@ const initialState: IInitialStateUser = {
   isStatusApi: false,
   isLogin: false,
   isSocial: false,
+  isVerifyOtp: false,
   inforUser: {
     name: '',
     email: '',
@@ -95,7 +96,7 @@ export const userSlice = createSlice({
       console.log(action.payload);
       console.log(action.payload.status);
       if (action.payload.status) {
-        state.isLogin = true;
+        state.isVerifyOtp = true;
       }
     });
   },
