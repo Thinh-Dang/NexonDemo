@@ -21,15 +21,6 @@ export const Layout: FC<ILayout> = ({
   const location = router.pathname;
   const isLogin =
     useAppSelector((state: RootState) => state.userSlice.isLogin) || true;
-  const [isLoading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-  if (isLoading) {
-    return <Loading />;
-  }
   return (
     <div className={style.layout}>
       <Head>

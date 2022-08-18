@@ -7,10 +7,11 @@ import React from 'react';
 import styleScss from './Welcome.module.scss';
 import { Button } from '@/components/common/Button/Button';
 import Content from '@/components/Content/Content';
+import { useRouter } from 'next/router';
 
 type Props = {};
-
 const Welcome = (props: Props) => {
+  const router = useRouter();
   return (
     <main className={styleScss.wrapper}>
       <Image src={logoWelcome} alt="Zodinet" />
@@ -22,6 +23,9 @@ const Welcome = (props: Props) => {
       <Button
         isHaveIcon={false}
         type="button"
+        onClick={() => {
+          router.push('/auth/login');
+        }}
         btnClass={styleScss.wrapper__btn}
         content="Đăng nhập bằng số điện thoại"
       />

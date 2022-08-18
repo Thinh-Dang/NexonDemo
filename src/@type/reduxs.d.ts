@@ -6,12 +6,17 @@ interface IAction {
 
 // Slice User Redux
 interface IInitialStateUser {
-  isVerifyOtp: boolean;
+  isStatusApi: boolean;
   isLogin: boolean;
   isSocial: boolean;
-  name: string;
-  email: string;
   phone: string;
+  isGetPhone: boolean;
+  inforUser: {
+    name: string;
+    email: string;
+    birthday: string;
+    gender: GenderEnum;
+  };
 }
 
 // Slice Chat Redux

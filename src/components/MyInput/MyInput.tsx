@@ -10,20 +10,24 @@ import { Option } from 'antd/lib/mentions';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type Props = {
-  setOTP?: (e: any) => void;
+  handleChange?: (e: any) => void;
+  handleBlur?: (e: any) => void;
   isInput?: boolean;
   txtLabel?: string;
   txtPlaceholder?: string;
   isDatePicker?: boolean;
   isSelection?: boolean;
+  name: string;
 };
 const MyInput = ({
-  setOTP,
   isInput,
   txtLabel,
   txtPlaceholder,
   isDatePicker,
   isSelection,
+  name,
+  handleChange,
+  handleBlur,
 }: Props) => {
   const [timerSeconds, setTimerSeconds] = useState<string>();
   const [timerMinutes, setTimerMinus] = useState<string>();
@@ -96,7 +100,7 @@ const MyInput = ({
   if (isSelection) {
     return (
       <div className={styleCss.groupInput}>
-        <p className={styleCss.groupInput__label}>Năm sinh</p>
+        <p className={styleCss.groupInput__label}>Giới Tính</p>
         <div>
           <Select
             bordered={false}
@@ -120,9 +124,11 @@ const MyInput = ({
           <input
             type="number"
             maxLength={6}
+            onChange={handleChange}
             className={styleCss.myInput}
             onInput={(e) => handleKeyPress(e)}
-            onChange={(e) => setOTP(e.target.value)}
+            onBlur={handleBlur}
+            name={name}
           />
           <div className={styleCss.groupDot}>
             <div></div>
