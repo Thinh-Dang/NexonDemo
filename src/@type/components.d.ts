@@ -24,14 +24,17 @@ interface IItemContentChat {
 
 // Component ItemChatSlider
 interface IItemChatSlider {
-  img: string;
+  id: string;
+  avatar: string;
   name: string;
 }
 
 // Component ItemMessageChat
 interface IItemMessageChat {
-  avatar: string;
+  conversationId: string;
+  friendId: string;
   name: string;
-  message: string;
-  time: string;
+  avatar: string;
+  content: string;
+  createAt: Date;
 }
