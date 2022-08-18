@@ -45,3 +45,15 @@ interface IInitialStateChat {
   messages: IMessage[] | undefined;
   loaded: boolean;
 }
+
+declare interface IUserNearby {
+  id: string;
+  name: string;
+  age: number;
+  location?: {
+    longitude: number;
+    latitude: number;
+  };
+  distance: number;
+  imgUrl: string;
+}

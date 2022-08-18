@@ -14,7 +14,6 @@ interface IProps {
 }
 const FooterItem = ({ item }: IProps) => {
   const router = useRouter();
-  console.log(router.asPath, item?.href);
 
   if (router.asPath === item?.href) {
     item.color = '#7A56FE';

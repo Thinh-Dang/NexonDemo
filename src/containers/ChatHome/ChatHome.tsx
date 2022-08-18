@@ -5,7 +5,7 @@ import { Layout, ItemChatSlider, ItemMessageChat } from '@/components';
 
 export const ChatHome: FC<IChatHome> = ({ chatSlider, conversationSlider }) => {
   return (
-    <Layout title="Chat" isHeader={false} isFooter={false}>
+    <Layout title="Chat" isHeader={false} isFooter={true}>
       <div className={styleCss.chatHome}>
         <section className={styleCss.chatHome__header}>
           <h2 className={styleCss.chatHome__title}>Trò chuyện</h2>
