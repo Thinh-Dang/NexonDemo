@@ -2,11 +2,17 @@ import React from 'react';
 import styleCss from './Navigation.module.scss';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export const Navigation = () => {
+  const router = useRouter();
+
   return (
     <div className={styleCss.navigation}>
-      <button className={styleCss.navigation__btn}>
+      <button
+        className={styleCss.navigation__btn}
+        onClick={() => router.back()}
+      >
         <Image
           src="/assets/images/left.svg"
           width={40}

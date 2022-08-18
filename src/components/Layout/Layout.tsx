@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import style from './Layout.module.scss';
 
 import Head from 'next/head';
@@ -10,12 +10,12 @@ import { Header, Footer } from '../common';
 import { isMobile } from 'react-device-detect';
 
 export const Layout: FC<ILayout> = ({
-  header = <Header />,
-  children,
-  footer = <Footer />,
+  title,
   isHeader = true,
   isFooter = true,
-  title,
+  header = <Header />,
+  footer = <Footer />,
+  children,
 }) => {
   const router = useRouter();
   const location = router.pathname;
