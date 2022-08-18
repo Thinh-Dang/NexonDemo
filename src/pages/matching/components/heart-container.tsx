@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { IMatchedFriends } from '..';
 import Heart from './heart';
 import LittleHeart from './little-heart';
 
@@ -9,12 +10,22 @@ export interface IHeart {
   width: number;
   tilt: number;
 }
+interface IProps {
+  matchedFriend: {
+    id: string;
+    imgUrl: string;
+  };
+}
 
-const HeartContainer = () => {
+const HeartContainer = ({ matchedFriend }: IProps) => {
   const firstImgUrl =
     'https://www.rollingstone.com/wp-content/uploads/2020/07/Screen-Shot-2020-07-15-at-11.24.37-AM.jpg';
-  const secondImgUrl =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eNIMrgAzk55Yl1S69ZQRH2NdmyNCJJJY3g&usqp=CAU';
+  const [friendImg, setFriendImg] = useState<string>('');
+  useEffect(() => {
+    setFriendImg(matchedFriend?.imgUrl);
+  }, [matchedFriend]);
+  const secondImgUrl = matchedFriend?.imgUrl;
+  // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eNIMrgAzk55Yl1S69ZQRH2NdmyNCJJJY3g&usqp=CAU';
   const generateRandomHearts = () => {
     const HEART_AMOUNT = 20;
     const heartWidths = [34, 24, 20, 10];
@@ -60,10 +71,10 @@ const HeartContainer = () => {
       <div className="icon left">
         <Heart imgUrl={firstImgUrl} />
       </div>
-      <div className="icon right">
-        <Heart imgUrl={secondImgUrl} />
+      <div className="icon right ">
+        <Heart imgUrl={friendImg} />
       </div>
-      <div className="icon pop-up">
+      {/* <div className="icon pop-up">
         <svg className="heart-secondary" viewBox="0 0 512 512">
           <path
             d="M6.94665 42.2498C13.4719 20.1941 
@@ -80,7 +91,7 @@ const HeartContainer = () => {
         67.0355 3.40822 54.2017 6.94665 42.2498Z"
           />
         </svg>
-      </div>
+      </div> */}
       {littleHearts?.map((littleHeart, index) => {
         return <LittleHeart key={`heart-${index}`} data={littleHeart} />;
       })}
