@@ -1,26 +1,42 @@
-import { useAppDispatch } from '@/redux';
-import { updateUserPosition } from '@/redux/slice/mapLocationSlice';
-import { FC, useEffect, useState } from 'react';
+import { RootState, useAppSelector } from '@/redux';
+import { FC, useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
-import Markers from './Markers';
+import currentPosIcon from '../../../public/assets/images/current-pos-icon.svg';
+import shadowCurrentPosIcon from '../../../public/assets/images/current-pos-shadow-icon.svg';
+import friendPosIcon from '../../../public/assets/images/friend-pos-icon.svg';
+import CustomMarker from './Marker';
 
-const ListMarkers: FC<IListMarkers> = ({ listNearUser }) => {
-  const [userPos, setUserPos] = useState<IMap>({ lat: 0, lng: 0 });
+const ListMarkers: FC<IListMarkers> = ({ friendsNearUser }) => {
+  const unmounted = useRef(false);
   const map = useMap();
-  const dispatch = useAppDispatch();
+  const userPosition = useAppSelector(
+    (state: RootState) => state.mapLocationSlice.userPosition,
+  );
   useEffect(() => {
-    map.locate().on('locationfound', function (e) {
-      setUserPos(e.latlng);
-      dispatch(updateUserPosition({ userPosition: e.latlng }));
-      map.flyTo(e.latlng, map.getZoom());
+    map.locate().on('locationfound', function () {
+      map.flyTo(userPosition, map.getZoom());
     });
-  }, [dispatch, map]);
+    return () => {
+      unmounted.current = true;
+    };
+  }, [map, userPosition]);
 
   return (
     <>
-      <Markers coord={userPos} icon={'currentPosIcon'} />
-      {listNearUser.map((p, index) => {
-        return <Markers key={index} coord={p} icon={'friendPosIcon'} />;
+      <CustomMarker
+        coord={userPosition}
+        icon={currentPosIcon}
+        shadowIcon={shadowCurrentPosIcon}
+      />
+      {friendsNearUser.map((p, index) => {
+        return (
+          <CustomMarker
+            key={index}
+            coord={{ lat: p.latitude, lng: p.longtitude }}
+            icon={friendPosIcon}
+            friendInfo={p}
+          />
+        );
       })}
     </>
   );

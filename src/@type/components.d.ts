@@ -42,11 +42,13 @@ interface IMap {
 // Component IMarker
 interface IMarkers {
   coord: IMap;
-  icon: string;
+  icon: unknow;
+  friendInfo?: IGetFriendNearUser;
+  shadowIcon?: unknow;
 }
 // Component IListMarkers
 interface IListMarkers {
-  listNearUser: IMap[];
+  friendsNearUser: IGetFriendNearUser[];
 }
 // Component ITags
 interface ITags {
@@ -57,4 +59,9 @@ interface ITags {
   name: string;
   width: string;
   height: string;
+}
+
+// Component FriendInfo
+interface IFriend {
+  friendInfo: IGetFriendNearUser;
 }

@@ -1,16 +1,11 @@
-<svg width="83" height="89" viewBox="0 0 83 89" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4.03247 33.4544C16.637 43.8821 44.5245 60.7613 44.4912 61.3261L59.1867 48.2182L29.9407 8.19551L4.03247 33.4544Z" fill="url(#paint0_linear_52_985)"/>
-<g clip-path="url(#clip0_52_985)">
-<circle opacity="0.1" cx="51.943" cy="54.7348" r="22" transform="rotate(-33.1186 51.943 54.7348)" fill="#7A56FE"/>
-<circle cx="51.9429" cy="54.7346" r="9" transform="rotate(-33.1186 51.9429 54.7346)" fill="#7A56FE" stroke="#FBFAFF" stroke-width="2"/>
+<svg width="62" height="62" viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_52_987)">
+<circle opacity="0.1" cx="30.943" cy="30.7348" r="22" transform="rotate(-33.1186 30.943 30.7348)" fill="#7A56FE"/>
+<circle cx="30.9429" cy="30.7346" r="9" transform="rotate(-33.1186 30.9429 30.7346)" fill="#7A56FE" stroke="#FBFAFF" stroke-width="2"/>
 </g>
 <defs>
-<linearGradient id="paint0_linear_52_985" x1="19.4302" y1="18.0483" x2="74.4161" y2="81.863" gradientUnits="userSpaceOnUse">
-<stop stop-color="#727AEF" stop-opacity="0"/>
-<stop offset="0.671875" stop-color="#727AEF"/>
-</linearGradient>
-<clipPath id="clip0_52_985">
-<rect width="44" height="44" fill="white" transform="translate(21.4968 48.3291) rotate(-33.1186)"/>
+<clipPath id="clip0_52_987">
+<rect width="44" height="44" fill="white" transform="translate(0.496826 24.3291) rotate(-33.1186)"/>
 </clipPath>
 </defs>
 </svg>

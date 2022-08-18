@@ -28,3 +28,9 @@ interface ILoginWithSocialPage {
   typeSocial: string;
   userData: any;
 }
+
+// Page Map location
+interface IFormCreateOrUpdateLocation {
+  latitude: number;
+  longtitude: number;
+}

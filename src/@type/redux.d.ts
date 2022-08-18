@@ -42,5 +42,18 @@ interface IInitialStateChat {
 
 // map location
 interface IInitialStateMapLocation {
+  centerPosition: IMap;
   userPosition: IMap;
+  friendsNearUser: IGetFriendNearUser[];
+  friendInfo: IGetFriendNearUser;
+  zoomLevel: number;
+}
+interface IGetFriendNearUser {
+  friendId: string;
+  friendName: string;
+  friendBirthday: string;
+  friendAvatar: string;
+  latitude: number;
+  longtitude: number;
+  distance: number;
 }

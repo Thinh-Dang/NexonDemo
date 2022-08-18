@@ -1,16 +1,41 @@
 import MapLocationContainer from '@/containers/MapLocation/MapLocation';
-const listNearUser: IMap[] = [
-  {
-    lat: 10.843212,
-    lng: 106.7120901,
-  },
-  {
-    lat: 10.8433094,
-    lng: 106.7118662,
-  },
-];
-const MapLocationPage = () => {
-  return <MapLocationContainer listNearUser={listNearUser} />;
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import {
+  createOrUpdateLocation,
+  getFriendNearUser,
+} from '@/redux/slice/mapLocationSlice';
+import { FC, useEffect } from 'react';
+
+const MapLocationPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const { userPosition } = useAppSelector(
+    (state: RootState) => state.mapLocationSlice,
+  );
+  useEffect(() => {
+    dispatch(getFriendNearUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.watchPosition(function (position) {
+        console.log('position.coords.latitude', position.coords.latitude);
+        console.log('position.coords.longitude', position.coords.longitude);
+
+        dispatch(
+          createOrUpdateLocation({
+            latitude: position.coords.latitude,
+            longtitude: position.coords.longitude,
+          }),
+        );
+      });
+    }
+  }, [dispatch]);
+
+  return userPosition.lat !== 0 && userPosition.lng !== 0 ? (
+    <MapLocationContainer />
+  ) : (
+    <>Chờ màn hình</>
+  );
 };
 
 export default MapLocationPage;

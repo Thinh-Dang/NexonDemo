@@ -10,7 +10,7 @@ interface Props {
   ogImage: string | '';
 }
 
-const Head = (props: Props) => (
+const MapLocationHead = (props: Props) => (
   <NextHead>
     <meta charSet="UTF-8" />
     <title>{props.title || ''}</title>
@@ -38,4 +38,4 @@ const Head = (props: Props) => (
   </NextHead>
 );
 
-export default Head;
+export default MapLocationHead;

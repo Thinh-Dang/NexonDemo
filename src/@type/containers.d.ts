@@ -21,5 +21,5 @@ interface ITokenContainer {
 
 // Map Container
 interface IMapLocationContainer {
-  listNearUser: IMap[];
+  friendsNearUser: IGetFriendNearUser[];
 }
