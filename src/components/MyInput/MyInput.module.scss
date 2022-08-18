@@ -1,0 +1,103 @@
+@import '../../styles/init/variables';
+.otpInput {
+  display: flex;
+
+  .myInput {
+    margin-left: 1.4rem;
+    letter-spacing: 2.2rem;
+    padding-left: 0.6rem;
+    width: 100%;
+    font-size: 1.6rem;
+    display: block;
+    font-weight: bolder;
+    outline: none;
+    border: none;
+  }
+
+  .groupDot {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    margin-bottom: 5rem;
+
+    div {
+      width: 1.6rem;
+      height: 1.6rem;
+      background-color: $clr-neutral-20;
+      margin-left: 1.4rem;
+      border-radius: 50%;
+      transform: translateX(7%);
+    }
+  }
+}
+
+.bntOutline {
+  font-family: $font-family-circular;
+  color: $clr-primary-100;
+  font-family: $font-family-circular;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: right;
+
+  &:hover {
+    color: darken($color: $clr-primary-100, $amount: 10);
+  }
+}
+
+.groupInput {
+  position: relative;
+  margin-bottom: 1.4rem;
+
+  &__myDatePicker {
+    width: 100%;
+    border: none;
+    border-radius: 1rem;
+    background-color: $clr-neutral-5;
+    input {
+      height: 4.8rem;
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      padding-top: 0.4rem;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transform: translate(10px, 2px);
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    color: $clr-neutral-40;
+  }
+
+  &__input {
+    background-color: $clr-neutral-5;
+    padding: 0 1rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    border: none;
+    border-radius: 0.8rem;
+    height: 5.6rem;
+    padding-top: 0.4rem;
+  }
+}
+
+.mySelectionInput {
+  width: 100%;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  height: 5.6rem;
+  padding: 2rem 0;
+  background-color: $clr-neutral-5;
+  border-radius: 1rem;
+}

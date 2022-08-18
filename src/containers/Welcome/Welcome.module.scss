@@ -1,0 +1,43 @@
+@import '../../styles/init/variables';
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  &__class_content {
+    margin-top: 3.2rem;
+    margin-bottom: 1.6rem;
+  }
+  &__btn {
+    background-color: $clr-neutral-100;
+    color: $clr-neutral-0;
+    font-family: 'SVN-Circular';
+    font-weight: 700;
+    padding: 1.3rem 0;
+    border-radius: 1.6rem;
+    margin-bottom: 2.4rem;
+    cursor: pointer;
+    width: 100%;
+    &:hover {
+      background-color: darken($color: $clr-neutral-100, $amount: 5);
+    }
+  }
+  &__content {
+    color: $clr-neutral-40;
+    font-family: 'SVN-Circular';
+    text-align: center;
+    line-height: 1.8rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  &__group {
+    display: flex;
+    justify-content: space-around;
+
+    background-color: none;
+  }
+  &__icon {
+    cursor: pointer;
+    background-color: white;
+  }
+}

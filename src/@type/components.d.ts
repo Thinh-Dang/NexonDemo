@@ -6,6 +6,7 @@ interface ILayout {
   isHeader?: boolean;
   isFooter?: boolean;
   title: string;
+  islogo: boolean;
 }
 
 // Component InfoUserChat
@@ -37,4 +38,20 @@ interface IItemMessageChat {
   avatar: string;
   content: string;
   createAt: Date;
+}
+interface IContent {
+  contentTitle: string;
+  contentText: string;
+  classContent: string;
+}
+interface IButton {
+  type: any;
+  id?: string;
+  name?: string;
+  style?: CSSProperties;
+  disabled?: boolean;
+  content: string | ReactNode;
+  btnClass?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  isHaveIcon?: boolean;
 }

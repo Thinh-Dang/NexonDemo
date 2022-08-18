@@ -1,0 +1,23 @@
+.verifyOtp {
+  margin-top: 4.7rem;
+  position: relative;
+  &__content {
+    margin: 2.4rem 0;
+    h3 {
+      margin-bottom: 0.4rem;
+      font-size: 2rem;
+      line-height: 2.6rem;
+      font-weight: 700;
+    }
+    p {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+    }
+  }
+  &__error__message {
+    width: 100%;
+    position: absolute;
+    top: 54%;
+  }
+}
