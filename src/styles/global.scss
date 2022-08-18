@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500&display=swap');
 /* SCSS Init */
 @import './init/font';
 @import './init/root';
 @import './init/responsive';
 @import './init/variables';
 @import './init/mixin';
+
+@import './components/chat.scss';
+@import './components/matching.scss';
+@import './components/footer.scss';
