@@ -4,7 +4,8 @@ import style from './Layout.module.scss';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useAppSelector, RootState } from '@/redux';
-import { Header, Footer } from '../common';
+import { Footer } from '../common';
+import Header from '../common/Header/Header';
 
 export const Layout: FC<ILayout> = ({
   header,
@@ -17,8 +18,7 @@ export const Layout: FC<ILayout> = ({
 }) => {
   const router = useRouter();
   const location = router.pathname;
-  const isLogin =
-    useAppSelector((state: RootState) => state.userSlice.isLogin) || true;
+  const isLogin = useAppSelector((state: RootState) => state.userSlice) || true;
 
   if (!isLogin && location !== '/auth/login' && location !== '/auth/register') {
     router.push('/auth/login');

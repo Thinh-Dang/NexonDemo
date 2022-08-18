@@ -14,13 +14,6 @@ export const callAPIVerifyCode = createAsyncThunk(
   },
 );
 
-export const loginSocial = createAsyncThunk(
-  '/auth/login-social',
-  async (requestOption: ILoginWithSocialPage) => {
-    return await userApi.loginSocial(requestOption).then((res) => res);
-  },
-);
-
 const initialState: IInitialStateUser = {
   isStatusApi: false,
   isLogin: false,
@@ -78,7 +71,7 @@ export const userSlice = createSlice({
   reducers: {
     resetIsGetPhone: (state) => {
       state.isGetPhone = false;
-      state.isLogin = false;
+      state.isVerifyOtp = false;
       state.phone = '';
     },
     addPhoneNumber: (state, action) => {
@@ -93,8 +86,6 @@ export const userSlice = createSlice({
       }
     });
     builder.addCase(callAPIVerifyCode.fulfilled, (state, action) => {
-      console.log(action.payload);
-      console.log(action.payload.status);
       if (action.payload.status) {
         state.isVerifyOtp = true;
       }

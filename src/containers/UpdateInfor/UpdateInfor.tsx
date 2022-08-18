@@ -3,7 +3,7 @@ import Content from '@/components/Content/Content';
 import MyInput from '@/components/MyInput/MyInput';
 import Image from 'next/image';
 import React from 'react';
-import imgInfor from '../../../public/assets/Frame 470 - Info.svg';
+import imgInfor from '../../../public/assets/images/Login - Info.svg';
 import styleScss from './UpdateInfor.module.scss';
 type Props = {};
 

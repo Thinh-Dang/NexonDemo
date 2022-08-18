@@ -17,7 +17,7 @@ type Props = {
   txtPlaceholder?: string;
   isDatePicker?: boolean;
   isSelection?: boolean;
-  name: string;
+  name?: string;
 };
 const MyInput = ({
   isInput,

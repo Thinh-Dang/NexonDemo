@@ -23,7 +23,6 @@ const VerifyOtp = (props: Props) => {
     useFormik({
       initialValues: { code: '' },
       onSubmit: (value) => {
-        console.log(value);
         const valueRequest: IFormOtpPage = {
           phone: myState.phone,
           code: value.code.toString(),
@@ -32,8 +31,6 @@ const VerifyOtp = (props: Props) => {
       },
       validationSchema: OTPValidationSchema,
     });
-
-  console.log(errors);
 
   return (
     <>

@@ -5,7 +5,7 @@ import styleScss from './Header.module.scss';
 import Image from 'next/image';
 import inconHeader from '../../../../public/assets/back-icon.svg';
 import { useRouter } from 'next/router';
-import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { useAppDispatch } from '@/redux';
 import { resetIsGetPhone } from '@/redux/slice/userSlice';
 
 type Props = {
