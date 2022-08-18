@@ -14,6 +14,30 @@ interface IInitialStateUser {
   phone: string;
 }
 
+// Slice Uer Profile Redux
+interface IUserProfile {
+  [key: string]: any;
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
+  phone: string;
+  birthday: Date;
+  gender: string;
+  description: string;
+  children: number;
+  alcohol: string;
+  religion: string;
+  purposeId: string;
+  height: number;
+  maritalStatus: string;
+  education: string;
+  isBlock: boolean;
+  isVerify: boolean;
+  album: IUserImages[];
+  hobbies: IUserHobbies[];
+}
+
 // Slice Chat Redux
 interface IMessage {
   id: string;

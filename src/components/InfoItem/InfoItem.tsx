@@ -1,9 +1,19 @@
 import { IInfoItem } from '@/@type/components';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { ArrowRightIcon } from '../icon';
 import styleCss from './InfoItem.module.scss';
 
-export const InfoItem: FC<IInfoItem> = ({ icon, title, value }) => {
+export const InfoItem: FC<IInfoItem> = ({
+  icon,
+  title,
+  value,
+  onIconClick,
+  type,
+}) => {
+  const handlleClick = useCallback(() => {
+    onIconClick(type);
+  }, []);
+
   return (
     <div className={styleCss.infoItem}>
       <div className={styleCss['infoItem-spacing']}>
@@ -12,7 +22,7 @@ export const InfoItem: FC<IInfoItem> = ({ icon, title, value }) => {
       </div>
       <div className={styleCss['infoItem-spacing']}>
         <span className={styleCss['infoItem-value']}>{value}</span>
-        <div className={styleCss['infoItem-arrowLeft']}>
+        <div className={styleCss['infoItem-arrowLeft']} onClick={handlleClick}>
           <ArrowRightIcon />
         </div>
       </div>

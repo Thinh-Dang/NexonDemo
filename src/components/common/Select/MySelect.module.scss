@@ -1,0 +1,24 @@
+@import '../../../styles/init/variables';
+
+.mySelect {
+  width: 100%;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: $clr-neutral-60;
+  background-color: transparent;
+  //font-family: 'SVN-Gilroy', sans-serif;
+  border: 0;
+
+  &-option {
+    background-color: $clr-neutral-5;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $clr-neutral-60;
+    width: fit-content;
+  }
+}
+
+.mySelect:focus-visible {
+  outline: none;
+  color: $clr-neutral-100;
+}

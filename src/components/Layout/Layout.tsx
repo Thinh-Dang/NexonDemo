@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useAppSelector, RootState } from '@/redux';
 import { Header, Footer } from '../common';
+import { ILayout } from '@/@type/components';
 
 export const Layout: FC<ILayout> = ({
   header = <Header />,

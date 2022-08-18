@@ -74,3 +74,64 @@ export enum Color {
   clr_light_blue = '#edf7ff',
   clr_light_green = '#e9fbf1',
 }
+
+export enum MaritalStatusEnum {
+  SINGLE = 'single',
+  MARRIED = 'married',
+  DIVORCED = 'divorced',
+}
+
+export enum AlcoholEnum {
+  SOMETIMES = 'sometime',
+  USUALLY = 'usually',
+  NEVER = 'never',
+}
+
+export enum ReligionEnum {
+  BUDDHISM = 'buddhism',
+  GOD = 'god',
+  OTHER = 'other',
+  NON_RELIGIONS = 'non-religion',
+}
+
+export enum EducationEnum {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  HIGH_SCHOOL = 'high_school',
+  COLLEGE = 'college',
+  UNIVERSITY = 'university',
+  OTHER = 'other',
+}
+
+export enum InputEnum {
+  TEXT = 'text',
+  NUMBER = 'number',
+  PASSWORD = 'password',
+  EMAIL = 'email',
+}
+
+export enum OpenSettingProile {
+  REASON = 'reason',
+  DESCRIPTION = 'description',
+  HEIGHT = 'height',
+  MARITAL = 'marital',
+  ALCOHOL = 'alcohol',
+  GENDER = 'gender',
+  RELIGION = 'religion',
+  EDUCATION = 'education',
+  CHILD = 'child',
+  HOBBIES = 'hobbies',
+}
+
+export enum UpdateUserProfileEnum {
+  OTHER = 'other',
+  GENDER = 'gender',
+  DESCRIPTION = 'description',
+  CHILDREN = 'children',
+  ALCOHOL = 'alcohol',
+  RELIGION = 'religion',
+  HEIGHT = 'height',
+  MARITAL_STATUS = 'maritalStatus',
+  EDUCATION = 'education',
+  PURPOSEID = 'purposeId',
+}

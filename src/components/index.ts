@@ -12,4 +12,6 @@ export * from './ItemHobby/ItemHobby';
 export * from './SectionTitle/SectionTitle';
 export * from './SettingInfo/SettingInfor';
 export * from './ReasonPopUp/ReasonPopUp';
-export * from './SettingDescription/SettingDescription';
+export * from './SettingWithInput/SettingWithInput';
+export * from './SettingWithSelect/SettingWithSelect';
+export * from './SettingHobby/SettingHobby';

@@ -1,12 +1,20 @@
 import { ISectionTitle } from '@/@type/components';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import styleCss from './SectionTitle.module.scss';
 
 export const SectionTitle: FC<ISectionTitle> = ({
   title,
   editTitle,
   marginBottom,
+  settingType,
+  onEditClick,
 }) => {
+  const handleClick = useCallback(() => {
+    if (typeof onEditClick === 'function' && settingType) {
+      onEditClick(settingType);
+    }
+  }, []);
+
   return (
     <div
       className={styleCss.sectionTitle}
@@ -14,7 +22,12 @@ export const SectionTitle: FC<ISectionTitle> = ({
     >
       <h4 className={styleCss['sectionTitle-title']}>{title}</h4>
       {editTitle ? (
-        <h4 className={styleCss['sectionTitle-editTitle']}>{editTitle}</h4>
+        <h4
+          className={styleCss['sectionTitle-editTitle']}
+          onClick={handleClick}
+        >
+          {editTitle}
+        </h4>
       ) : null}
     </div>
   );

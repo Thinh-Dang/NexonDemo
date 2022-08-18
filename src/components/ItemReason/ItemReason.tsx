@@ -22,17 +22,24 @@ export const ItemReason: FC<IItemReason> = ({
           <p className={styleCss['itemReason-content-subTitle']}>{subTitle}</p>
         </div>
       </div>
-      <input
-        name="reason"
-        type="radio"
-        defaultChecked={checked}
-        value={value}
-        onChange={(e) => {
-          console.log(e.target);
-          console.log(e.target.checked);
-        }}
-        className={styleCss['itemReason-radio']}
-      />
+      {checked ? (
+        <input
+          name="reason"
+          type="radio"
+          defaultChecked
+          value={value}
+          onChange={onChange}
+          className={styleCss['itemReason-radio']}
+        />
+      ) : (
+        <input
+          name="reason"
+          type="radio"
+          value={value}
+          onChange={onChange}
+          className={styleCss['itemReason-radio']}
+        />
+      )}
     </div>
   );
 };
