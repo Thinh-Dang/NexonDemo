@@ -9,8 +9,7 @@ import { Button } from '@/components/common/Button/Button';
 import Content from '@/components/Content/Content';
 import { useRouter } from 'next/router';
 
-type Props = {};
-const Welcome = (props: Props) => {
+const Welcome = () => {
   const router = useRouter();
   return (
     <main className={styleScss.wrapper}>

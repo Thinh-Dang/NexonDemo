@@ -13,9 +13,8 @@ import { addPhoneNumber, callAPISendOTP } from '@/redux/slice/userSlice';
 import Swal from 'sweetalert2';
 import { phoneValidationSchema } from '@/Validation/Validations';
 import { IResponse } from '@/@type/responses';
-type Props = {};
 
-const SendOTP = ({}: Props) => {
+const SendOTP = () => {
   const dispatch = useAppDispatch();
   const { isStatusApi } = useAppSelector((state: RootState) => state.userSlice);
 
