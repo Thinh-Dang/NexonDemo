@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { io, Socket } from 'socket.io-client';
 import { useEffect, useState, useCallback, useRef } from 'react';
 
-import { Layout } from '@/components';
 import { ChatContent } from '@/containers';
 
 import chatApi from '../../services/chat.api';
@@ -18,7 +17,7 @@ const ChatContentPage: NextPage = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [contentChat, setContentChat] = useState<string>('');
 
-  const userId = '33734a5e-596d-44f3-9fb8-84800ac4b9c8';
+  const userId = '975f0925-ff12-498e-b3ca-8ecdef0a4ae9';
   const socketRef = useRef<Socket>();
 
   // Init Socket
@@ -105,24 +104,23 @@ const ChatContentPage: NextPage = () => {
   useEffect(() => {
     getConversation();
     getFriendInfo();
-    getListMessage();
-  }, [getConversation, getFriendInfo, getListMessage]);
+  }, [getConversation, getFriendInfo]);
 
-  return (
-    <Layout title="Chat Content" isHeader={false} isFooter={false}>
-      {infoFriend ? (
-        <ChatContent
-          infoFriend={infoFriend}
-          messages={messages}
-          contentChat={contentChat}
-          setContentChat={setContentChat}
-          handleClick={handleClick}
-          userId={userId}
-        />
-      ) : (
-        <></>
-      )}
-    </Layout>
+  useEffect(() => {
+    getListMessage();
+  }, [getListMessage]);
+
+  return infoFriend ? (
+    <ChatContent
+      infoFriend={infoFriend}
+      messages={messages}
+      contentChat={contentChat}
+      setContentChat={setContentChat}
+      handleClick={handleClick}
+      userId={userId}
+    />
+  ) : (
+    <></>
   );
 };
 

@@ -12,9 +12,7 @@ import imgOtpPage from '../../../public/assets/images/img-otp.svg';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { callAPIVerifyCode } from '@/redux/slice/userSlice';
 
-type Props = {};
-
-const VerifyOtp = (props: Props) => {
+const VerifyOtp = () => {
   const myState = useAppSelector((state: RootState) => state.userSlice);
 
   const dispatch = useAppDispatch();

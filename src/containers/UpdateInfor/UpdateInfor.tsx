@@ -5,9 +5,8 @@ import Image from 'next/image';
 import React from 'react';
 import imgInfor from '../../../public/assets/images/Login - Info.svg';
 import styleScss from './UpdateInfor.module.scss';
-type Props = {};
 
-const UpdateInfor = (props: Props) => {
+const UpdateInfor = () => {
   return (
     <div className={styleScss.inforUserMain}>
       <Image src={imgInfor} alt="Zodinet" />

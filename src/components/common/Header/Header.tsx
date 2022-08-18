@@ -1,18 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { FC } from 'react';
 import styleScss from './Header.module.scss';
-// eslint-disable-next-line import/extensions
+
 import Image from 'next/image';
-import inconHeader from '../../../../public/assets/back-icon.svg';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '@/redux';
 import { resetIsGetPhone } from '@/redux/slice/userSlice';
 
-type Props = {
-  isLogo: boolean;
-};
+import inconHeader from '../../../../public/assets/back-icon.svg';
 
-const Header = ({ isLogo }: Props) => {
+export const Header: FC<IHeader> = ({ isLogo }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   return (
@@ -34,5 +30,3 @@ const Header = ({ isLogo }: Props) => {
     </div>
   );
 };
-
-export default Header;
