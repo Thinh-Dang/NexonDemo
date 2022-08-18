@@ -9,12 +9,7 @@ import 'leaflet/dist/leaflet.css';
 import { FC, useState } from 'react';
 import { Marker, useMap, useMapEvents } from 'react-leaflet';
 
-const CustomMarker: FC<IMarkers> = ({
-  coord,
-  icon,
-  friendInfo,
-  shadowIcon,
-}) => {
+const CustomMarker: FC<IMarkers> = ({ coord, icon, friendInfo }) => {
   const dispatch = useAppDispatch();
   const { zoomLevel, centerPosition } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
@@ -27,7 +22,6 @@ const CustomMarker: FC<IMarkers> = ({
     iconAnchor: [10, 41],
     popupAnchor: [2, -40],
     iconUrl: icon.src,
-    // shadowUrl: shadowIcon ? shadowIcon.src : iconShadow.src,
   });
   const onClickGetFriendInfo = () => {
     if (friendInfo) {

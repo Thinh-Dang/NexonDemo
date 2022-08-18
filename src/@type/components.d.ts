@@ -44,7 +44,6 @@ interface IMarkers {
   coord: IMap;
   icon: unknow;
   friendInfo?: IGetFriendNearUser;
-  shadowIcon?: unknow;
 }
 // Component IListMarkers
 interface IListMarkers {

@@ -9,7 +9,6 @@ const FriendInfoComponent: FC<IFriend> = ({ friendInfo }) => {
       <div className={styles.friend_info}>
         <div className={styles.friend_info__div_image}>
           <Image
-            // src="/assets/images/linda-avatar.svg"
             src={friendInfo.friendAvatar}
             alt={friendInfo.friendName}
             width={'84px'}
@@ -22,7 +21,7 @@ const FriendInfoComponent: FC<IFriend> = ({ friendInfo }) => {
           <Tags
             color="default"
             title={`Cách ${friendInfo.distance}m`}
-            icon="/assets/images/location-icon.svg"
+            icon="/assets/images/location-with-shadow-icon.svg"
             name="Location icon"
             width="12px"
             height="12px"

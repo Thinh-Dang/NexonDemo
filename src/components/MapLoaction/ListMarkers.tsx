@@ -2,7 +2,6 @@ import { RootState, useAppSelector } from '@/redux';
 import { FC, useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
 import currentPosIcon from '../../../public/assets/images/current-pos-icon.svg';
-import shadowCurrentPosIcon from '../../../public/assets/images/current-pos-shadow-icon.svg';
 import friendPosIcon from '../../../public/assets/images/friend-pos-icon.svg';
 import CustomMarker from './Marker';
 
@@ -23,11 +22,7 @@ const ListMarkers: FC<IListMarkers> = ({ friendsNearUser }) => {
 
   return (
     <>
-      <CustomMarker
-        coord={userPosition}
-        icon={currentPosIcon}
-        shadowIcon={shadowCurrentPosIcon}
-      />
+      <CustomMarker coord={userPosition} icon={currentPosIcon} />
       {friendsNearUser.map((p, index) => {
         return (
           <CustomMarker
