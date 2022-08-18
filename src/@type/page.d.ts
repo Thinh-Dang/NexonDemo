@@ -5,7 +5,7 @@ interface IFormLoginPage {
 
 interface IFormOtpPage {
   phone: string;
-  verificationCode: string;
+  code: string;
 }
 
 // Page Register

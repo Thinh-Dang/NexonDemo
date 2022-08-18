@@ -1,22 +1,39 @@
-// Formik Config
-interface IFormikConfigContainer {
-  formik: FormikConfig<IFormLoginPage>;
+// Container Chat Home
+interface IChatHome {
+  chatSlider: IItemChatSlider[];
+  conversationSlider: IItemMessageChat[];
 }
 
-// Login Container
-interface ILoginContainer {
-  formik: FormikConfig<IFormLoginPage>;
-  session: any;
+// Container Chat Content
+interface IUserFriend {
+  userId: string;
+  name: string;
+  avatar: string;
+  createAt: Date;
 }
 
-// Register Container
-interface IRegisterContainer {
-  formik: FormikConfig<IFormLoginPage>;
+interface IMessage {
+  messageId: string;
+  senderId: string;
+  content: string;
+  image?: string;
+  createAt: Date;
 }
 
-// OTP Container
-interface ITokenContainer {
-  formik: FormikConfig<IFormLoginPage>;
+interface IMessageSend {
+  socketId: string;
+  senderId: string;
+  conversationId: string;
+  content: string;
+}
+
+interface IChatContent {
+  infoFriend: IUserFriend;
+  messages: IMessage[];
+  contentChat: string;
+  setContentChat: Dispatch<SetStateAction<string>>;
+  handleClick: (e: any) => void;
+  userId: string;
 }
 
 // Map Container

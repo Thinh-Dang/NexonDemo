@@ -6,9 +6,9 @@ export enum Method {
 }
 
 export enum GenderEnum {
-  male = `male`,
-  female = `female`,
-  other = `other`,
+  ALE = 'Nam',
+  FEMALE = 'Nữ',
+  OTHER = 'other',
 }
 
 export enum CodeStatus {

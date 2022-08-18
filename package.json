@@ -44,6 +44,7 @@
     "firebase-functions": "3.22.0",
     "formik": "2.2.9",
     "fs": "0.0.1-security",
+    "moment": "2.29.4",
     "leaflet": "1.8.0",
     "leaflet-defaulticon-compatibility": "0.1.1",
     "leaflet-easybutton": "2.4.0",
@@ -61,7 +62,9 @@
     "react-toastify": "9.0.7",
     "redux-persist": "6.0.0",
     "sass": "1.54.3",
+    "socket.io-client": "4.5.1",
     "sweetalert2": "11.4.26",
+    "swiper": "8.3.2",
     "yup": "0.32.11"
   },
   "devDependencies": {

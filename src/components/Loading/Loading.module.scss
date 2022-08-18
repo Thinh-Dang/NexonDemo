@@ -1,0 +1,11 @@
+@import '../../styles/init/variables';
+.loading {
+  background-color: $clr-primary-90;
+  height: 100vh;
+  &__title {
+    text-align: center;
+    line-height: 100vh;
+    font-weight: 800;
+    color: $clr-neutral-0;
+  }
+}

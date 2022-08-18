@@ -8,7 +8,7 @@ export const ItemContentChat: FC<IItemContentChat> = ({
 }) => {
   return (
     <div className={styleCss.itemContentChat}>
-      {type === 'friend' && (
+      {type === 'you' && (
         <div className={styleCss.itemContentChat__friend}>
           {time && (
             <section className={styleCss.itemContentChat__time}>
@@ -22,7 +22,7 @@ export const ItemContentChat: FC<IItemContentChat> = ({
         </div>
       )}
 
-      {type === 'you' && (
+      {type === 'friend' && (
         <div className={styleCss.itemContentChat__you}>
           <section className={styleCss.itemContentChat__contentYou}>
             <p className={styleCss.itemContentChat__textYou}>{content}</p>
