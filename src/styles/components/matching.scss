@@ -3,13 +3,14 @@
   --gap: 1.6rem;
   padding: var(--gap);
   height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   background-color: $clr-main;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100vw;
   overflow: hidden;
+  overflow-y: auto;
   color: #ffffff;
   & a {
     display: flex;
@@ -27,9 +28,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    //     display: grid;
-    // justify-content: center;
-    // align-items: center;
     & .icon {
       fill: transparent;
       stroke: var(--pink);
@@ -60,20 +58,27 @@
       }
       &.right {
         transform: translateX(-2rem);
+        &.changing {
+          & path {
+            animation: stroke-animation 2s ease-in-out forwards;
+          }
+        }
         & .heart-main {
           transform: rotate(15deg);
         }
       }
-      // position: absolute;
       & .heart-main {
         overflow: visible;
         width: 100%;
         display: flex;
         height: 100%;
         & path {
+          opacity: 0.5;
           width: 100%;
           transform: scale(3);
-          animation: fade-animation 2s ease-in-out;
+          stroke-dashoffset: 0;
+          stroke-dasharray: 1550;
+          animation: stroke-animation 2s ease-in-out forwards;
         }
       }
     }
@@ -130,13 +135,11 @@
       outline: 2px solid #5f42c7;
     }
     &::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: $clr-main;
-      opacity: 1; /* Firefox */
+      opacity: 1;
     }
 
     &::-ms-input-placeholder {
-      /* Microsoft Edge */
       color: $clr-main;
     }
   }
@@ -148,43 +151,43 @@
 .little-heart {
   fill: #fd79af;
   position: absolute;
-  animation: fade-animation 2s ease-in-out;
+  animation: heart-shake 2s ease-in;
 }
-//   @keyframes stroke-animation {
-//     0% {
-//       stroke-dashoffset: 0;
-//     }
-//     30% {
-//       stroke-dashoffset: 1550;
-//     }
-//     60% {
-//       stroke-dashoffset: 3100;
-//       transform: scale(1);
-//     }
-//     80% {
-//       transform: scale(1.1);
-//     }
-//     90% {
-//       transform: scale(1);
-//     }
-//     100% {
-//       stroke-dashoffset: 3100;
-//     }
-//   }
-
-@keyframes fade-animation {
-  10% {
-    transform: scale(1);
+@keyframes stroke-animation {
+  0% {
+    stroke-dashoffset: 0;
   }
-  40% {
-    transform: scale(1);
+  30% {
+    stroke-dashoffset: 1550;
   }
-  80% {
-    transform: scale(2);
-    opacity: 1;
+  60% {
+    stroke-dashoffset: 3100;
+    transform: scale(3);
+    opacity: 0.8;
+  }
+  90% {
+    transform: scale(3.1);
   }
   100% {
-    transform: scale(1);
-    opacity: 0;
+    stroke-dashoffset: 3100;
+    transform: scale(3);
+    opacity: 1;
+  }
+}
+@keyframes heart-shake {
+  0% {
+    transform: rotate(-30deg) translateY(6px);
+  }
+  30% {
+    transform: rotate(30deg) translateY(-6px);
+  }
+  60% {
+    transform: rotate(10deg) translateY(3px);
+  }
+  90% {
+    transform: rotate(-15deg) translateY(-6px);
+  }
+  100% {
+    transform: rotate(15deg) translateY(6px);
   }
 }
