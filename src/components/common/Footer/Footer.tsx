@@ -10,8 +10,8 @@ export const Footer = () => {
   ];
   return (
     <div className="footer">
-      {footerItems.map((item) => {
-        return <FooterItem item={item} />;
+      {footerItems.map((item, index) => {
+        return <FooterItem key={`footer-${index}`} item={item} />;
       })}
     </div>
   );

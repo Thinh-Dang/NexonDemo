@@ -1,0 +1,111 @@
+.findingPage {
+  max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  padding: 1rem 1.6rem;
+  &-header {
+    display: flex;
+    flex-direction: row;
+    height: 54px;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 0.6rem;
+    margin-bottom: 2rem;
+    &-brandName {
+      color: $clr-main;
+      font-weight: 800;
+    }
+    &-notifications {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  &-container {
+    height: 76%;
+    &-swiper {
+      border-radius: 42px;
+    }
+  }
+  &-card {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 42px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    &-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 1.6rem;
+      &-info {
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+      }
+
+      &-location {
+        padding: 0.4rem 1.2rem;
+        padding-right: 1.6rem;
+        gap: 0.8rem;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.8rem;
+        width: fit-content;
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        margin-bottom: 2.8rem;
+        &-icon {
+          height: 16px;
+          width: 16px;
+        }
+
+        &-distance {
+          color: #22313f;
+        }
+      }
+
+      &-btnGroup {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-inline: 1.5rem;
+        &-btn {
+          display: flex;
+          justify-content: center;
+          border-radius: 50%;
+          padding: 1.5rem;
+          background-color: white;
+          border: 1px solid #e5e5e5;
+          & img {
+            height: 23px;
+            width: 23px;
+          }
+        }
+      }
+
+      &-infoBtn {
+        position: absolute;
+        top: 1.6rem;
+        right: 1.6rem;
+        height: 24px;
+        width: 24px;
+        background-color: white;
+        border-radius: 8px;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        & img {
+          height: 16px;
+          width: 16px;
+        }
+      }
+    }
+  }
+}
