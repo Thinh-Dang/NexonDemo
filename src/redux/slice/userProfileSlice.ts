@@ -69,7 +69,7 @@ export const userProfileSlice = createSlice({
       ) => {
         if (action.payload.status) {
           const res = action.payload.data;
-
+          console.log(res);
           const keys = Object.keys(state);
           keys.forEach((element) => {
             state[element] = res[element];

@@ -1,29 +1,50 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styleCss from './ChatContent.module.scss';
 
+import 'moment/locale/vi';
+import moment from 'moment';
 import Image from 'next/image';
+
 import { typeItemContentChat } from '@/common/enums/enum';
 import { Navigation, InfoUserChat, ItemContentChat } from '@/components';
 
-export const ChatContent = () => {
+export const ChatContent: FC<IChatContent> = ({
+  infoFriend,
+  messages,
+  contentChat,
+  setContentChat,
+  handleClick,
+  userId,
+}) => {
   return (
     <section className={styleCss.chatContent}>
       <Navigation />
       <InfoUserChat
-        avatar="/assets/images/avatar.svg"
-        title="Cameron Greer, 1"
-        content="Đã kết đôi 3 tuần trước"
+        avatar={infoFriend.avatar}
+        title={infoFriend.name}
+        content={`Đã kết đôi ${moment(infoFriend.createAt)
+          .locale('vi')
+          .startOf('hour')
+          .fromNow()}`}
       />
       <section className={styleCss.chatContent__content}>
-        <ItemContentChat
-          time="20:00, 16 tháng 8 năm 2022"
-          content="Hello, Em ăn cơm chưa?"
-          type={typeItemContentChat.FRIEND}
-        />
-        <ItemContentChat
-          content="Hello, Em ăn cơm chưa?"
-          type={typeItemContentChat.YOU}
-        />
+        {messages.length !== 0 &&
+          messages.map((message: IMessage) => {
+            return (
+              <ItemContentChat
+                key={message.id}
+                time={`${moment(message.createAt).format('LT')}, ${moment(
+                  message.createAt,
+                ).format('LL')}`}
+                content={message.content}
+                type={
+                  userId === message.senderId
+                    ? typeItemContentChat.YOU
+                    : typeItemContentChat.FRIEND
+                }
+              />
+            );
+          })}
       </section>
       <section className={styleCss.chatContent__func}>
         <button className={styleCss.chatContent__btn}>
@@ -34,11 +55,13 @@ export const ChatContent = () => {
             alt="Add"
           />
         </button>
-        <form className={styleCss.chatContent__form}>
+        <form className={styleCss.chatContent__form} onSubmit={handleClick}>
           <input
             type="text"
             className={styleCss.chatContent__input}
             placeholder="Aa"
+            value={contentChat}
+            onChange={(e) => setContentChat(e.target.value)}
           />
           <div className={styleCss.chatContent__emoji}>
             <Image
@@ -49,7 +72,11 @@ export const ChatContent = () => {
             />
           </div>
         </form>
-        <button className={styleCss.chatContent__btn}>
+        <button
+          className={styleCss.chatContent__btn}
+          type="button"
+          onClick={handleClick}
+        >
           <Image
             src="/assets/images/send-message.svg"
             width={36}

@@ -6,12 +6,18 @@ interface IAction {
 
 // Slice User Redux
 interface IInitialStateUser {
-  isVerifyOtp: boolean;
+  isStatusApi: boolean;
   isLogin: boolean;
   isSocial: boolean;
-  name: string;
-  email: string;
   phone: string;
+  isGetPhone: boolean;
+  isVerifyOtp: boolean;
+  inforUser: {
+    name: string;
+    email: string;
+    birthday: string;
+    gender: GenderEnum;
+  };
 }
 
 // Slice Uer Profile Redux
@@ -62,4 +68,16 @@ interface IInitialStateChat {
   conversations: IConversation[] | undefined;
   messages: IMessage[] | undefined;
   loaded: boolean;
+}
+
+declare interface IUserNearby {
+  id: string;
+  name: string;
+  age: number;
+  location?: {
+    longitude: number;
+    latitude: number;
+  };
+  distance: number;
+  imgUrl: string;
 }

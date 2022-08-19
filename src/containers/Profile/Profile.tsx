@@ -2,6 +2,8 @@ import { IChangeUserProfile, IPurpose, IUserHobbies } from '@/@type/params';
 import { IResponse } from '@/@type/responses';
 import { ICreateHobby, IUpdateUserProfile } from '@/@type/services';
 import {
+  Color,
+  HTag,
   InputEnum,
   OpenSettingProile,
   UpdateUserProfileEnum,
@@ -15,6 +17,7 @@ import {
 } from '@/common/selectSource/selectSource';
 import {
   Card,
+  HeadPage,
   InfoItem,
   ItemHobby,
   ReasonPopUp,
@@ -32,6 +35,7 @@ import {
   PlusIcons,
   RingIcon,
   RulerIcon,
+  SettingIcon,
   WhiteWineIcon,
 } from '@/components/icon';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
@@ -51,7 +55,6 @@ import {
 } from '@/utils';
 import { Col, Row } from 'antd';
 import Image from 'next/image';
-import { type } from 'os';
 import React, {
   ChangeEvent,
   ReactElement,
@@ -72,13 +75,13 @@ export const Profile = () => {
       id: '9ed0b18d-fe01-4f4b-8d46-7d1e1c6c0a55',
       title: 'Muốn hẹn hò',
       description: 'Where there is a will, there is a way.',
-      image: '/assets/icons8-cup 1.svg',
+      image: '/assets/images/icons8-cup 1.svg',
     },
     {
       id: '07b77fff-b57c-4376-9da5-4365e60f9473',
       title: 'Cần người tâm sự',
       description: 'Set your target and keep trying until you reach it.',
-      image: '/assets/icons8-chat-room 1.svg',
+      image: '/assets/images/icons8-chat-room 1.svg',
     },
     {
       id: '0a7a3d9a-cf5c-46a5-b309-60d1dfac6237',
@@ -291,6 +294,15 @@ export const Profile = () => {
 
   return profile.avatar ? (
     <section className={styleCss.profileFrame}>
+      <HeadPage
+        hTag={HTag.h2}
+        title={'Tài khoản'}
+        icon={<SettingIcon />}
+        colorTitle={Color.clr_neutral_100}
+        onIconClick={() => {
+          alert('hello');
+        }}
+      />
       <div className={styleCss['profileFrame-simpleInfo']}>
         <Image
           className={styleCss['profileFrame-simpleInfo-image']}

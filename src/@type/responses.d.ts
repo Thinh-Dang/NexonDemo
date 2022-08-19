@@ -1,6 +1,6 @@
 export interface IResponse<T> {
   status: boolean;
-  error?: error;
+  error_code?: error | string | number;
   data: T | T[] | string | Array | object;
-  message?: null;
+  message?: string | null;
 }

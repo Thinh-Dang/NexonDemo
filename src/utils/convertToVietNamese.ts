@@ -42,13 +42,13 @@ export const ConvertAlcoholEnum = (alcohol: string): string => {
 
 export const ConvertGenderEnum = (gender: string): string => {
   switch (gender) {
-    case GenderEnum.female:
+    case GenderEnum.FEMALE:
       return 'Nữ';
       break;
-    case GenderEnum.male:
+    case GenderEnum.MALE:
       return 'Nam';
       break;
-    case GenderEnum.other:
+    case GenderEnum.OTHER:
       return 'Khác';
       break;
     default:

@@ -15,20 +15,7 @@ const ProfilePage: NextPage = () => {
   }, []);
 
   return (
-    <Layout
-      header={
-        <HeadPage
-          hTag={HTag.h2}
-          title={'Tài khoản'}
-          icon={<SettingIcon />}
-          colorTitle={Color.clr_neutral_100}
-          onIconClick={() => {
-            alert('hello');
-          }}
-        />
-      }
-      title={'Hello'}
-    >
+    <Layout title={'Trang cá nhân'} islogo={false}>
       <Profile />
     </Layout>
   );
