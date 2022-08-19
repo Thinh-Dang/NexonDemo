@@ -8,13 +8,12 @@ import imgFlagVN from '../../../public/assets/flag-vn.svg';
 import { Input, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { useAppDispatch } from '@/redux';
 import { addPhoneNumber, callAPISendOTP } from '@/redux/slice/userSlice';
 import { phoneValidationSchema } from '@/Validation/Validations';
 
 const SendOTP = () => {
   const dispatch = useAppDispatch();
-  const { isStatusApi } = useAppSelector((state: RootState) => state.userSlice);
 
   const { handleBlur, errors, handleChange, values, handleSubmit, touched } =
     useFormik({

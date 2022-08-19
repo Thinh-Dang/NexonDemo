@@ -1,0 +1,15 @@
+@import '../../../styles/init/variables';
+
+.myInput {
+  width: 100%;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: $clr-neutral-60;
+  background-color: transparent;
+  border: 0;
+}
+
+.myInput:focus-visible {
+  color: $clr-neutral-100;
+  outline: none;
+}

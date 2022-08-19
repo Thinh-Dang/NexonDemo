@@ -13,7 +13,7 @@ const login: NextPage = () => {
   const infoUser = useAppSelector((state: RootState) => state.userSlice);
 
   return (
-    <Layout islogo={false} title="Login_Phone" isFooter={false} isHeader={true}>
+    <Layout isLogo={false} title="Login_Phone" isFooter={false} isHeader={true}>
       <>
         {!infoUser.phone && <SendOTP />}
         {infoUser.isGetPhone && infoUser.phone && !infoUser.isVerifyOtp && (

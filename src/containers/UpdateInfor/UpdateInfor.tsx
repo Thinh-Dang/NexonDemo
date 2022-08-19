@@ -39,7 +39,6 @@ const UpdateInfor = () => {
   const handdleChangeBirthday = (date: Date, dateString: string) => {
     setBirthday(dateString);
   };
-
   return (
     <div className={styleScss.inforUserMain}>
       <Image src={imgInfor} alt="Zodinet" />

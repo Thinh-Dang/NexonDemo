@@ -1,12 +1,114 @@
+import {
+  Color,
+  HTag,
+  InputEnum,
+  OpenSettingProile,
+  OperationTypeEnum,
+  UpdateUserProfileEnum,
+} from '@/common/enums/enum';
+import { number, string } from 'yup';
+import { IUserHobbies } from './params';
+import { ICreateHobby, IUpdateUserProfile } from './services';
+
+// Component Layout
+interface IHeader {
+  isLogo: boolean;
+}
+
 // Component Layout
 interface ILayout {
-  header?: JSX.Element;
   children: JSX.Element;
-  footer?: JSX.Element;
   isHeader?: boolean;
   isFooter?: boolean;
   title: string;
-  islogo: boolean;
+  isLogo?: boolean;
+}
+
+// Component Header Page
+interface IHeaderPage {
+  hTag: HTag;
+  title: string;
+  icon?: JSX.Element;
+  colorTitle: string;
+  onIconClick?: () => void;
+}
+
+// Component Setting Info
+interface ISettingInfor {
+  title: string;
+  content: string | undefined;
+  onIconClick: (type: OpenSettingProile) => void;
+  type: OpenSettingProile;
+}
+
+// Component Info Item
+interface IInfoItem {
+  icon: JSX.Element;
+  title: string;
+  value: string | number;
+  onIconClick: (type: OpenSettingProile) => void;
+  type: OpenSettingProile;
+}
+
+// Component Section Title
+interface ISectionTitle {
+  title: string;
+  editTitle?: string;
+  marginBottom?: number;
+  settingType?: OpenSettingProile;
+  onEditClick?: (type: OpenSettingProile) => void;
+}
+
+// Component Item Hobby
+interface IItemHobby {
+  title: string;
+  color: Color;
+  value?: string;
+  icon?: string;
+  onIconClick?: (value: string) => void;
+}
+
+// Component Card
+interface ICard {
+  height: number;
+  children?: JSX.Element;
+}
+
+// Compoenent Item Reason
+interface IItemReason {
+  icon: string;
+  title: string;
+  subTitle: string;
+  checked?: boolean;
+  value: string;
+  onChange?: (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
+}
+
+// Component Setting Description
+interface ISettingDescription {
+  defaultValue: string;
+  setDescription: () => void;
+}
+
+// Component Input Container
+interface IInputContainer {
+  children: JSX.Element;
+  label: string;
+}
+
+// Component Reason Popup
+interface IReasonPopUp {
+  purposes: IPurpose[];
+  userPurposeId: string;
+  onChange: (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
 }
 
 // Component InfoUserChat
@@ -54,15 +156,4 @@ interface IButton {
   btnClass?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isHaveIcon?: boolean;
-}
-interface IMyInput {
-  handleChange?: (e: any) => void;
-  handleBlur?: (e: any) => void;
-  isInput?: boolean;
-  txtLabel?: string;
-  txtPlaceholder?: string;
-  isDatePicker?: boolean;
-  isSelection?: boolean;
-  name?: string;
-  handleChangeDatePicker?: (date: any, dateString: any) => void;
 }
