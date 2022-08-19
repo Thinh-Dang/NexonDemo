@@ -1,0 +1,23 @@
+@import '../../styles/init/variables';
+
+.sectionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-title {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: $clr-neutral-100;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  &-editTitle {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    margin: 0;
+    color: $clr-primary-90;
+    font-weight: 400;
+  }
+}

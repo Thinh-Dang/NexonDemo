@@ -1,25 +1,17 @@
 import { DatePicker, Select } from 'antd';
 import Input from 'antd/lib/input/Input';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import styleCss from './MyInput.module.scss';
-import iconDate from '../../../public/assets/Calendar.svg';
+import { FC, useEffect, useState } from 'react';
 import iconArrowDown from '../../../public/assets/arrow-down.svg';
+import iconDate from '../../../public/assets/Calendar.svg';
+import styleCss from './MyInput.module.scss';
 
 import { Option } from 'antd/lib/mentions';
+import moment from 'moment';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-type Props = {
-  handleChange?: (e: any) => void;
-  handleBlur?: (e: any) => void;
-  isInput?: boolean;
-  txtLabel?: string;
-  txtPlaceholder?: string;
-  isDatePicker?: boolean;
-  isSelection?: boolean;
-  name?: string;
-};
-const MyInput = ({
+
+const MyInput: FC<IMyInput> = ({
   isInput,
   txtLabel,
   txtPlaceholder,
@@ -28,7 +20,8 @@ const MyInput = ({
   name,
   handleChange,
   handleBlur,
-}: Props) => {
+  handleChangeDatePicker,
+}) => {
   const [timerSeconds, setTimerSeconds] = useState<string>();
   const [timerMinutes, setTimerMinus] = useState<string>();
 
@@ -75,6 +68,9 @@ const MyInput = ({
           <span style={{ color: '#FE5D5D' }}>*</span>
         </label>
         <Input
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name={name}
           placeholder={txtPlaceholder}
           className={styleCss.groupInput__input}
         />
@@ -87,9 +83,11 @@ const MyInput = ({
       <div className={styleCss.groupInput}>
         <p className={styleCss.groupInput__label}>Năm sinh</p>
         <DatePicker
+          name={name}
+          onChange={handleChangeDatePicker}
           clearIcon={false}
           format={'DD/MM/YYYY'}
-          placeholder={'20/11/1980'}
+          defaultValue={moment('18/12/1980', 'DD/MM/YYYY')}
           className={styleCss.groupInput__myDatePicker}
           suffixIcon={<Image src={iconDate} alt="Zodinet" />}
         />
@@ -103,6 +101,7 @@ const MyInput = ({
         <p className={styleCss.groupInput__label}>Giới Tính</p>
         <div>
           <Select
+            onChange={handleChange}
             bordered={false}
             defaultValue="Other"
             suffixIcon={<Image src={iconArrowDown} alt="zodinet" />}

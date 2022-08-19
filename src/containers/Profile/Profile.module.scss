@@ -1,0 +1,132 @@
+@import '../../styles/init/variables';
+
+.profileFrame {
+  padding: 0 16px;
+  position: relative;
+
+  &-simpleInfo {
+    margin-top: 10px;
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+
+    &-image {
+      border-radius: 12px;
+    }
+
+    &-nameAndAge {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 2.6rem;
+    }
+
+    &-reasonHere {
+      margin: 0;
+      font-weight: 400;
+      line-height: 1.8rem;
+      color: $clr-neutral-100;
+      opacity: 0.5;
+      font-size: 1.4rem;
+    }
+  }
+
+  &-album {
+    margin-top: 34px;
+
+    &-image {
+      border-radius: 8px;
+
+      &-count {
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      &-count::after {
+        position: absolute;
+        content: '';
+        background-color: $clr-neutral-80;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        opacity: 0.5;
+        top: 0;
+      }
+    }
+
+    &-remain {
+      display: inline;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+      color: white;
+      margin: 0;
+    }
+
+    &-upload {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px $clr-neutral-20 dashed;
+      border-radius: 8px;
+      height: calc((100vw - 62px) / 3);
+
+      &-icon {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    &-upload:hover {
+      border-color: $clr-primary-100;
+    }
+  }
+
+  &-settingInfo {
+    margin-top: 32px;
+  }
+
+  &-info {
+    margin-top: 16px;
+
+    &-infoItems {
+      display: grid;
+      row-gap: 8px;
+    }
+  }
+
+  &-hobby {
+    padding: 8px 0;
+    margin-top: 35px;
+    padding-bottom: 131px;
+
+    &-hobbyItems {
+      display: flex;
+      column-gap: 8px;
+      row-gap: 10px;
+      flex-wrap: wrap;
+    }
+  }
+
+  &-card {
+    transform: translateY(0) !important;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: $clr-neutral-40;
+    transition: overlay 10s ease-in-out;
+    opacity: 0;
+
+    &-show {
+      opacity: 0.5 !important;
+    }
+  }
+}

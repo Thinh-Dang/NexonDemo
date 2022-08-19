@@ -1,0 +1,37 @@
+@import '../../styles/init/variables';
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+
+  &-spacing {
+    display: flex;
+    column-gap: 4px;
+    align-items: center;
+  }
+
+  &-title {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    margin: 0;
+    font-weight: 500;
+    color: $clr-neutral-100;
+  }
+
+  &-value {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    height: fit-content;
+    font-weight: 400;
+    color: $clr-neutral-40;
+  }
+
+  &-arrowLeft {
+    height: fit-content;
+    padding: 3px 4px 3px 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
