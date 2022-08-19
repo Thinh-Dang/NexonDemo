@@ -1,32 +1,35 @@
 import axiosApiCall from '@/utils/api';
+
 import { Method } from '@/common/enums/enum';
 
 const chatApi = {
-  getListFriends: async (userId: string) => {
-    const url = `user-friends/${userId}`;
+  getListFriends: async () => {
+    const url = `secure/user-friends`;
+
     return await axiosApiCall(url, Method.get);
   },
-  getFriendByUserIdAndFriendId: async (userId: string, friendId: string) => {
-    const url = `user-friends?userId=${userId}&friendId=${friendId}`;
+
+  getFriendByUserIdAndFriendId: async (friendId: string) => {
+    const url = `secure/user-friends/${friendId}`;
+
     return await axiosApiCall(url, Method.get);
   },
-  getConversationsByUserIdAndFriendId: async (
-    userId: string,
-    friendId: string,
-  ) => {
-    const url = `chat/conversations?userId=${userId}&friendId=${friendId}`;
+
+  getConversationsByUserIdAndFriendId: async (friendId: string) => {
+    const url = `secure/chat/conversations/${friendId}`;
+
     return await axiosApiCall(url, Method.get);
   },
-  getConversationsByUserId: async (userId: string) => {
-    const url = `chat/conversations/${userId}`;
+
+  getConversationsByUserId: async () => {
+    const url = `secure/chat/conversations`;
+
     return await axiosApiCall(url, Method.get);
   },
-  getFriendByConversationId: async (conversationId: string) => {
-    const url = `chat/friend/${conversationId}`;
-    return await axiosApiCall(url, Method.get);
-  },
+
   getMessageByConversationId: async (conversationId: string) => {
-    const url = `chat/message/${conversationId}`;
+    const url = `secure/chat/message/${conversationId}`;
+
     return await axiosApiCall(url, Method.get);
   },
 };

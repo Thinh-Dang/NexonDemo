@@ -1,0 +1,16 @@
+/* Variables Color */
+/* Variables Font Family */
+.tags {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  background-color: #f4f4f6;
+  border-radius: 25px;
+  padding: 4px 16px 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+} /*# sourceMappingURL=Tags.module.css.map */

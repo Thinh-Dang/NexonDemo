@@ -124,7 +124,6 @@ interface IItemContentChat {
   content: string;
   type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
 }
-
 // Component ItemChatSlider
 interface IItemChatSlider {
   id: string;
@@ -156,4 +155,34 @@ interface IButton {
   btnClass?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isHaveIcon?: boolean;
+}
+// Component IMap
+interface IMap {
+  lat: number;
+  lng: number;
+}
+// Component IMarker
+interface IMarkers {
+  coord: IMap;
+  icon: unknow;
+  friendInfo?: IGetFriendNearUser;
+}
+// Component IListMarkers
+interface IListMarkers {
+  friendsNearUser: IGetFriendNearUser[];
+}
+// Component ITags
+interface ITags {
+  icon: string;
+  title: string;
+  bg_color?: string;
+  color: string;
+  name: string;
+  width: string;
+  height: string;
+}
+
+// Component FriendInfo
+interface IFriend {
+  friendInfo: IGetFriendNearUser | null;
 }

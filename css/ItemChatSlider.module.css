@@ -1,0 +1,20 @@
+/* Variables Color */
+/* Variables Font Family */
+.itemChatSlider {
+  scroll-snap-align: start;
+}
+.itemChatSlider__img {
+  border-radius: 1.2rem 1.2rem 0 0;
+  width: 100%;
+}
+.itemChatSlider__content {
+  background-color: #fff;
+  border: 1px solid #eae9ed;
+  border-radius: 0 0 1.2rem 1.2rem;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+} /*# sourceMappingURL=ItemChatSlider.module.css.map */

@@ -38,6 +38,7 @@ import {
   SettingIcon,
   WhiteWineIcon,
 } from '@/components/icon';
+import Loading from '@/components/Loading/Loading';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   createUserHobby,
@@ -534,6 +535,6 @@ export const Profile = () => {
       ></div>
     </section>
   ) : (
-    <div>LoadingProps..</div>
+    <Loading />
   );
 };

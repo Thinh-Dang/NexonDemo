@@ -1,11 +1,10 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import style from './Layout.module.scss';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useAppSelector, RootState, useAppDispatch } from '@/redux';
-import { Footer } from '../common';
-import Header from '../common/Header/Header';
+import { Footer, Header } from '../common';
 import Loading from '../Loading/Loading';
 import { getProfile } from '@/redux/slice/userSlice';
 import { ILayout } from '@/@type/components';
@@ -20,19 +19,31 @@ export const Layout: FC<ILayout> = ({
   const router = useRouter();
   const location = router.pathname;
   const dispatch = useAppDispatch();
+  const [isFetch, setIsFectch] = useState(false);
   const isLogin = useAppSelector((state: RootState) => state.userSlice.isLogin);
 
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch, location]);
+  const fecthInfo = async () => {
+    const check = (await dispatch(getProfile())).payload;
 
-  if (!isLogin && location !== '/auth/login' && location !== '/') {
-    router.push('/');
+    if (check) {
+      setIsFectch(true);
+    }
+  };
+
+  useEffect(() => {
+    fecthInfo();
+  }, []);
+
+  if (!isFetch) {
     return <Loading />;
   }
 
+  if (!isLogin && location !== '/auth/login' && location !== '/') {
+    router.push('/');
+  }
+
   if (isLogin && location === '/auth/login') {
-    router.push('/chat');
+    router.push('/finding');
     return <Loading />;
   }
 

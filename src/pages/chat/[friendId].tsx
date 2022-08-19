@@ -6,9 +6,11 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { ChatContent } from '@/containers';
 
 import chatApi from '../../services/chat.api';
+import { RootState, useAppSelector } from '@/redux';
 
 const ChatContentPage: NextPage = () => {
   const router = useRouter();
+
   const { friendId } = router.query;
   const url = process.env.NEXT_PUBLIC_SOCKET_URL ?? '';
 
@@ -17,9 +19,8 @@ const ChatContentPage: NextPage = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [contentChat, setContentChat] = useState<string>('');
 
-  const userId = '975f0925-ff12-498e-b3ca-8ecdef0a4ae9';
   const socketRef = useRef<Socket>();
-
+  const userId = '899d0ebd-93ee-4a6a-88f4-7f0bb7b133f0';
   // Init Socket
   useEffect(() => {
     socketRef.current = io(url, {
@@ -64,7 +65,7 @@ const ChatContentPage: NextPage = () => {
   const getConversation = useCallback(() => {
     if (friendId) {
       chatApi
-        .getConversationsByUserIdAndFriendId(userId, friendId as string)
+        .getConversationsByUserIdAndFriendId(friendId as string)
         .then((data) => {
           if (data.status) {
             setConversationId(data.data.id);
@@ -76,15 +77,13 @@ const ChatContentPage: NextPage = () => {
   // Get List Friends
   const getFriendInfo = useCallback(() => {
     if (friendId) {
-      chatApi
-        .getFriendByUserIdAndFriendId(userId, friendId as string)
-        .then((data) => {
-          if (data.status) {
-            setInfoFriend({ ...{}, ...data.data });
-          } else {
-            router.push('/chat');
-          }
-        });
+      chatApi.getFriendByUserIdAndFriendId(friendId as string).then((data) => {
+        if (data.status) {
+          setInfoFriend({ ...{}, ...data.data });
+        } else {
+          router.push('/chat');
+        }
+      });
     }
   }, [friendId, router]);
 

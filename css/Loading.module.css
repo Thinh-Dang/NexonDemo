@@ -1,0 +1,12 @@
+/* Variables Color */
+/* Variables Font Family */
+.loading {
+  background-color: #7a56fe;
+  height: 100vh;
+}
+.loading__title {
+  text-align: center;
+  line-height: 100vh;
+  font-weight: 800;
+  color: #fff;
+} /*# sourceMappingURL=Loading.module.css.map */

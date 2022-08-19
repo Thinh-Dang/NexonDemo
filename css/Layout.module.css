@@ -1,0 +1,12 @@
+.layout {
+  position: relative;
+}
+.layout__children {
+  display: block;
+}
+.layout__alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+} /*# sourceMappingURL=Layout.module.css.map */
