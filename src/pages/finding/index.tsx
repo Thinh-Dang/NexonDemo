@@ -55,7 +55,12 @@ const FindingPage = () => {
   const onDislike = (id: string) => {};
   const onCheckInfo = (user: IUserNearby) => {};
   return (
-    <Layout title="Find stranger" isHeader={false} isFooter={true}>
+    <Layout
+      isLogo={false}
+      title="Find stranger"
+      isHeader={false}
+      isFooter={true}
+    >
       <div className="findingPage">
         <div className="findingPage-header">
           <h2 className="findingPage-header-brandName">Binace</h2>
@@ -72,11 +77,11 @@ const FindingPage = () => {
           creativeEffect={{
             prev: {
               shadow: true,
-              translate: ['-120%', 0, -500],
+              translate: ['-130%', 0, -500],
             },
             next: {
               shadow: true,
-              translate: ['120%', 0, -500],
+              translate: ['130%', 0, -500],
             },
           }}
           modules={[EffectCreative]}
