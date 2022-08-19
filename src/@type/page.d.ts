@@ -19,8 +19,6 @@ interface IFormRegisterPage {
   email: string;
   birthday: string;
   gender: string;
-  avatar: string;
-  is_verify: boolean;
 }
 
 interface ILoginWithSocialPage {

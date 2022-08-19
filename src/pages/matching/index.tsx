@@ -1,5 +1,7 @@
-import { url } from 'inspector';
-import React, { useEffect, useState } from 'react';
+import { Layout } from '@/components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import HeartContainer from './components/heart-container';
 export interface IMatchedFriends {
   id: string;
@@ -7,6 +9,7 @@ export interface IMatchedFriends {
 }
 const MatchPage = () => {
   const [greetMessage, setGreetMessage] = useState('');
+  const router = useRouter();
   const [matchedFriends, setMatchedFriends] = useState([
     {
       id: '1',
@@ -57,57 +60,59 @@ const MatchPage = () => {
   ]);
   const handleOnChange = (e: any) => {
     setGreetMessage(e.target.value);
-    console.log(greetMessage);
   };
   const handleSkip = () => {
     const arr = [...matchedFriends];
 
     if (arr.length < 2) {
-      window.location.href = './chat';
+      router.push('/chat');
       return;
     }
 
     arr.shift();
     setMatchedFriends(arr);
-    console.log(matchedFriends);
   };
   return (
-    <div className="matchingFrame">
-      <a href="./chat">
-        <img
-          className="matchingFrame-btnClose"
-          src="./assets/images/CloseBtn.svg"
-          alt=""
-        />
-      </a>
-      <HeartContainer matchedFriend={matchedFriends && matchedFriends[0]} />
-      <div className="matchingFrame-content">
-        <h2 className="matchingFrame-content-title">IT'S A MATCH</h2>
-        <p className="matchingFrame-content-message">
-          Đừng để cô ấy phải đợi, <br />
-          gửi lời chào ngay!
-        </p>
+    <Layout title="Matching" isFooter={false} isHeader={false}>
+      <div className="matchingFrame">
+        <Link href="/chat">
+          <a>
+            <img
+              className="matchingFrame-btnClose"
+              src="./assets/images/CloseBtn.svg"
+              alt=""
+            />
+          </a>
+        </Link>
+        <HeartContainer matchedFriend={matchedFriends && matchedFriends[0]} />
+        <div className="matchingFrame-content">
+          <h2 className="matchingFrame-content-title">IT'S A MATCH</h2>
+          <p className="matchingFrame-content-message">
+            Đừng để cô ấy phải đợi, <br />
+            gửi lời chào ngay!
+          </p>
+        </div>
+        <div className="matchingFrame-handle">
+          <form action="" className="matchingFrame-handle-form">
+            <input
+              className="matchingFrame-input"
+              type="text"
+              onChange={handleOnChange}
+              value={greetMessage}
+              placeholder="Gửi lời chào"
+            />
+            <button
+              style={{ backgroundImage: `url('./assets/images/send.svg')` }}
+              type="submit"
+              className="matchingFrame-input-send"
+            ></button>
+          </form>
+          <button onClick={handleSkip} className="matchingFrame-skip">
+            Skip
+          </button>
+        </div>
       </div>
-      <div className="matchingFrame-handle">
-        <form action="" className="matchingFrame-handle-form">
-          <input
-            className="matchingFrame-input"
-            type="text"
-            onChange={handleOnChange}
-            value={greetMessage}
-            placeholder="Gửi lời chào"
-          />
-          <button
-            style={{ backgroundImage: `url('./assets/images/send.svg')` }}
-            type="submit"
-            className="matchingFrame-input-send"
-          ></button>
-        </form>
-        <button onClick={handleSkip} className="matchingFrame-skip">
-          Skip
-        </button>
-      </div>
-    </div>
+    </Layout>
   );
 };
 

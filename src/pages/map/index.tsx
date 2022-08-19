@@ -1,3 +1,4 @@
+import Loading from '@/components/Loading/Loading';
 import MapLocationContainer from '@/containers/MapLocation/MapLocation';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
@@ -34,7 +35,7 @@ const MapPage: FC = () => {
   return userPosition.lat !== 0 && userPosition.lng !== 0 ? (
     <MapLocationContainer />
   ) : (
-    <>Chờ màn hình</>
+    <Loading />
   );
 };
 

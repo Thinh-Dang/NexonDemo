@@ -1,7 +1,6 @@
 import { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import '@/styles/global.scss';
-
 import { Provider } from 'react-redux';
 import { SessionProvider } from 'next-auth/react';
 import { store, persistor } from '../redux/store';

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -23,10 +24,12 @@ const FooterItem = ({ item }: IProps) => {
     item.iconUrl = `./assets/images/${item.lable}.svg`;
   }
   return (
-    <a href={item?.href} style={{ color: item.color }} className="footer-item">
-      <img className="footer-item-icon" src={item.iconUrl} alt="icon" />
-      <span className="footer-item-content">{item.content}</span>
-    </a>
+    <Link href={item?.href}>
+      <a style={{ color: item.color }} className="footer-item">
+        <img className="footer-item-icon" src={item.iconUrl} alt="icon" />
+        <span className="footer-item-content">{item.content}</span>
+      </a>
+    </Link>
   );
 };
 
