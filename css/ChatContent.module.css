@@ -3,19 +3,30 @@
 .chatContent {
   padding: 0 1.6rem;
   position: relative;
+  max-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .chatContent__content {
-  padding: 3.2rem 0;
+  padding-top: 3.2rem;
+  padding-right: 0.5rem;
+  min-height: 70vh;
+  overflow-y: auto;
+  scroll-behavior: revert;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .chatContent__func {
   display: flex;
   justify-content: center;
   align-items: center;
   justify-content: space-evenly;
-  position: fixed;
+  width: 100%;
   margin-top: 1.6rem;
   padding: 1.6rem 0.8rem;
-  width: 100%;
+  background-color: #fff;
 }
 .chatContent__btn {
   display: flex;

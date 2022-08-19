@@ -17,7 +17,7 @@ const MapLocationContainer: FC = () => {
   );
 
   return (
-    <Layout title="Map location" isHeader={false} isFooter={false}>
+    <Layout title="Map location" isHeader={false} isFooter={true}>
       <div className={styles.map_location}>
         <MapLocationHead title="Home" description="" url="" ogImage="" />
         <MapWithNoSSR />

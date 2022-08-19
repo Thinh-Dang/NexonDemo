@@ -6,7 +6,7 @@ import {
 } from '@/redux/slice/mapLocationSlice';
 import { FC, useEffect } from 'react';
 
-const MapLocationPage: FC = () => {
+const MapPage: FC = () => {
   const dispatch = useAppDispatch();
   const { userPosition } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
@@ -38,4 +38,4 @@ const MapLocationPage: FC = () => {
   );
 };
 
-export default MapLocationPage;
+export default MapPage;

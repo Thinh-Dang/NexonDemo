@@ -1,0 +1,36 @@
+/* Variables Color */
+/* Variables Font Family */
+.inforUserMain {
+  margin-top: 4.8rem;
+}
+.inforUserMain__content {
+  margin-bottom: 2.4rem;
+}
+.inforUserMain__content h3 {
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.6rem;
+}
+.inforUserMain__content p {
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+}
+.inforUserMain__form__group {
+  margin-bottom: 14.2rem;
+}
+.inforUserMain__form__btn {
+  width: 100%;
+  text-align: center;
+  background-color: #7a56fe;
+  border-radius: 1.3rem !important;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: #fff;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+.inforUserMain__form__btn:hover {
+  background-color: #663dfe;
+} /*# sourceMappingURL=UpdateInfor.module.css.map */

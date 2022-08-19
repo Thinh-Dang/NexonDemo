@@ -1,12 +1,15 @@
 // Component Layout
+interface IHeader {
+  isLogo: boolean;
+}
+
+// Component Layout
 interface ILayout {
-  header?: JSX.Element;
   children: JSX.Element;
-  footer?: JSX.Element;
   isHeader?: boolean;
   isFooter?: boolean;
   title: string;
-  islogo: boolean;
+  isLogo?: boolean;
 }
 
 // Component InfoUserChat
@@ -82,5 +85,5 @@ interface ITags {
 
 // Component FriendInfo
 interface IFriend {
-  friendInfo: IGetFriendNearUser;
+  friendInfo: IGetFriendNearUser | null;
 }

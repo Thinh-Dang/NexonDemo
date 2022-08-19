@@ -6,15 +6,7 @@ const initialState: IInitialStateMapLocation = {
   centerPosition: { lat: 0, lng: 0 },
   userPosition: { lat: 0, lng: 0 },
   friendsNearUser: [],
-  friendInfo: {
-    friendId: '',
-    friendName: '',
-    friendBirthday: '',
-    friendAvatar: '',
-    latitude: 0,
-    longtitude: 0,
-    distance: 0,
-  },
+  friendInfo: null,
   zoomLevel: 16,
 };
 

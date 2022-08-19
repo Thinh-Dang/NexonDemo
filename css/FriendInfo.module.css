@@ -24,6 +24,8 @@
 }
 .container .friend_info__div_image__image {
   border-radius: 20px;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 .container__icon_info {
   padding-right: 8px;

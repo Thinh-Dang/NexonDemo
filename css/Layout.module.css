@@ -1,3 +1,6 @@
+.layout {
+  position: relative;
+}
 .layout__children {
   display: block;
 }

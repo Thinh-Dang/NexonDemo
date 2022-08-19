@@ -63,7 +63,7 @@ interface IInitialStateMapLocation {
   centerPosition: IMap;
   userPosition: IMap;
   friendsNearUser: IGetFriendNearUser[];
-  friendInfo: IGetFriendNearUser;
+  friendInfo: IGetFriendNearUser | null;
   zoomLevel: number;
 }
 interface IGetFriendNearUser {
