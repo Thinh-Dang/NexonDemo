@@ -1,18 +1,19 @@
-import { ISettingHobby } from '@/@type/components';
-import { IUserHobbies } from '@/@type/params';
-import { ICreateHobby } from '@/@type/services';
-import { InputEnum } from '@/common/enums/enum';
-import { pickColor } from '@/utils';
-import { Form } from 'antd';
-import { FC, useCallback, useRef, useState } from 'react';
-import { InputContainer, MyButton, MyInput } from '../common';
-import { ItemHobby } from '../ItemHobby/ItemHobby';
+import { FC, useCallback } from 'react';
 import styleCss from './SettingHobby.module.scss';
+
+import { Form } from 'antd';
+import { pickColor } from '@/utils';
+import { InputEnum } from '@/common/enums/enum';
+import { ICreateHobby } from '@/@type/services';
+
+import { ISettingHobby } from '@/@type/components';
+import { ItemHobby } from '../ItemHobby/ItemHobby';
+import { InputContainer, MyButton, MyInput } from '../common';
 
 export const SettingHobby: FC<ISettingHobby> = ({
   hobbies,
   onCreate,
-  onDetele,
+  onDelele,
 }) => {
   const handleCreate = useCallback((value: ICreateHobby) => {
     onCreate(value);
@@ -28,7 +29,7 @@ export const SettingHobby: FC<ISettingHobby> = ({
             color={pickColor(index)}
             icon={'/assets/images/Close.svg'}
             value={item.id}
-            onIconClick={onDetele}
+            onIconClick={onDelele}
           />
         ))}
       </div>

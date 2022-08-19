@@ -110,7 +110,7 @@ export enum InputEnum {
   EMAIL = 'email',
 }
 
-export enum OpenSettingProile {
+export enum OpenSettingProfile {
   REASON = 'reason',
   DESCRIPTION = 'description',
   HEIGHT = 'height',

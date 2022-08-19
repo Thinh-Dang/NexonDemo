@@ -1,6 +1,7 @@
-import { IMyButton } from '@/@type/components';
 import { FC } from 'react';
 import styleCss from './MyButton.module.scss';
+
+import { IMyButton } from '@/@type/components';
 
 export const MyButton: FC<IMyButton> = ({ title, type }) => {
   if (type == 'submit')
@@ -9,12 +10,14 @@ export const MyButton: FC<IMyButton> = ({ title, type }) => {
         {title}
       </button>
     );
+
   if (type == 'reset')
     return (
       <button className={styleCss.myButton} type={'reset'}>
         {title}
       </button>
     );
+
   return (
     <button className={styleCss.myButton} type={'button'}>
       {title}

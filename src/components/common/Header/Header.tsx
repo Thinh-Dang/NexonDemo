@@ -11,6 +11,7 @@ import inconHeader from '../../../../public/assets/back-icon.svg';
 export const Header: FC<IHeader> = ({ isLogo }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
   return (
     <div className={styleScss.header}>
       {isLogo ? (

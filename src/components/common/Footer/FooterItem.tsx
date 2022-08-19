@@ -22,6 +22,7 @@ const FooterItem = ({ item }: IProps) => {
     item.color = '#A7ADB2';
     item.iconUrl = `./assets/images/${item.lable}.svg`;
   }
+
   return (
     <a href={item?.href} style={{ color: item.color }} className="footer-item">
       <img className="footer-item-icon" src={item.iconUrl} alt="icon" />

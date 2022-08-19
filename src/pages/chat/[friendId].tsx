@@ -17,7 +17,6 @@ const ChatContentPage: NextPage = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [contentChat, setContentChat] = useState<string>('');
 
-  const userId = '975f0925-ff12-498e-b3ca-8ecdef0a4ae9';
   const socketRef = useRef<Socket>();
 
   // Init Socket

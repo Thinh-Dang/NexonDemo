@@ -2,15 +2,13 @@ import {
   Color,
   HTag,
   InputEnum,
-  OpenSettingProile,
-  OperationTypeEnum,
+  OpenSettingProfile,
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
-import { number, string } from 'yup';
 import { IUserHobbies } from './params';
 import { ICreateHobby, IUpdateUserProfile } from './services';
 
-// Component Layout
+// Component Header
 interface IHeader {
   isLogo: boolean;
 }
@@ -37,8 +35,8 @@ interface IHeaderPage {
 interface ISettingInfor {
   title: string;
   content: string | undefined;
-  onIconClick: (type: OpenSettingProile) => void;
-  type: OpenSettingProile;
+  onIconClick: (type: OpenSettingProfile) => void;
+  type: OpenSettingProfile;
 }
 
 // Component Info Item
@@ -46,8 +44,8 @@ interface IInfoItem {
   icon: JSX.Element;
   title: string;
   value: string | number;
-  onIconClick: (type: OpenSettingProile) => void;
-  type: OpenSettingProile;
+  onIconClick: (type: OpenSettingProfile) => void;
+  type: OpenSettingProfile;
 }
 
 // Component Section Title
@@ -55,8 +53,8 @@ interface ISectionTitle {
   title: string;
   editTitle?: string;
   marginBottom?: number;
-  settingType?: OpenSettingProile;
-  onEditClick?: (type: OpenSettingProile) => void;
+  settingType?: OpenSettingProfile;
+  onEditClick?: (type: OpenSettingProfile) => void;
 }
 
 // Component Item Hobby
@@ -70,7 +68,7 @@ interface IItemHobby {
 
 // Component Card
 interface ICard {
-  height: number;
+  height: string;
   children?: JSX.Element;
 }
 
@@ -141,11 +139,15 @@ interface IItemMessageChat {
   content: string;
   createAt: Date;
 }
+
+// Component Content
 interface IContent {
   contentTitle: string;
   contentText: string;
   classContent: string;
 }
+
+// Component Button
 interface IButton {
   type: any;
   id?: string;
@@ -156,4 +158,50 @@ interface IButton {
   btnClass?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isHaveIcon?: boolean;
+}
+
+// Component My Input
+interface IMyInput {
+  type: InputEnum;
+  initValue: string | number;
+  isTextArea?: boolean;
+}
+
+// Component My Button
+interface IMyButton {
+  title: string;
+  type: string;
+}
+
+// Component Setting Height
+interface ISettingWithInput {
+  defaultValue: number | string;
+  type: InputEnum;
+  title: string;
+  name: string;
+  isTextArea?: boolean;
+  onSubmit: (value: IUpdateUserProfile) => void;
+  settingType: UpdateUserProfileEnum;
+}
+
+// Component Setting With Select
+interface ISettingWithSelect {
+  defaultValue: string | number;
+  title: string;
+  name: string;
+  source: ISettingSource[];
+  settingType: UpdateUserProfileEnum;
+  onSubmit: (value: IUpdateUserProfile) => void;
+}
+
+// Component My Select
+interface IMySelect {
+  defaultValue?: string | number;
+  source: ISettingSource[];
+}
+
+interface ISettingHobby {
+  hobbies: IUserHobbies[];
+  onCreate: (value: ICreateHobby) => void;
+  onDelele: (value: string) => void;
 }
