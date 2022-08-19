@@ -8,34 +8,19 @@ import imgFlagVN from '../../../public/assets/flag-vn.svg';
 import { Input, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { useAppDispatch } from '@/redux';
 import { addPhoneNumber, callAPISendOTP } from '@/redux/slice/userSlice';
-import Swal from 'sweetalert2';
 import { phoneValidationSchema } from '@/Validation/Validations';
-import { IResponse } from '@/@type/responses';
 
 const SendOTP = () => {
   const dispatch = useAppDispatch();
-  const { isStatusApi } = useAppSelector((state: RootState) => state.userSlice);
 
   const { handleBlur, errors, handleChange, values, handleSubmit, touched } =
     useFormik({
       initialValues: { phone: '' },
       onSubmit: async (values) => {
         dispatch(addPhoneNumber(values));
-        const result = (await dispatch(callAPISendOTP(values)))
-          .payload as IResponse;
-        console.log(result.status);
-        if (result.status) {
-          Swal.fire('Good job!', 'You clicked the button!', 'success');
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>',
-          });
-        }
+        dispatch(callAPISendOTP(values));
       },
       validationSchema: phoneValidationSchema,
     });
@@ -43,6 +28,7 @@ const SendOTP = () => {
   return (
     <div className={styleScss.sendOTP}>
       <Image src={imgFillPhone} alt="Zodinet" />
+
       <Content
         classContent={styleScss.sendOTP__content}
         contentTitle="Nhập số điện thoại để tiếp tục"
@@ -54,7 +40,7 @@ const SendOTP = () => {
             <Image src={imgFlagVN} alt="Zodinet" />
           </div>
           <Input
-            maxLength={11}
+            maxLength={10}
             value={values.phone}
             placeholder="Nhập số điện thoại"
             name="phone"
@@ -63,13 +49,15 @@ const SendOTP = () => {
           />
         </div>
         {touched.phone && errors.phone && (
-          <Tag
-            className={styleScss.sendOTP__error__message}
-            icon={<CloseCircleOutlined />}
-            color="error"
-          >
-            {errors.phone}
-          </Tag>
+          <div>
+            <Tag
+              className={styleScss.sendOTP__error__message}
+              icon={<CloseCircleOutlined />}
+              color="error"
+            >
+              {errors.phone}
+            </Tag>
+          </div>
         )}
         <Button
           btnClass=""

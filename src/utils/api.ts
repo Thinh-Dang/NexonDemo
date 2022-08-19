@@ -16,7 +16,7 @@ http.interceptors.request.use(
     if (config.headers === undefined) {
       config.headers = {};
     } else if (url?.includes(`secure`)) {
-      const token: string | undefined = getItemLocalStorage(`access-token`);
+      const token: string | undefined = getItemLocalStorage(`token`);
       config.headers.authorization = token ? `Bearer ` + token : ``;
     }
     return config;

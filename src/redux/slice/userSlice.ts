@@ -13,6 +13,17 @@ export const callAPIVerifyCode = createAsyncThunk(
     return await userApi.verifyOTP(requestOption).then((res) => res);
   },
 );
+export const callAPIUpdateUser = createAsyncThunk(
+  'users/update-dream-team',
+  async (requestOption: IFormRegisterPage) => {
+    return await userApi
+      .createUserWithPhoneNumber(requestOption)
+      .then((res) => res);
+  },
+);
+export const getProfile = createAsyncThunk('auth/profile', async () => {
+  return await userApi.getProfile().then((res) => res);
+});
 
 const initialState: IInitialStateUser = {
   isStatusApi: false,
@@ -87,8 +98,26 @@ export const userSlice = createSlice({
     });
     builder.addCase(callAPIVerifyCode.fulfilled, (state, action) => {
       if (action.payload.status) {
-        state.isVerifyOtp = true;
+        if (action.payload.data === null) {
+          state.isVerifyOtp = true;
+        } else {
+          localStorage.setItem('token', action.payload.data);
+          state.isLogin = true;
+        }
       }
+    });
+    builder.addCase(callAPIUpdateUser.fulfilled, (state, action) => {
+      if (action.payload.status) {
+        console.log(action.payload);
+      }
+    });
+    builder.addCase(getProfile.fulfilled, (state, action) => {
+      if (action.payload.status) {
+        state.isLogin = true;
+      }
+    });
+    builder.addCase(getProfile.rejected, (state) => {
+      state.isLogin = false;
     });
   },
 });
