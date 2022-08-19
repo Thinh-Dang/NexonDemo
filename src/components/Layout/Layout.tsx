@@ -8,6 +8,7 @@ import { useAppSelector, RootState } from '@/redux';
 
 import { Alert } from 'antd';
 import { Footer, Header } from '../common';
+import { ILayout } from '@/@type/components';
 
 export const Layout: FC<ILayout> = ({
   children,

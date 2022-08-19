@@ -1,0 +1,15 @@
+@import '../../styles/init/variables';
+
+.card {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  padding: 51px 16px 118px 16px;
+  transform: translateY(100%);
+  z-index: 2;
+  transition: transform 0.5s ease-in-out;
+  background-color: white;
+}

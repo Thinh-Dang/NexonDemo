@@ -1,0 +1,16 @@
+.settingHobby {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__hobbies {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 100px;
+    column-gap: 8px;
+    row-gap: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 25px;
+  }
+}
