@@ -11,21 +11,17 @@ const ChatPage: NextPage = () => {
   >([]);
 
   useEffect(() => {
-    chatApi
-      .getListFriends('975f0925-ff12-498e-b3ca-8ecdef0a4ae9')
-      .then((data) => {
-        if (data.status) {
-          setChatSlider([...[], ...data.data]);
-        }
-      });
+    chatApi.getListFriends().then((data) => {
+      if (data.status) {
+        setChatSlider([...[], ...data.data]);
+      }
+    });
 
-    chatApi
-      .getConversationsByUserId('975f0925-ff12-498e-b3ca-8ecdef0a4ae9')
-      .then((data) => {
-        if (data.status) {
-          setConversationSlider([...[], ...data.data]);
-        }
-      });
+    chatApi.getConversationsByUserId().then((data) => {
+      if (data.status) {
+        setConversationSlider([...[], ...data.data]);
+      }
+    });
   }, []);
 
   return (

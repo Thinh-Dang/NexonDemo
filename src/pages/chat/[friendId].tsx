@@ -34,10 +34,13 @@ const ChatContentPage: NextPage = () => {
     };
   }, []);
 
+  console.log('socketId: ', socketRef);
+
   // Received Message
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on('message-received', (data: IMessage) => {
+        console.log('data: ', data);
         setMessages([data, ...messages]);
       });
     }
@@ -64,7 +67,7 @@ const ChatContentPage: NextPage = () => {
   const getConversation = useCallback(() => {
     if (friendId) {
       chatApi
-        .getConversationsByUserIdAndFriendId(userId, friendId as string)
+        .getConversationsByUserIdAndFriendId(friendId as string)
         .then((data) => {
           if (data.status) {
             setConversationId(data.data.id);
@@ -76,15 +79,13 @@ const ChatContentPage: NextPage = () => {
   // Get List Friends
   const getFriendInfo = useCallback(() => {
     if (friendId) {
-      chatApi
-        .getFriendByUserIdAndFriendId(userId, friendId as string)
-        .then((data) => {
-          if (data.status) {
-            setInfoFriend({ ...{}, ...data.data });
-          } else {
-            router.push('/chat');
-          }
-        });
+      chatApi.getFriendByUserIdAndFriendId(friendId as string).then((data) => {
+        if (data.status) {
+          setInfoFriend({ ...{}, ...data.data });
+        } else {
+          router.push('/chat');
+        }
+      });
     }
   }, [friendId, router]);
 
