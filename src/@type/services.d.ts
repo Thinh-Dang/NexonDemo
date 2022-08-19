@@ -1,4 +1,11 @@
-import { GenderEnum } from '../common/enums/enum';
+import {
+  AlcoholEnum,
+  EducationEnum,
+  GenderEnum,
+  MaritalStatusEnum,
+  ReligionEnum,
+  UpdateUserProfileEnum,
+} from '../common/enums/enum';
 
 // Service Login Api
 interface ILoginGoogleContextType {
@@ -62,4 +69,28 @@ interface ILoginWithOtp {
 
 interface IVerifyUserByEmail {
   email: string;
+}
+
+interface IUpdateUserProfile {
+  [s: string]: any;
+  name?: string;
+  birthday?: Date;
+  gender?: GenderEnum;
+  description?: string;
+  children?: number;
+  alcohol?: AlcoholEnum;
+  religion?: ReligionEnum;
+  height?: number;
+  maritalStatus?: MaritalStatusEnum;
+  education?: EducationEnum;
+  purposeId?: string;
+  type: UpdateUserProfileEnum;
+}
+
+interface ICreateHobby {
+  name: string;
+}
+
+interface IDeleteHobby {
+  id: string;
 }

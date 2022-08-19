@@ -1,0 +1,31 @@
+@import '../../styles/init/variables';
+
+.reasonPopUp {
+  &-head {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    margin-bottom: 40px;
+
+    &-title {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      font-weight: 700;
+      margin: 0;
+      color: $clr-neutral-100;
+    }
+
+    &-subTitle {
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      font-weight: 400;
+      margin: 0;
+      color: $clr-neutral-65;
+    }
+  }
+
+  &-reasonItems {
+    display: grid;
+    row-gap: 16px;
+  }
+}
