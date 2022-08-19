@@ -7,9 +7,7 @@ import { NextPage } from 'next';
 
 import React from 'react';
 
-type Props = {};
-
-const login: NextPage = (props: Props) => {
+const login: NextPage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const infoUser = useAppSelector((state: RootState) => state.userSlice);

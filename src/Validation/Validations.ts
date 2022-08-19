@@ -12,3 +12,10 @@ export const phoneValidationSchema = yup.object({
 export const OTPValidationSchema = yup.object({
   code: yup.string().required('Vui Lòng Nhập OTP đã được gửi'),
 });
+export const inForUserSchema = yup.object({
+  name: yup.string().required('Vui lòng nhập tên'),
+  email: yup
+    .string()
+    .required('Vui lòng nhập email')
+    .email('Vui lòng nhập đúng email'),
+});

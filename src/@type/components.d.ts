@@ -55,3 +55,14 @@ interface IButton {
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isHaveIcon?: boolean;
 }
+interface IMyInput {
+  handleChange?: (e: any) => void;
+  handleBlur?: (e: any) => void;
+  isInput?: boolean;
+  txtLabel?: string;
+  txtPlaceholder?: string;
+  isDatePicker?: boolean;
+  isSelection?: boolean;
+  name?: string;
+  handleChangeDatePicker?: (date: any, dateString: any) => void;
+}
