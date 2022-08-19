@@ -6,8 +6,8 @@ export enum Method {
 }
 
 export enum GenderEnum {
-  MALE = 'Nam',
-  FEMALE = 'Nữ',
+  MALE = 'male',
+  FEMALE = 'female',
   OTHER = 'other',
 }
 

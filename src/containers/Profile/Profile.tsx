@@ -72,19 +72,19 @@ export const Profile = () => {
   const [settingItem, setSettingItem] = useState('');
   const [purposes, setPurposes] = useState<IPurpose[]>([
     {
-      id: '9ed0b18d-fe01-4f4b-8d46-7d1e1c6c0a55',
+      id: '55f67ae4-27c1-4c85-989d-d54fec64aa1a',
       title: 'Muốn hẹn hò',
       description: 'Where there is a will, there is a way.',
       image: '/assets/images/icons8-cup 1.svg',
     },
     {
-      id: '07b77fff-b57c-4376-9da5-4365e60f9473',
+      id: 'b8c1aca0-97b6-406f-b7ea-fd3ef7d65039',
       title: 'Cần người tâm sự',
       description: 'Set your target and keep trying until you reach it.',
       image: '/assets/images/icons8-chat-room 1.svg',
     },
     {
-      id: '0a7a3d9a-cf5c-46a5-b309-60d1dfac6237',
+      id: '620a770e-9eb5-4c1c-8290-c1ecc37d40dd',
       title: 'Tìm mối quan hệ mới',
       description: 'Never leave that till tomorrow which',
       image: '/assets/icons8-kiss.svg',

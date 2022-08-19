@@ -12,12 +12,20 @@ const ChatPage: NextPage = () => {
 
   useEffect(() => {
     chatApi
-      .getListFriends('33734a5e-596d-44f3-9fb8-84800ac4b9c8')
-      .then((data) => setChatSlider([...[], ...data.data]));
+      .getListFriends('975f0925-ff12-498e-b3ca-8ecdef0a4ae9')
+      .then((data) => {
+        if (data.status) {
+          setChatSlider([...[], ...data.data]);
+        }
+      });
 
     chatApi
-      .getConversationsByUserId('33734a5e-596d-44f3-9fb8-84800ac4b9c8')
-      .then((data) => setConversationSlider([...[], ...data.data]));
+      .getConversationsByUserId('975f0925-ff12-498e-b3ca-8ecdef0a4ae9')
+      .then((data) => {
+        if (data.status) {
+          setConversationSlider([...[], ...data.data]);
+        }
+      });
   }, []);
 
   return (

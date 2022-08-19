@@ -15,7 +15,7 @@ const ProfilePage: NextPage = () => {
   }, []);
 
   return (
-    <Layout title={'Trang cá nhân'} islogo={false}>
+    <Layout title={'Trang cá nhân'} isHeader={false} isFooter={true}>
       <Profile />
     </Layout>
   );

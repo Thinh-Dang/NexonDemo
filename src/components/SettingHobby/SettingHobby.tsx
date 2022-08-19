@@ -26,7 +26,7 @@ export const SettingHobby: FC<ISettingHobby> = ({
             key={item.id}
             title={item.name}
             color={pickColor(index)}
-            icon={'/assets/Close.svg'}
+            icon={'/assets/images/Close.svg'}
             value={item.id}
             onIconClick={onDetele}
           />
