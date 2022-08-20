@@ -88,6 +88,17 @@
     height: 5.6rem;
     padding-top: 0.4rem;
   }
+
+  &__textArea {
+    background-color: $clr-neutral-5;
+    padding: 0 1rem;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    border: none;
+    border-radius: 0.8rem;
+    padding-top: 2rem;
+  }
 }
 
 .mySelectionInput {

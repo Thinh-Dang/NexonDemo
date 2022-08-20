@@ -1,15 +1,15 @@
 import { DatePicker, Select } from 'antd';
-import Input from 'antd/lib/input/Input';
+//import Input from 'antd/lib/input/Input';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import iconArrowDown from '../../../public/assets/arrow-down.svg';
 import iconDate from '../../../public/assets/Calendar.svg';
 import styleCss from './MyInput.module.scss';
+import { Input } from 'antd';
 
 import { Option } from 'antd/lib/mentions';
 import moment from 'moment';
-
-// eslint-disable-next-line @typescript-eslint/ban-types
+const { TextArea } = Input;
 
 const MyInput: FC<IMyInput> = ({
   isInput,
@@ -17,6 +17,9 @@ const MyInput: FC<IMyInput> = ({
   txtPlaceholder,
   isDatePicker,
   isSelection,
+  isTextArea,
+  type,
+  defaultValue,
   name,
   handleChange,
   handleBlur,
@@ -30,7 +33,7 @@ const MyInput: FC<IMyInput> = ({
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
-  const startTimer = () => {
+  const startTimer = (): NodeJS.Timer => {
     const countDownExp = new Date(Date.now() + 10 * 60 * 1000).getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -46,6 +49,7 @@ const MyInput: FC<IMyInput> = ({
         setTimerSeconds(newSeconds);
       }
     });
+    return interval;
   };
 
   const padWithZeros = (number: number, minLenght: number) => {
@@ -55,8 +59,33 @@ const MyInput: FC<IMyInput> = ({
   };
 
   useEffect(() => {
-    startTimer();
+    const timer = startTimer();
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
+
+  if (isTextArea) {
+    return (
+      <div className={styleCss.groupInput}>
+        <label className={styleCss.groupInput__label}>
+          {txtLabel}
+          <span style={{ color: '#FE5D5D' }}>*</span>
+        </label>
+        <TextArea
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name={name}
+          rows={6}
+          maxLength={200}
+          defaultValue={defaultValue}
+          placeholder={txtPlaceholder}
+          className={styleCss.groupInput__textArea}
+        />
+      </div>
+    );
+  }
 
   // Input normal
 
@@ -71,6 +100,8 @@ const MyInput: FC<IMyInput> = ({
           onChange={handleChange}
           onBlur={handleBlur}
           name={name}
+          type={type}
+          defaultValue={defaultValue}
           placeholder={txtPlaceholder}
           className={styleCss.groupInput__input}
         />

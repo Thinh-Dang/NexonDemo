@@ -14,12 +14,12 @@ export const SettingInfo: FC<ISettingInfor> = ({
   }, []);
 
   return (
-    <div className={styleCss.settingInfo}>
+    <div className={styleCss.settingInfo} onClick={handleClick}>
       <div>
-        <h3 className={styleCss['settingInfo-title']}>{title}</h3>
-        <span className={styleCss['settingInfo-content']}>{content}</span>
+        <h3 className={styleCss.settingInfo__title}>{title}</h3>
+        <span className={styleCss.settingInfo__content}>{content}</span>
       </div>
-      <div className={styleCss['settingInfo-icon']} onClick={handleClick}>
+      <div className={styleCss.settingInfo__icon}>
         <ArrowRightIcon />
       </div>
     </div>

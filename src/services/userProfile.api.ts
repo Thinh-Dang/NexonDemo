@@ -10,13 +10,13 @@ import axiosApiCall from '@/utils/api';
 
 const UserProfileApi = {
   getInfo: async (): Promise<IResponse<string | IUserProfile>> => {
-    const url = 'users/private/user-profile';
+    const url = 'users/secure/user-profile';
     return (await axiosApiCall(url, Method.get)) as IResponse<
       string | IUserProfile
     >;
   },
   updateInfo: async (dto: IUpdateUserProfile): Promise<IResponse<string>> => {
-    const url = 'users/update';
+    const url = 'users/secure/update';
     const res = (await axiosApiCall(url, Method.put, dto)) as IResponse<string>;
 
     return res;
@@ -24,7 +24,7 @@ const UserProfileApi = {
   createUserHobby: async (
     dto: ICreateHobby,
   ): Promise<IResponse<IUserHobbies | string>> => {
-    const url = 'users/hobbies';
+    const url = 'users/secure/hobbies';
     const res = (await axiosApiCall(url, Method.post, dto)) as IResponse<
       IUserHobbies | string
     >;
@@ -32,7 +32,7 @@ const UserProfileApi = {
     return res;
   },
   deleteUserHobby: async (dto: IDeleteHobby): Promise<IResponse<string>> => {
-    const url = 'users/hobbies';
+    const url = 'users/secure/hobbies';
     const res = (await axiosApiCall(
       url,
       Method.delete,

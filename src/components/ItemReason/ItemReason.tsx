@@ -13,13 +13,13 @@ export const ItemReason: FC<IItemReason> = ({
 }) => {
   return (
     <div className={styleCss.itemReason}>
-      <div className={styleCss['itemReason-content']}>
+      <div className={styleCss.itemReason__content}>
         <div>
           <Image width={48} height={48} alt="icon" src={icon} />
         </div>
         <div>
-          <h4 className={styleCss['itemReason-content-title']}>{title}</h4>
-          <p className={styleCss['itemReason-content-subTitle']}>{subTitle}</p>
+          <h4 className={styleCss.itemReason__content__title}>{title}</h4>
+          <p className={styleCss.itemReason__content__subTitle}>{subTitle}</p>
         </div>
       </div>
       {checked ? (
@@ -29,7 +29,7 @@ export const ItemReason: FC<IItemReason> = ({
           defaultChecked
           value={value}
           onChange={onChange}
-          className={styleCss['itemReason-radio']}
+          className={styleCss.itemReason__radio}
         />
       ) : (
         <input
@@ -37,7 +37,7 @@ export const ItemReason: FC<IItemReason> = ({
           type="radio"
           value={value}
           onChange={onChange}
-          className={styleCss['itemReason-radio']}
+          className={styleCss.itemReason__radio}
         />
       )}
     </div>

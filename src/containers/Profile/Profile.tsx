@@ -1,6 +1,6 @@
-import { IChangeUserProfile, IPurpose, IUserHobbies } from '@/@type/params';
+import { IPurpose } from '@/@type/params';
 import { IResponse } from '@/@type/responses';
-import { ICreateHobby, IUpdateUserProfile } from '@/@type/services';
+import { IUpdateUserProfile } from '@/@type/services';
 import {
   Color,
   HTag,
@@ -40,11 +40,7 @@ import {
 } from '@/components/icon';
 import Loading from '@/components/Loading/Loading';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
-import {
-  createUserHobby,
-  deleteUserHobby,
-  updateUserProfile,
-} from '@/redux/slice/userProfileSlice';
+import { updateUserProfile } from '@/redux/slice/userProfileSlice';
 import {
   calculateAge,
   ConvertAlcoholEnum,
@@ -161,26 +157,6 @@ export const Profile = () => {
     [],
   );
 
-  const handleCreateHobby = useCallback(async (value: ICreateHobby) => {
-    const res = (await dispatch(createUserHobby(value))).payload as IResponse<
-      string | IUserHobbies
-    >;
-
-    if (!res.status) alert('Create hobby fail');
-  }, []);
-
-  const handleDeleteHobby = useCallback(async (value: string) => {
-    const res = (
-      await dispatch(
-        deleteUserHobby({
-          id: value,
-        }),
-      )
-    ).payload as IResponse<string>;
-
-    if (!res.status) alert('Delete hobby fail');
-  }, []);
-
   function SwitchCase(type: string): ReactElement | undefined {
     switch (type) {
       case OpenSettingProile.REASON:
@@ -199,7 +175,7 @@ export const Profile = () => {
             title={'Giới thiệu bản thân'}
             isTextArea={true}
             name={'description'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.DESCRIPTION}
           />
         );
@@ -210,7 +186,7 @@ export const Profile = () => {
             type={InputEnum.NUMBER}
             title={'Chiều cao'}
             name={'height'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.HEIGHT}
           />
         );
@@ -221,7 +197,7 @@ export const Profile = () => {
             title={'Tình trạng hôn nhân'}
             source={MaritalSource()}
             name={'maritalStatus'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.MARITAL_STATUS}
           />
         );
@@ -232,7 +208,7 @@ export const Profile = () => {
             title={'Rựa bia'}
             name={'alcohol'}
             source={AlcoholSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.ALCOHOL}
           />
         );
@@ -243,7 +219,7 @@ export const Profile = () => {
             title={'Giới tính'}
             name={'gender'}
             source={GenderSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.GENDER}
           />
         );
@@ -254,7 +230,7 @@ export const Profile = () => {
             title={'Tôn giáo'}
             name={'religion'}
             source={ReligionSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.RELIGION}
           />
         );
@@ -265,7 +241,7 @@ export const Profile = () => {
             title={'Học vấn'}
             name={'education'}
             source={EducationSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.EDUCATION}
           />
         );
@@ -276,18 +252,12 @@ export const Profile = () => {
             type={InputEnum.NUMBER}
             title={'Trẻ con'}
             name={'children'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.CHILDREN}
           />
         );
       case OpenSettingProile.HOBBIES:
-        return (
-          <SettingHobby
-            hobbies={profile.hobbies}
-            onCreate={handleCreateHobby}
-            onDetele={handleDeleteHobby}
-          />
-        );
+        return <SettingHobby hobbies={profile.hobbies} />;
       default:
         return undefined;
     }

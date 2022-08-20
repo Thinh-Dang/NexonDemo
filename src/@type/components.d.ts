@@ -7,7 +7,7 @@ import {
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
 import { number, string } from 'yup';
-import { IUserHobbies } from './params';
+import { ISettingSource, IUserHobbies } from './params';
 import { ICreateHobby, IUpdateUserProfile } from './services';
 
 // Component Layout
@@ -68,6 +68,46 @@ interface IItemHobby {
   onIconClick?: (value: string) => void;
 }
 
+// Component My Select
+interface IMySelect {
+  title: string;
+  source: ISettingSource[];
+  defaultValue: string | number;
+  value?: string;
+  onChange?: any;
+}
+
+// Component My Input
+interface IMyInput {
+  type: InputEnum;
+  initValue: string | number;
+  isTextArea?: boolean;
+}
+
+// Component Setting With Select
+interface ISettingWithSelect {
+  defaultValue: string | number;
+  title: string;
+  name: string;
+  source: ISettingSource[];
+  settingType: UpdateUserProfileEnum;
+  onClosePopUp: () => void;
+}
+
+interface ISettingWithInput {
+  defaultValue: number | string;
+  type: InputEnum;
+  title: string;
+  name: string;
+  isTextArea?: boolean;
+  onClosePopUp: () => void;
+  settingType: UpdateUserProfileEnum;
+}
+
+interface ISettingHobby {
+  hobbies: IUserHobbies[];
+}
+
 // Component Card
 interface ICard {
   height: number;
@@ -86,12 +126,6 @@ interface IItemReason {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => void;
-}
-
-// Component Setting Description
-interface ISettingDescription {
-  defaultValue: string;
-  setDescription: () => void;
 }
 
 // Component Input Container

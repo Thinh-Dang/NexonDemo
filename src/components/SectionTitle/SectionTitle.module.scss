@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
 
-  &-title {
+  &__title {
     font-size: 1.6rem;
     line-height: 2.4rem;
     color: $clr-neutral-100;
@@ -13,7 +13,7 @@
     font-weight: 700;
   }
 
-  &-editTitle {
+  &__editTitle {
     font-size: 1.4rem;
     line-height: 1.8rem;
     margin: 0;
