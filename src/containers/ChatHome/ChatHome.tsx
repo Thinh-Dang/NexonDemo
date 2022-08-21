@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styleCss from './ChatHome.module.scss';
 
+import { IItemChatSlider, IItemMessageChat } from '@/@type/components';
 import { Layout, ItemChatSlider, ItemMessageChat } from '@/components';
 
 export const ChatHome: FC<IChatHome> = ({ chatSlider, conversationSlider }) => {

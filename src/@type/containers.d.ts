@@ -35,3 +35,8 @@ interface IChatContent {
   handleClick: (e: any) => void;
   userId: string;
 }
+
+// Map Container
+interface IMapLocationContainer {
+  friendsNearUser: IGetFriendNearUser[];
+}

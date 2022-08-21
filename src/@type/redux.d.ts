@@ -81,3 +81,21 @@ declare interface IUserNearby {
   distance: number;
   imgUrl: string;
 }
+
+// map location
+interface IInitialStateMapLocation {
+  centerPosition: IMap;
+  userPosition: IMap;
+  friendsNearUser: IGetFriendNearUser[];
+  friendInfo: IGetFriendNearUser | null;
+  zoomLevel: number;
+}
+interface IGetFriendNearUser {
+  friendId: string;
+  friendName: string;
+  friendBirthday: string;
+  friendAvatar: string;
+  latitude: number;
+  longtitude: number;
+  distance: number;
+}

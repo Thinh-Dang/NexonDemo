@@ -4,6 +4,8 @@ import styleCss from './ItemChatSlider.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { IItemChatSlider } from '@/@type/components';
+
 export const ItemChatSlider: FC<IItemChatSlider> = ({ id, avatar, name }) => {
   return (
     <Link href={`/chat/${id}`}>

@@ -4,11 +4,11 @@ import { io, Socket } from 'socket.io-client';
 import { useEffect, useState, useCallback, useRef } from 'react';
 
 import { ChatContent } from '@/containers';
-
 import chatApi from '../../services/chat.api';
 
 const ChatContentPage: NextPage = () => {
   const router = useRouter();
+
   const { friendId } = router.query;
   const url = process.env.NEXT_PUBLIC_SOCKET_URL ?? '';
 
@@ -18,7 +18,7 @@ const ChatContentPage: NextPage = () => {
   const [contentChat, setContentChat] = useState<string>('');
 
   const socketRef = useRef<Socket>();
-
+  const userId = '899d0ebd-93ee-4a6a-88f4-7f0bb7b133f0';
   // Init Socket
   useEffect(() => {
     socketRef.current = io(url, {

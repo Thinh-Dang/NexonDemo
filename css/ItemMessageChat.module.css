@@ -1,0 +1,43 @@
+/* Variables Color */
+/* Variables Font Family */
+.itemMessageChat {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 1.6rem;
+}
+.itemMessageChat:hover {
+  box-shadow: 0px 0px 24px 0px rgba(0, 25, 54, 0.1);
+}
+.itemMessageChat__img {
+  border-radius: 1.6rem;
+  width: 100%;
+}
+.itemMessageChat__content {
+  width: 60%;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 1.6rem;
+}
+.itemMessageChat__name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 2.4rem;
+  color: #2a2846;
+  font-family: 'SVN-Circular';
+}
+.itemMessageChat__message {
+  color: #aaa9b5;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: #aaa9b5;
+}
+.itemMessageChat__date {
+  color: #aaa9b5;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  text-align: right;
+} /*# sourceMappingURL=ItemMessageChat.module.css.map */

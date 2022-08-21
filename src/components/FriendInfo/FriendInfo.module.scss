@@ -1,0 +1,32 @@
+@import '../../styles/init/variables';
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 16px;
+  position: absolute;
+  background: #fff;
+  bottom: 120px;
+  z-index: 1000;
+  width: -webkit-fill-available;
+  border-radius: 25px;
+  padding: 8px;
+  padding-bottom: 0px;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+  .friend_info {
+    display: flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+
+    &__div_image {
+      margin-right: 8px;
+      &__image {
+        border-radius: 20px;
+        object-fit: cover;
+      }
+    }
+  }
+  &__icon_info {
+    padding-right: 8px;
+  }
+}

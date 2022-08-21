@@ -122,7 +122,6 @@ interface IItemContentChat {
   content: string;
   type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
 }
-
 // Component ItemChatSlider
 interface IItemChatSlider {
   id: string;
@@ -158,50 +157,4 @@ interface IButton {
   btnClass?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   isHaveIcon?: boolean;
-}
-
-// Component My Input
-interface IMyInput {
-  type: InputEnum;
-  initValue: string | number;
-  isTextArea?: boolean;
-}
-
-// Component My Button
-interface IMyButton {
-  title: string;
-  type: string;
-}
-
-// Component Setting Height
-interface ISettingWithInput {
-  defaultValue: number | string;
-  type: InputEnum;
-  title: string;
-  name: string;
-  isTextArea?: boolean;
-  onSubmit: (value: IUpdateUserProfile) => void;
-  settingType: UpdateUserProfileEnum;
-}
-
-// Component Setting With Select
-interface ISettingWithSelect {
-  defaultValue: string | number;
-  title: string;
-  name: string;
-  source: ISettingSource[];
-  settingType: UpdateUserProfileEnum;
-  onSubmit: (value: IUpdateUserProfile) => void;
-}
-
-// Component My Select
-interface IMySelect {
-  defaultValue?: string | number;
-  source: ISettingSource[];
-}
-
-interface ISettingHobby {
-  hobbies: IUserHobbies[];
-  onCreate: (value: ICreateHobby) => void;
-  onDelele: (value: string) => void;
 }

@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useAppDispatch } from '@/redux';
 import { resetIsGetPhone } from '@/redux/slice/userSlice';
 
+import { IHeader } from '@/@type/components';
 import inconHeader from '../../../../public/assets/back-icon.svg';
 
 export const Header: FC<IHeader> = ({ isLogo }) => {

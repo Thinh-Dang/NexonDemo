@@ -1,0 +1,16 @@
+/* Variables Color */
+/* Variables Font Family */
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4.4rem;
+}
+.navigation__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  font-size: 1.6rem;
+} /*# sourceMappingURL=Navigation.module.css.map */

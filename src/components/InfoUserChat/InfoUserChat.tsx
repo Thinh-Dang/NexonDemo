@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styleCss from './InfoUserChat.module.scss';
 
 import Image from 'next/image';
+import { IInfoUserChat } from '@/@type/components';
 
 export const InfoUserChat: FC<IInfoUserChat> = ({ avatar, title, content }) => {
   return (

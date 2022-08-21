@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/styles/init/_variables.scss","../src/components/TitleHeader/TitleHeader.module.scss","TitleHeader.module.css"],"names":[],"mappings":"AAAA,oBAAA;AAeA,0BAAA;ACbA;EACE,sBAAA;ACCF;ADCE;EACE,cDLc;ECMd,iBAAA;EACA,mBAAA;ACCJ","file":"TitleHeader.module.css"}

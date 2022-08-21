@@ -5,6 +5,8 @@ import moment from 'moment';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { IItemMessageChat } from '@/@type/components';
+
 export const ItemMessageChat: FC<IItemMessageChat> = ({
   conversationId,
   friendId,

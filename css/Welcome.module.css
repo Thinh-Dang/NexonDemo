@@ -1,0 +1,43 @@
+/* Variables Color */
+/* Variables Font Family */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.wrapper__class_content {
+  margin-top: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+.wrapper__btn {
+  background-color: #2a2846;
+  color: #fff;
+  font-family: 'SVN-Circular';
+  font-weight: 700;
+  padding: 1.3rem 0;
+  border-radius: 1.6rem;
+  margin-bottom: 2.4rem;
+  cursor: pointer;
+  width: 100%;
+}
+.wrapper__btn:hover {
+  background-color: #201f36;
+}
+.wrapper__content {
+  color: #aaa9b5;
+  font-family: 'SVN-Circular';
+  text-align: center;
+  line-height: 1.8rem;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+.wrapper__group {
+  display: flex;
+  justify-content: space-around;
+  background-color: none;
+}
+.wrapper__icon {
+  cursor: pointer;
+  background-color: white;
+} /*# sourceMappingURL=Welcome.module.css.map */
