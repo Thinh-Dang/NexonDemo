@@ -6,16 +6,20 @@ const mapLocationApi = {
   createOrUpdateLocation: async (
     requestOption: IFormCreateOrUpdateLocation,
   ): Promise<IResponse> => {
-    const url = 'secure/user-locations';
-    return await axiosApiCall(url, Method.post, requestOption);
+    return await axiosApiCall(
+      'secure/user-locations',
+      Method.post,
+      requestOption,
+    );
   },
   getLastLocation: async (): Promise<IResponse> => {
-    const url = 'secure/user-locations';
-    return await axiosApiCall(url, Method.get);
+    return await axiosApiCall('secure/user-locations', Method.get);
   },
   getFriendNearUser: async (): Promise<IResponse> => {
-    const url = 'secure/user-locations/friend-near-user';
-    return await axiosApiCall(url, Method.get);
+    return await axiosApiCall(
+      'secure/user-locations/friend-near-user',
+      Method.get,
+    );
   },
 };
 

@@ -1,49 +1,27 @@
 import { Layout } from '@/components';
-import React, { useState } from 'react';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import {
+  getFriendNearUser,
+  getLastLocation,
+  updateFriendsNearUser,
+} from '@/redux/slice/mapLocationSlice';
+import { useCallback, useEffect, useState } from 'react';
+import { EffectCreative } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCreative } from 'swiper';
 import UserCard from './components/UserCard';
+import Image from 'next/image';
+import { createUserBlock } from '@/redux/slice/findingSlice';
 
 const FindingPage = () => {
-  const [nearbyUsers, setNearbyUsers] = useState<IUserNearby[]>([
-    {
-      id: '1',
-      name: 'Linda',
-      age: 18,
-      distance: 200,
-      imgUrl: './assets/images/avatar/avatar1.jpg',
-    },
-    {
-      id: '2',
-      name: 'Ladin',
-      age: 16,
-      distance: 300,
-      imgUrl: './assets/images/avatar/avatar3.jpg',
-    },
-    {
-      id: '3',
-      name: 'Landi',
-      age: 22,
-      distance: 400,
-      imgUrl: './assets/images/avatar/avatar5.jpg',
-    },
-    {
-      id: '4',
-      name: 'Lidan',
-      age: 23,
-      distance: 800,
-      imgUrl: './assets/images/avatar/avatar7.jpg',
-    },
-    {
-      id: '5',
-      name: 'Dinla',
-      age: 20,
-      distance: 100,
-      imgUrl: './assets/images/avatar/avatar9.jpg',
-    },
-  ]);
+  const { friendsNearUser } = useAppSelector(
+    (state: RootState) => state.mapLocationSlice,
+  );
+  const dispatch = useAppDispatch();
+
+  const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
+
   const handleRemove = (id: string) => {
     setNearbyUsers(
       nearbyUsers.filter((user) => {
@@ -52,8 +30,24 @@ const FindingPage = () => {
     );
   };
   const onLike = (id: string) => {};
-  const onDislike = (id: string) => {};
+
+  const onDislike = (id: string) => (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    dispatch(createUserBlock({ blockedUserId: id }));
+    setNearbyUsers(
+      nearbyUsers.filter((user) => {
+        return user.id !== id;
+      }),
+    );
+  };
   const onCheckInfo = (user: IUserNearby) => {};
+
+  useEffect(() => {
+    dispatch(getLastLocation());
+    dispatch(getFriendNearUser());
+    setNearbyUsers(friendsNearUser);
+  }, [dispatch, friendsNearUser]);
+
   return (
     <Layout
       isLogo={false}
@@ -64,10 +58,11 @@ const FindingPage = () => {
       <div className="findingPage">
         <div className="findingPage-header">
           <h2 className="findingPage-header-brandName">Binace</h2>
-          <img
-            className="findingPage-header-notifications"
-            src="./assets/images/notification-bell.svg"
+          <Image
+            src="/assets/images/notification-bell.svg"
             alt="bell"
+            width={'20px'}
+            height={'20px'}
           />
         </div>
         <Swiper

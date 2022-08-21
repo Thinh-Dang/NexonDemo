@@ -94,3 +94,10 @@ interface ICreateHobby {
 interface IDeleteHobby {
   id: string;
 }
+
+interface IUserBlock {
+  id: string;
+  user_id: string;
+  block_user_id: Date;
+  created_at: Date;
+}

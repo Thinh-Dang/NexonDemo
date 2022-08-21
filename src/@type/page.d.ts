@@ -32,3 +32,8 @@ interface IFormCreateOrUpdateLocation {
   latitude: number;
   longtitude: number;
 }
+
+// page finding
+interface IFormCreateUserBlock {
+  blockedUserId: string;
+}

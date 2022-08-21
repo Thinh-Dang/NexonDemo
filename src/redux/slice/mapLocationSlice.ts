@@ -44,6 +44,9 @@ export const mapLocationSlice = createSlice({
     updateZoomLevel(state, action: PayloadAction<number>) {
       state.zoomLevel = action.payload;
     },
+    updateFriendsNearUser(state, action: any) {
+      state.friendsNearUser = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -91,5 +94,6 @@ export const {
   updateCenterPosition,
   updateUserPosition,
   updateZoomLevel,
+  updateFriendsNearUser,
 } = actions;
 export default reducer;
