@@ -91,11 +91,12 @@ interface IInitialStateMapLocation {
   zoomLevel: number;
 }
 interface IGetFriendNearUser {
-  friendId: string;
-  friendName: string;
-  friendBirthday: string;
-  friendAvatar: string;
+  id: string;
+  name: string;
+  birthday: Date;
+  avatar: string;
   latitude: number;
   longtitude: number;
   distance: number;
+  unit: string;
 }
