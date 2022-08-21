@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd';
 import {
   AlcoholEnum,
   EducationEnum,
@@ -92,5 +93,13 @@ interface ICreateHobby {
 }
 
 interface IDeleteHobby {
+  id: string;
+}
+
+interface IUploadImages {
+  images: UploadFile[];
+}
+
+interface IChangeFavoriteImage {
   id: string;
 }

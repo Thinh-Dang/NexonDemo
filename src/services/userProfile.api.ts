@@ -1,9 +1,11 @@
-import { IUserHobbies } from '@/@type/params';
+import { IUserHobbies, IUserImages } from '@/@type/params';
 import { IResponse } from '@/@type/responses';
 import {
+  IChangeFavoriteImage,
   ICreateHobby,
   IDeleteHobby,
   IUpdateUserProfile,
+  IUploadImages,
 } from '@/@type/services';
 import { Method } from '@/common/enums/enum';
 import axiosApiCall from '@/utils/api';
@@ -37,6 +39,35 @@ const UserProfileApi = {
       url,
       Method.delete,
       dto,
+    )) as IResponse<string>;
+    return res;
+  },
+  uploadImages: async (
+    data: FormData,
+  ): Promise<IResponse<string | IUserImages[]>> => {
+    const url = 'users/secure/up-images';
+    const res = (await axiosApiCall(url, Method.post, data, true)) as IResponse<
+      string | IUserImages[]
+    >;
+    return res;
+  },
+  changeFavoriteImage: async (
+    data: IChangeFavoriteImage,
+  ): Promise<IResponse<string | IUserImages>> => {
+    const url = 'users/secure/change-image-favorite';
+    const res = (await axiosApiCall(url, Method.post, data)) as IResponse<
+      string | IUserImages
+    >;
+    return res;
+  },
+  deleteImage: async (
+    data: IChangeFavoriteImage,
+  ): Promise<IResponse<string>> => {
+    const url = 'users/secure/delete-image';
+    const res = (await axiosApiCall(
+      url,
+      Method.delete,
+      data,
     )) as IResponse<string>;
     return res;
   },

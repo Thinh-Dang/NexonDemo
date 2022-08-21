@@ -26,6 +26,7 @@ import {
   SettingInfo,
   SettingWithInput,
   SettingWithSelect,
+  UserAlbum,
 } from '@/components';
 import {
   ApplauseIcon,
@@ -50,7 +51,7 @@ import {
   ConvertReligionEnum,
   pickColor,
 } from '@/utils';
-import { Col, Row } from 'antd';
+import { Col, message, Row } from 'antd';
 import Image from 'next/image';
 import React, {
   ChangeEvent,
@@ -65,28 +66,9 @@ export const Profile = () => {
   const dispatch = useAppDispatch();
 
   const profile = useAppSelector((state: RootState) => state.userProfileSlice);
+  const purposes = useAppSelector((state: RootState) => state.purposeSlice);
 
   const [settingItem, setSettingItem] = useState('');
-  const [purposes, setPurposes] = useState<IPurpose[]>([
-    {
-      id: '55f67ae4-27c1-4c85-989d-d54fec64aa1a',
-      title: 'Muốn hẹn hò',
-      description: 'Where there is a will, there is a way.',
-      image: '/assets/images/icons8-cup 1.svg',
-    },
-    {
-      id: 'b8c1aca0-97b6-406f-b7ea-fd3ef7d65039',
-      title: 'Cần người tâm sự',
-      description: 'Set your target and keep trying until you reach it.',
-      image: '/assets/images/icons8-chat-room 1.svg',
-    },
-    {
-      id: '620a770e-9eb5-4c1c-8290-c1ecc37d40dd',
-      title: 'Tìm mối quan hệ mới',
-      description: 'Never leave that till tomorrow which',
-      image: '/assets/icons8-kiss.svg',
-    },
-  ]);
 
   const getPurposetitle = (id: string): string | undefined => {
     const purpose = purposes.find((item) => item.id === id);
@@ -263,7 +245,7 @@ export const Profile = () => {
     }
   }
 
-  return profile.avatar ? (
+  return profile.avatar && purposes ? (
     <section className={styleCss.profileFrame}>
       <HeadPage
         hTag={HTag.h2}
@@ -271,7 +253,7 @@ export const Profile = () => {
         icon={<SettingIcon />}
         colorTitle={Color.clr_neutral_100}
         onIconClick={() => {
-          alert('hello');
+          message.success('hello');
         }}
       />
       <div className={styleCss['profileFrame-simpleInfo']}>
@@ -291,119 +273,7 @@ export const Profile = () => {
           </p>
         </div>
       </div>
-      <div className={styleCss['profileFrame-album']}>
-        <Row gutter={[10, 10]}>
-          {profile.album.length > 0 ? (
-            <Col span={16}>
-              <div>
-                <Image
-                  className={styleCss['profileFrame-album-image']}
-                  alt="avatar"
-                  src={profile.album[0].url}
-                  width={225}
-                  height={225}
-                  layout="responsive"
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-              </div>
-            </Col>
-          ) : null}
-          {profile.album.length > 1 ? (
-            <Col span={8}>
-              <Row gutter={[10, 10]}>
-                <Col span={24}>
-                  <Image
-                    className={styleCss['profileFrame-album-image']}
-                    alt="avatar"
-                    src={profile.album[1].url}
-                    width={109}
-                    height={109}
-                    layout="responsive"
-                    objectFit="cover"
-                    objectPosition="top"
-                  />
-                </Col>
-                <Col span={24}>
-                  {profile.album.length > 2 ? (
-                    <Image
-                      className={styleCss['profileFrame-album-image']}
-                      alt="avatar"
-                      src={profile.album[2].url}
-                      width={109}
-                      height={109}
-                      layout="responsive"
-                      objectFit="cover"
-                      objectPosition="top"
-                    />
-                  ) : (
-                    <div className="profileFrame-album-upload">
-                      <div>
-                        <PlusIcons />
-                      </div>
-                    </div>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          ) : null}
-          {profile.album.length > 3 ? (
-            <Col span={8}>
-              <Image
-                className={styleCss['profileFrame-album-image']}
-                alt="avatar"
-                src={profile.album[3].url}
-                width={109}
-                height={109}
-                layout="responsive"
-                objectFit="cover"
-                objectPosition="top"
-              />
-            </Col>
-          ) : null}
-          {profile.album.length === 5 ? (
-            <Col span={8}>
-              <Image
-                className={styleCss['profileFrame-album-image']}
-                alt="avatar"
-                src={profile.album[4].url}
-                width={109}
-                height={109}
-                layout="responsive"
-                objectFit="cover"
-                objectPosition="top"
-              />
-            </Col>
-          ) : null}
-          {profile.album.length > 5 ? (
-            <Col span={8}>
-              <p className={styleCss['profileFrame-album-remain']}>
-                +{profile.album.length - 5}
-              </p>
-              <div className={styleCss['profileFrame-album-image-count']}>
-                <Image
-                  alt="avatar"
-                  src={profile.album[4].url}
-                  width={109}
-                  height={109}
-                  layout="responsive"
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-              </div>
-            </Col>
-          ) : null}
-          {profile.album.length !== 2 ? (
-            <Col span={8}>
-              <div className={styleCss['profileFrame-album-upload']}>
-                <div>
-                  <PlusIcons />
-                </div>
-              </div>
-            </Col>
-          ) : null}
-        </Row>
-      </div>
+      <UserAlbum album={profile.album} />
       <div className={styleCss['profileFrame-settingInfo']}>
         <SettingInfo
           title={'Tại sao bạn lại ở đây'}

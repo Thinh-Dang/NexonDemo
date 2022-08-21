@@ -1,17 +1,24 @@
 import { Profile } from '@/containers';
 import { NextPage } from 'next';
-import { useAppDispatch } from '@/redux';
-import { HeadPage, Layout } from '@/components';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { useEffect } from 'react';
-import { Color, HTag } from '@/common/enums/enum';
-import { SettingIcon } from '@/components/icon';
 import { getUserProfile } from '@/redux/slice/userProfileSlice';
+import { getPurposes } from '@/redux/slice/purposeSlice';
+import { Layout } from '@/components';
 
 const ProfilePage: NextPage = () => {
   const dispatch = useAppDispatch();
+  const profile = useAppSelector((state: RootState) => state.userProfileSlice);
+  const purposes = useAppSelector((state: RootState) => state.purposeSlice);
 
   useEffect(() => {
-    dispatch(getUserProfile());
+    if (!profile.avatar) {
+      dispatch(getUserProfile());
+    }
+
+    if (purposes.length === 0) {
+      dispatch(getPurposes());
+    }
   }, []);
 
   return (

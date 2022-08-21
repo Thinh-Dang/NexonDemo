@@ -1,5 +1,5 @@
 import { ISettingWithInput } from '@/@type/components';
-import { Tag } from 'antd';
+import { message, Tag } from 'antd';
 import { FC } from 'react';
 import { Button } from '../common';
 import styleScss from '../../containers/UpdateInfor/UpdateInfor.module.scss';
@@ -42,7 +42,7 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
         const res = (await dispatch(updateUserProfile(valueRequest)))
           .payload as IResponse<string | IUserProfile>;
 
-        if (!res.status) alert('Update fail');
+        if (!res.status) message.error('Update fail');
 
         onClosePopUp();
       },

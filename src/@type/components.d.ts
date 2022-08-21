@@ -7,7 +7,7 @@ import {
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
 import { number, string } from 'yup';
-import { ISettingSource, IUserHobbies } from './params';
+import { ISettingSource, IUserHobbies, IUserImages } from './params';
 import { ICreateHobby, IUpdateUserProfile } from './services';
 
 // Component Layout
@@ -77,13 +77,6 @@ interface IMySelect {
   onChange?: any;
 }
 
-// Component My Input
-interface IMyInput {
-  type: InputEnum;
-  initValue: string | number;
-  isTextArea?: boolean;
-}
-
 // Component Setting With Select
 interface ISettingWithSelect {
   defaultValue: string | number;
@@ -126,12 +119,6 @@ interface IItemReason {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => void;
-}
-
-// Component Input Container
-interface IInputContainer {
-  children: JSX.Element;
-  label: string;
 }
 
 // Component Reason Popup
@@ -219,4 +206,17 @@ interface ITags {
 // Component FriendInfo
 interface IFriend {
   friendInfo: IGetFriendNearUser | null;
+}
+
+interface IUserAlbum {
+  album: IUserImages[];
+}
+
+// Component Image Card
+interface IImageCard {
+  id: string;
+  url: string;
+  onFavorite?: (id: string) => void;
+  isFavorite: boolean;
+  isAvailableFavorite?: boolean;
 }

@@ -7,7 +7,7 @@ import {
   deleteUserHobby,
 } from '@/redux/slice/userProfileSlice';
 import { pickColor } from '@/utils';
-import { Tag } from 'antd';
+import { message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { FC, useCallback } from 'react';
 import { ItemHobby } from '../ItemHobby/ItemHobby';
@@ -29,7 +29,7 @@ export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
       onSubmit: async (value) => {
         const res = (await dispatch(createUserHobby(value)))
           .payload as IResponse<string | IUserHobbies>;
-        if (!res.status) alert('Create hobby fail');
+        if (!res.status) message.error('Create hobby fail');
       },
       validationSchema: yup.object({
         name: yup.string().required('Vui lòng nhập đủ thông tin'),

@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import mapLocationSlice from '../slice/mapLocationSlice';
 import userSlice from '../slice/userSlice';
 import userProfileSlice from '../slice/userProfileSlice';
+import purposeSlice from '../slice/purposeSlice';
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   userSlice,
   userProfileSlice,
   mapLocationSlice,
+  purposeSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
