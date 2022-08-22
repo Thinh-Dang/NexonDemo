@@ -15,10 +15,6 @@
       color: $clr-main;
       font-weight: 800;
     }
-    &-notifications {
-      height: 20px;
-      width: 20px;
-    }
   }
   &-container {
     height: 76%;
@@ -63,11 +59,6 @@
         align-items: center;
         border-radius: 25px;
         margin-bottom: 2.8rem;
-        &-icon {
-          height: 16px;
-          width: 16px;
-        }
-
         &-distance {
           color: #22313f;
         }
@@ -85,10 +76,6 @@
           padding: 1.5rem;
           background-color: white;
           border: 1px solid #e5e5e5;
-          & img {
-            height: 23px;
-            width: 23px;
-          }
         }
       }
 

@@ -95,6 +95,19 @@ interface IDeleteHobby {
   id: string;
 }
 
+interface IUserBlock {
+  id: string;
+  userId: string;
+  blockUserId: string;
+  createdAt: Date;
+}
+interface IUserLikeStack {
+  id: string;
+  fromUserId: string;
+  toUserId: string;
+  createdAt: Date;
+}
+
 interface ISignInWithSocial {
   typeSocial: string;
   name: string;
