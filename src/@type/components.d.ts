@@ -7,7 +7,7 @@ import {
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
 import { number, string } from 'yup';
-import { IUserHobbies } from './params';
+import { ISettingSource, IUserHobbies, IUserImages } from './params';
 import { ICreateHobby, IUpdateUserProfile } from './services';
 
 // Component Layout
@@ -68,6 +68,39 @@ interface IItemHobby {
   onIconClick?: (value: string) => void;
 }
 
+// Component My Select
+interface IMySelect {
+  title: string;
+  source: ISettingSource[];
+  defaultValue: string | number;
+  value?: string;
+  onChange?: any;
+}
+
+// Component Setting With Select
+interface ISettingWithSelect {
+  defaultValue: string | number;
+  title: string;
+  name: string;
+  source: ISettingSource[];
+  settingType: UpdateUserProfileEnum;
+  onClosePopUp: () => void;
+}
+
+interface ISettingWithInput {
+  defaultValue: number | string;
+  type: InputEnum;
+  title: string;
+  name: string;
+  isTextArea?: boolean;
+  onClosePopUp: () => void;
+  settingType: UpdateUserProfileEnum;
+}
+
+interface ISettingHobby {
+  hobbies: IUserHobbies[];
+}
+
 // Component Card
 interface ICard {
   height: number;
@@ -86,18 +119,6 @@ interface IItemReason {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => void;
-}
-
-// Component Setting Description
-interface ISettingDescription {
-  defaultValue: string;
-  setDescription: () => void;
-}
-
-// Component Input Container
-interface IInputContainer {
-  children: JSX.Element;
-  label: string;
 }
 
 // Component Reason Popup
@@ -192,12 +213,36 @@ interface IMyInput {
   txtPlaceholder?: string;
   isDatePicker?: boolean;
   isSelection?: boolean;
+  isTextArea?: boolean;
   name?: string;
+  type?: string;
+  defaultValue?: any;
   handleChange?: (e: any) => void;
   handleBlur?: (e: any) => void;
-  handleChangeDatePicker?: (a: Date, b: string) => void;
+  handleChangeDatePicker?: (a: Moment | undefined, b: string) => void;
   value?: string | null | undefined;
   onSubmitOtp?: any;
   disabled?: any;
   errorOTP?: string;
+}
+
+interface IUserAlbum {
+  album: IUserImages[];
+}
+
+// Component Image Card
+interface IImageCard {
+  id: string;
+  url: string;
+  onFavorite?: (id: string) => void;
+  isFavorite: boolean;
+  isAvailableFavorite?: boolean;
+}
+
+// Component Simple Profile Info
+interface ISimpleProfileInfo {
+  name: string;
+  birthday: Date;
+  purposeTite: string | undefined;
+  avatar: string;
 }

@@ -5,13 +5,13 @@
   justify-content: space-between;
   padding: 7px 0;
 
-  &-spacing {
+  &__spacing {
     display: flex;
     column-gap: 4px;
     align-items: center;
   }
 
-  &-title {
+  &__title {
     font-size: 1.4rem;
     line-height: 1.8rem;
     margin: 0;
@@ -19,7 +19,7 @@
     color: $clr-neutral-100;
   }
 
-  &-value {
+  &__value {
     font-size: 1.4rem;
     line-height: 1.8rem;
     height: fit-content;
@@ -27,7 +27,7 @@
     color: $clr-neutral-40;
   }
 
-  &-arrowLeft {
+  &__arrowLeft {
     height: fit-content;
     padding: 3px 4px 3px 7px;
     display: flex;
