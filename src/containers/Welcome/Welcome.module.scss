@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0 2rem;
+  padding: 0 1.6rem;
   &__class_content {
     margin-top: 3.2rem;
     margin-bottom: 1.6rem;
@@ -29,11 +29,12 @@
     line-height: 1.8rem;
     font-weight: 400;
     font-size: 1.4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
   }
   &__group {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 3.2rem;
 
     background-color: none;
   }

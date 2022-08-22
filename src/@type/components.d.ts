@@ -186,3 +186,17 @@ interface ITags {
 interface IFriend {
   friendInfo: IGetFriendNearUser | null;
 }
+interface IMyInput {
+  isInput?: boolean;
+  txtLabel?: string;
+  txtPlaceholder?: string;
+  isDatePicker?: boolean;
+  isSelection?: boolean;
+  name?: string;
+  handleChange?: (e: any) => void;
+  handleBlur?: (e: any) => void;
+  handleChangeDatePicker?: (a: Date, b: string) => void;
+  value?: string | null | undefined;
+  onSubmitOtp?: any;
+  disabled?: any;
+}

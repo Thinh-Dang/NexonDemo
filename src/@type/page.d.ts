@@ -6,6 +6,7 @@ interface IFormLoginPage {
 interface IFormOtpPage {
   phone: string;
   code: string;
+  email?: string;
 }
 
 // Page Register

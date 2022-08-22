@@ -94,3 +94,13 @@ interface ICreateHobby {
 interface IDeleteHobby {
   id: string;
 }
+
+interface ISignInWithSocial {
+  typeSocial: string;
+  name: string;
+  url: string;
+  gender: string;
+  email: string;
+  birthday: string;
+  accessToken: string;
+}

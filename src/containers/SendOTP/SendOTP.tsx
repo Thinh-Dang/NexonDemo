@@ -9,16 +9,28 @@ import { Input, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { useAppDispatch } from '@/redux';
-import { addPhoneNumber, callAPISendOTP } from '@/redux/slice/userSlice';
+import {
+  addPhoneNumber,
+  callAPISendOTP,
+  setIsSocial,
+} from '@/redux/slice/userSlice';
 import { phoneValidationSchema } from '@/Validation/Validations';
+import { Session } from 'next-auth';
 
-const SendOTP = () => {
+type Props = {
+  data?: Session;
+};
+
+const SendOTP = ({ data }: Props) => {
   const dispatch = useAppDispatch();
 
   const { handleBlur, errors, handleChange, values, handleSubmit, touched } =
     useFormik({
       initialValues: { phone: '' },
       onSubmit: async (values) => {
+        if (data) {
+          dispatch(setIsSocial());
+        }
         dispatch(addPhoneNumber(values));
         dispatch(callAPISendOTP(values));
       },

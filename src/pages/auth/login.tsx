@@ -4,22 +4,46 @@ import UpdateInfor from '@/containers/UpdateInfor/UpdateInfor';
 import VerifyOtp from '@/containers/VerifyOtp/VerifyOtp';
 import { RootState, useAppSelector } from '@/redux';
 import { NextPage } from 'next';
-
-import React from 'react';
+import { useSession } from 'next-auth/react';
 
 const login: NextPage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  const mystate = useAppSelector((state: RootState) => state.userSlice);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const infoUser = useAppSelector((state: RootState) => state.userSlice);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { data: session } = useSession();
+  console.log(session);
+
+  if (session) {
+    return (
+      <Layout
+        isLogo={false}
+        title="Login_Social"
+        isFooter={false}
+        isHeader={true}
+      >
+        <>
+          {!mystate.inforUser.email && <UpdateInfor data={session} />}
+          {mystate.inforUser.email && !mystate.isVerifyOtp && (
+            <SendOTP data={session} />
+          )}
+          {mystate.isSocial && mystate.isVerifyOtp && (
+            <VerifyOtp data={session} />
+          )}
+        </>
+      </Layout>
+    );
+  }
 
   return (
     <Layout isLogo={false} title="Login_Phone" isFooter={false} isHeader={true}>
       <>
-        {!infoUser.phone && <SendOTP />}
-        {infoUser.isGetPhone && infoUser.phone && !infoUser.isVerifyOtp && (
+        {!mystate.phone && <SendOTP />}
+        {mystate.isGetPhone && mystate.phone && !mystate.isVerifyOtp && (
           <VerifyOtp />
         )}
-        {infoUser.isVerifyOtp && <UpdateInfor />}
+        {mystate.isVerifyOtp && <UpdateInfor />}
       </>
     </Layout>
   );
