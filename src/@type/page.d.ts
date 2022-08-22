@@ -37,3 +37,6 @@ interface IFormCreateOrUpdateLocation {
 interface IFormCreateUserBlock {
   blockedUserId: string;
 }
+interface IFormCreateUserLikeStack {
+  toUserId: string;
+}

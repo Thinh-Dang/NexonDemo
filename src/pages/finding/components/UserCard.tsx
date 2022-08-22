@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 interface IProps {
   user: IGetFriendNearUser;
-  onLike: (id: string) => void;
+  onLike: (id: string) => (e: { preventDefault: () => void }) => void;
   onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
   onCheckInfo: (user: IUserNearby) => void;
 }
@@ -48,7 +48,10 @@ const UserCard: FC<IProps> = ({ user, onLike, onDislike, onCheckInfo }) => {
               height={'23px'}
             />
           </div>
-          <div className="findingPage-card-content-btnGroup-btn">
+          <div
+            className="findingPage-card-content-btnGroup-btn"
+            onClick={onLike(user.id)}
+          >
             <Image
               src="/assets/images/Union.svg"
               alt="heart"
