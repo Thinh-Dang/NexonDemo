@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import style from './Layout.module.scss';
 
 import Head from 'next/head';
@@ -26,13 +26,13 @@ export const Layout: FC<ILayout> = ({
   const [isFetch, setIsFetch] = useState(false);
   const isLogin = useAppSelector((state: RootState) => state.userSlice.isLogin);
 
-  const fetchInfo = async () => {
+  const fetchInfo = useCallback(async () => {
     const check = (await dispatch(getProfile())).payload;
 
     if (check) {
       setIsFetch(true);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchInfo();
@@ -47,7 +47,7 @@ export const Layout: FC<ILayout> = ({
       router.push('/');
     }
 
-    if (isLogin && location === '/auth/login') {
+    if (isLogin && (location === '/auth/login' || location === '/')) {
       router.push('/finding');
       return <Loading />;
     }

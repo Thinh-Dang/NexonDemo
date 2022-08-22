@@ -27,6 +27,12 @@ interface IMessageSend {
   content: string;
 }
 
+interface ISocketDevice {
+  conversationId: string;
+  socketId: string;
+  userId: string;
+}
+
 interface IChatContent {
   infoFriend: IUserFriend;
   messages: IMessage[];

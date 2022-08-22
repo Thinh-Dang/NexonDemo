@@ -3,22 +3,26 @@ import { useRouter } from 'next/router';
 import { io, Socket } from 'socket.io-client';
 import { useEffect, useState, useCallback, useRef } from 'react';
 
+import { RootState, useAppSelector } from '@/redux';
+
 import { ChatContent } from '@/containers';
 import chatApi from '../../services/chat.api';
 
 const ChatContentPage: NextPage = () => {
   const router = useRouter();
+  const socketRef = useRef<Socket>();
 
   const { friendId } = router.query;
   const url = process.env.NEXT_PUBLIC_SOCKET_URL ?? '';
+  const userId = useAppSelector(
+    (state: RootState) => state.userSlice.inforUser.id,
+  );
 
   const [conversationId, setConversationId] = useState<string>('');
   const [infoFriend, setInfoFriend] = useState<IUserFriend>();
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [contentChat, setContentChat] = useState<string>('');
 
-  const socketRef = useRef<Socket>();
-  const userId = '899d0ebd-93ee-4a6a-88f4-7f0bb7b133f0';
   // Init Socket
   useEffect(() => {
     socketRef.current = io(url, {
@@ -33,13 +37,10 @@ const ChatContentPage: NextPage = () => {
     };
   }, []);
 
-  console.log('socketId: ', socketRef);
-
   // Received Message
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on('message-received', (data: IMessage) => {
-        console.log('data: ', data);
         setMessages([data, ...messages]);
       });
     }
@@ -62,21 +63,8 @@ const ChatContentPage: NextPage = () => {
     }
   };
 
-  // Get List Conversation Message
+  // Get List Conversation
   const getConversation = useCallback(() => {
-    if (friendId) {
-      chatApi
-        .getConversationsByUserIdAndFriendId(friendId as string)
-        .then((data) => {
-          if (data.status) {
-            setConversationId(data.data.id);
-          }
-        });
-    }
-  }, [friendId]);
-
-  // Get List Friends
-  const getFriendInfo = useCallback(() => {
     if (friendId) {
       chatApi.getFriendByUserIdAndFriendId(friendId as string).then((data) => {
         if (data.status) {
@@ -85,30 +73,33 @@ const ChatContentPage: NextPage = () => {
           router.push('/chat');
         }
       });
-    }
-  }, [friendId, router]);
 
-  // Get List Message Of Conversation
-  const getListMessage = useCallback(() => {
-    if (conversationId) {
       chatApi
-        .getMessageByConversationId(conversationId as string)
+        .getConversationsByUserIdAndFriendId(friendId as string)
         .then((data) => {
           if (data.status) {
-            setMessages([...[], ...data.data]);
+            setConversationId(data.data.id);
+            setMessages([...[], ...data.data.messages]);
           }
         });
     }
-  }, [conversationId]);
+  }, [friendId, router]);
 
   useEffect(() => {
     getConversation();
-    getFriendInfo();
-  }, [getConversation, getFriendInfo]);
+  }, [getConversation]);
 
   useEffect(() => {
-    getListMessage();
-  }, [getListMessage]);
+    if (conversationId && socketRef.current) {
+      const socketDevice: ISocketDevice = {
+        conversationId: conversationId,
+        socketId: socketRef.current.id,
+        userId: userId,
+      };
+
+      socketRef.current.emit('create-socket-device', socketDevice);
+    }
+  }, [conversationId, userId]);
 
   return infoFriend ? (
     <ChatContent

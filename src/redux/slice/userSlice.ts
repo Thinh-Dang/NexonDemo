@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from '@/services/user.api';
 
 export const callAPISendOTP = createAsyncThunk(
@@ -31,6 +31,7 @@ const initialState: IInitialStateUser = {
   isSocial: false,
   isVerifyOtp: false,
   inforUser: {
+    id: '',
     name: '',
     email: '',
     birthday: '',
@@ -43,42 +44,6 @@ const initialState: IInitialStateUser = {
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
-  // reducers: {
-  //   enterPhone(state, action: PayloadAction<IFormEnterPhonePage>) {
-  //     state.phone = action.payload.phone;
-  //     userApi.getOtp({ phone: action.payload.phone });
-  //   },
-  // },
-  // extraReducers: (builder) => {
-  //   builder.addCase(
-  //     checkOtp.fulfilled,
-  //     (state: IInitialStateUser, action: any) => {
-  //       if (action.payload) {
-  //         state.isVerifyOtp = true;
-  //         localStorage.setItem('jwt', action.payload.token);
-  //       }
-  //     },
-  //   );
-  //   builder.addCase(
-  //     register.fulfilled,
-  //     (state: IInitialStateUser, action: any) => {
-  //       if (action.payload) {
-  //         state.isLogin = true;
-  //         localStorage.setItem('jwt', action.payload);
-  //       }
-  //     },
-  //   );
-  //   builder.addCase(
-  //     loginSocial.fulfilled,
-  //     (state: IInitialStateUser, action: any) => {
-  //       if (action.payload.code === 200) {
-  //         state.isSocial = true;
-  //         state.email = action.payload.email;
-  //         state.name = action.payload.name;
-  //       }
-  //     },
-  //   );
-  // },
   reducers: {
     resetIsGetPhone: (state) => {
       state.isGetPhone = false;
@@ -114,10 +79,12 @@ export const userSlice = createSlice({
     builder.addCase(getProfile.fulfilled, (state, action) => {
       if (action.payload.status) {
         state.isLogin = true;
+        state.inforUser.id = action.payload.data.id;
       }
     });
     builder.addCase(getProfile.rejected, (state) => {
       state.isLogin = false;
+      state.inforUser.id = '';
     });
   },
 });

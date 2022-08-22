@@ -13,6 +13,7 @@ interface IInitialStateUser {
   isGetPhone: boolean;
   isVerifyOtp: boolean;
   inforUser: {
+    id: string;
     name: string;
     email: string;
     birthday: string;

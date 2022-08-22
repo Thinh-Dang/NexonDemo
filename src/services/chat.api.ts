@@ -18,10 +18,6 @@ const chatApi = {
     const url = `secure/chat/conversations`;
     return await axiosApiCall(url, Method.get);
   },
-  getMessageByConversationId: async (conversationId: string) => {
-    const url = `secure/chat/message/${conversationId}`;
-    return await axiosApiCall(url, Method.get);
-  },
 };
 
 export default chatApi;

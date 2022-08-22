@@ -1,7 +1,7 @@
-import { IItemContentChat } from '@/@type/components';
 import React, { FC } from 'react';
-
 import styleCss from './ItemContentChat.module.scss';
+
+import { IItemContentChat } from '@/@type/components';
 
 export const ItemContentChat: FC<IItemContentChat> = ({
   time,

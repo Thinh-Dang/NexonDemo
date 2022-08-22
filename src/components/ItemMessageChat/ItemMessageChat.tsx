@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import styleCss from './ItemMessageChat.module.scss';
 
 import moment from 'moment';
-import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { IItemMessageChat } from '@/@type/components';
 
@@ -15,26 +15,31 @@ export const ItemMessageChat: FC<IItemMessageChat> = ({
   content,
   createAt,
 }) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`chat/${friendId}`);
+  };
+
   return (
-    <Link href={`/chat/${friendId}`} key={conversationId}>
-      <a>
-        <div className={styleCss.itemMessageChat}>
-          <Image
-            src={avatar}
-            width={48}
-            height={48}
-            alt="Avatar"
-            className={styleCss.itemMessageChat__img}
-          />
-          <div className={styleCss.itemMessageChat__content}>
-            <h4 className={styleCss.itemMessageChat__name}>{name}</h4>
-            <p className={styleCss.itemMessageChat__message}>{content}</p>
-          </div>
-          <p className={styleCss.itemMessageChat__date}>
-            {moment(createAt).startOf('hour').fromNow()}
-          </p>
-        </div>
-      </a>
-    </Link>
+    <div
+      className={styleCss.itemMessageChat}
+      onClick={handleClick}
+      key={conversationId}
+    >
+      <Image
+        src={avatar}
+        width={48}
+        height={48}
+        alt="Avatar"
+        className={styleCss.itemMessageChat__img}
+      />
+      <div className={styleCss.itemMessageChat__content}>
+        <h4 className={styleCss.itemMessageChat__name}>{name}</h4>
+        <p className={styleCss.itemMessageChat__message}>{content}</p>
+      </div>
+      <p className={styleCss.itemMessageChat__date}>
+        {moment(createAt).startOf('hour').fromNow()}
+      </p>
+    </div>
   );
 };
