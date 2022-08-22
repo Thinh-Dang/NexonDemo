@@ -199,4 +199,5 @@ interface IMyInput {
   value?: string | null | undefined;
   onSubmitOtp?: any;
   disabled?: any;
+  errorOTP?: string;
 }

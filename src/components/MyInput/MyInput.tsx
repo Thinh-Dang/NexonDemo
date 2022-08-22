@@ -1,4 +1,4 @@
-import { DatePicker, Select } from 'antd';
+import { DatePicker, Select, Tag } from 'antd';
 import Input from 'antd/lib/input/Input';
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
@@ -9,6 +9,7 @@ import styleScss from './MyInput.module.scss';
 import { Option } from 'antd/lib/mentions';
 import moment from 'moment';
 import { IMyInput } from '@/@type/components';
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 // eslint-disable-next-line @typescript-eslint/ban-types, react-hooks/rules-of-hooks
 const MyInput: FC<IMyInput> = ({
@@ -24,6 +25,7 @@ const MyInput: FC<IMyInput> = ({
   value,
   onSubmitOtp,
   disabled,
+  errorOTP,
 }) => {
   const [timerSeconds, setTimerSeconds] = useState<string>();
   const [timerMinutes, setTimerMinus] = useState<string>();
@@ -212,7 +214,22 @@ const MyInput: FC<IMyInput> = ({
           <span></span>
         </div>
       </div>
-      <div style={{ textAlign: 'right', marginBottom: '4.1rem' }}>
+      {errorOTP ? (
+        <div className={styleScss.errors__message}>
+          <Tag
+            style={{ width: '100%' }}
+            icon={<CloseCircleOutlined />}
+            color="error"
+          >
+            {errorOTP}
+          </Tag>
+        </div>
+      ) : (
+        ''
+      )}
+      <div
+        style={{ textAlign: 'right', marginBottom: '4.1rem', display: 'block' }}
+      >
         {timerMinutes === '00' && timerSeconds === '00' ? (
           <button type="button" className={styleScss.bntOutline}>
             Gửi Lại OTP

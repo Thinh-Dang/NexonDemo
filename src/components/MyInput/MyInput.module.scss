@@ -1,7 +1,7 @@
 @import '../../styles/init/variables';
 .otpInput {
   display: flex;
-  margin-bottom: 3.6rem;
+
   &__groupInput {
     position: relative;
     input {
@@ -92,4 +92,8 @@
   padding: 2rem 0;
   background-color: $clr-neutral-5;
   border-radius: 1rem;
+}
+.errors__message {
+  width: 100%;
+  margin: 1rem 0;
 }

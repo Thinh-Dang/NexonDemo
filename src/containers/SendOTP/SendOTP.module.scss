@@ -60,7 +60,6 @@
     border-radius: 1rem;
     display: flex;
     position: relative;
-    margin-bottom: 7.5rem;
     &__flag {
       padding: 1rem;
       cursor: pointer;
@@ -73,10 +72,10 @@
       height: 5.6rem;
     }
   }
-
+  &__btn {
+    margin-top: 7.5rem;
+  }
   &__error__message {
-    position: absolute;
-    width: 90%;
-    top: 71%;
+    width: 100%;
   }
 }

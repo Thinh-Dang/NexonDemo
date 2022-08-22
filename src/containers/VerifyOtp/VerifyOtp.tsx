@@ -81,8 +81,13 @@ const VerifyOtp = ({ data }: Props) => {
           contentTitle="Mã xác thực"
           contentText="Vui lòng nhập mã OTP được gửi về số điện thoại của bạn, để hoàn thành đăng nhập."
         />
-        <MyInput isInput={false} name="code" onSubmitOtp={handleChangeOtp} />
-        {errOTP ? <p>{errOTP}</p> : ''}
+        <MyInput
+          errorOTP={errOTP}
+          isInput={false}
+          name="code"
+          onSubmitOtp={handleChangeOtp}
+        />
+
         <Button
           btnClass=""
           isHaveIcon={true}

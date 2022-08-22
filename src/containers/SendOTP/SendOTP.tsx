@@ -61,22 +61,23 @@ const SendOTP = ({ data }: Props) => {
           />
         </div>
         {touched.phone && errors.phone && (
-          <div>
-            <Tag
-              className={styleScss.sendOTP__error__message}
-              icon={<CloseCircleOutlined />}
-              color="error"
-            >
-              {errors.phone}
-            </Tag>
-          </div>
+          <Tag
+            className={styleScss.sendOTP__error__message}
+            icon={<CloseCircleOutlined />}
+            color="error"
+          >
+            {errors.phone}
+          </Tag>
         )}
-        <Button
-          btnClass=""
-          isHaveIcon={true}
-          type="submit"
-          content="Xác thực"
-        />
+
+        <div className={styleScss.sendOTP__btn}>
+          <Button
+            btnClass=""
+            isHaveIcon={true}
+            type="submit"
+            content="Xác thực"
+          />
+        </div>
       </form>
     </div>
   );
