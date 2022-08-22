@@ -97,7 +97,13 @@ interface IDeleteHobby {
 
 interface IUserBlock {
   id: string;
-  user_id: string;
-  block_user_id: Date;
-  created_at: Date;
+  userId: string;
+  blockUserId: string;
+  createdAt: Date;
+}
+interface IUserLikeStack {
+  id: string;
+  fromUserId: string;
+  toUserId: string;
+  createdAt: Date;
 }

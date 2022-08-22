@@ -1,18 +1,20 @@
 import { Layout } from '@/components';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
+  createUserBlock,
+  createUserLikeStack,
+} from '@/redux/slice/findingSlice';
+import {
   getFriendNearUser,
   getLastLocation,
-  updateFriendsNearUser,
 } from '@/redux/slice/mapLocationSlice';
-import { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { EffectCreative } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import UserCard from './components/UserCard';
-import Image from 'next/image';
-import { createUserBlock } from '@/redux/slice/findingSlice';
 
 const FindingPage = () => {
   const { friendsNearUser } = useAppSelector(
@@ -22,14 +24,15 @@ const FindingPage = () => {
 
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
 
-  const handleRemove = (id: string) => {
+  const onLike = (id: string) => (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    dispatch(createUserLikeStack({ toUserId: id }));
     setNearbyUsers(
       nearbyUsers.filter((user) => {
-        user.id !== id;
+        return user.id !== id;
       }),
     );
   };
-  const onLike = (id: string) => {};
 
   const onDislike = (id: string) => (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -40,7 +43,10 @@ const FindingPage = () => {
       }),
     );
   };
-  const onCheckInfo = (user: IUserNearby) => {};
+  const onCheckInfo = (user: IUserNearby) => {
+    console.log(user);
+    return;
+  };
 
   useEffect(() => {
     dispatch(getLastLocation());
