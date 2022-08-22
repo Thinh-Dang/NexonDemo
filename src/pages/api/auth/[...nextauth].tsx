@@ -9,8 +9,8 @@ export default NextAuth({
       clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET as string,
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID as string,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+      clientId: process.env.NEXT_PUBLIC_FACEBOOK_ID as string,
+      clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_SECRET as string,
     }),
   ],
   callbacks: {

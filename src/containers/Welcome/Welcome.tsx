@@ -1,13 +1,13 @@
-import iconFB from '../../../public/assets/fb.svg';
-import iconGG from '../../../public/assets/gg.svg';
-import logoWelcome from '../../../public/assets/images/img-welcome.svg';
-import { signIn } from 'next-auth/react';
-import Image from 'next/image';
-import React from 'react';
-import styleScss from './Welcome.module.scss';
 import { Button } from '@/components/common/Button/Button';
 import Content from '@/components/Content/Content';
+import { signIn } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import iconFB from '../../../public/assets/fb.svg';
+import iconGG from '../../../public/assets/gg.svg';
+import iconApple from '../../../public/assets/apple-icon.svg';
+import logoWelcome from '../../../public/assets/images/img-welcome.svg';
+import styleScss from './Welcome.module.scss';
 
 const Welcome = () => {
   const router = useRouter();
@@ -35,6 +35,16 @@ const Welcome = () => {
           type="button"
           btnClass={styleScss.wrapper__icon}
           content={<Image src={iconFB} alt="Zodinet" />}
+          onClick={() =>
+            signIn('facebook', { redirect: false, callbackUrl: '/auth/login' })
+          }
+        />
+
+        <Button
+          type="button"
+          isHaveIcon={false}
+          btnClass={styleScss.wrapper__icon}
+          content={<Image src={iconApple} alt="Zodinet" />}
         />
 
         <Button
@@ -42,7 +52,9 @@ const Welcome = () => {
           isHaveIcon={false}
           btnClass={styleScss.wrapper__icon}
           content={<Image src={iconGG} alt="Zodinet" />}
-          onClick={() => signIn('google', { redirect: false })}
+          onClick={() =>
+            signIn('google', { redirect: false, callbackUrl: '/auth/login' })
+          }
         />
       </div>
     </main>
