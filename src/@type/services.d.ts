@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd';
 import {
   AlcoholEnum,
   EducationEnum,
@@ -106,4 +107,22 @@ interface IUserLikeStack {
   fromUserId: string;
   toUserId: string;
   createdAt: Date;
+}
+
+interface ISignInWithSocial {
+  typeSocial: string;
+  name: string;
+  url: string;
+  gender: string;
+  email: string;
+  birthday: string;
+  accessToken: string;
+}
+
+interface IUploadImages {
+  images: UploadFile[];
+}
+
+interface IChangeFavoriteImage {
+  id: string;
 }

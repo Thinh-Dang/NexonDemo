@@ -52,7 +52,18 @@ const axiosApiCall = async <T = any>(
   url: string,
   method: string,
   body = {},
+  isFormData?: boolean,
 ): Promise<IResponse> => {
+  if (isFormData) {
+    return http.request<T, IResponse>({
+      method,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/${url}`,
+      data: body,
+      headers: {
+        'Content-type': ` multipart/form-data`,
+      },
+    });
+  }
   return http.request<T, IResponse>({
     method,
     url: `${process.env.NEXT_PUBLIC_API_URL}/${url}`,

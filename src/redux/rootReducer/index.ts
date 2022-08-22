@@ -6,6 +6,7 @@ import mapLocationSlice from '../slice/mapLocationSlice';
 import userSlice from '../slice/userSlice';
 import userProfileSlice from '../slice/userProfileSlice';
 import findingSlice from '../slice/findingSlice';
+import purposeSlice from '../slice/purposeSlice';
 
 const persistConfig = {
   key: 'root',
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   userProfileSlice,
   mapLocationSlice,
   findingSlice,
+  purposeSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

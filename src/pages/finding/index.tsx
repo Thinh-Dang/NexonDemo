@@ -16,6 +16,7 @@ import 'swiper/css';
 import 'swiper/css/effect-creative';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import UserCard from './components/UserCard';
+import { IUserNearby } from '@/@type/redux';
 
 const FindingPage = () => {
   const { friendsNearUser } = useAppSelector(
