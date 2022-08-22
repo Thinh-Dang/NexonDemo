@@ -1,4 +1,5 @@
 import { IPurpose } from '@/@type/params';
+import { IUserProfile } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import { IUpdateUserProfile } from '@/@type/services';
 import {

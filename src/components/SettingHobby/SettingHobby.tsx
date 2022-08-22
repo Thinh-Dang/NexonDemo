@@ -71,7 +71,7 @@ export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
             handleChange={handleChange}
             txtLabel={'Sở thích'}
             isInput={true}
-            defaultValue={null}
+            defaultValue={''}
             name={'name'}
           />
           {touched.name && errors.name && (

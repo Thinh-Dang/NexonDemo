@@ -6,6 +6,7 @@ interface IFormLoginPage {
 interface IFormOtpPage {
   phone: string;
   code: string;
+  email?: string;
 }
 
 // Page Register
@@ -31,4 +32,12 @@ interface ILoginWithSocialPage {
 interface IFormCreateOrUpdateLocation {
   latitude: number;
   longtitude: number;
+}
+
+// page finding
+interface IFormCreateUserBlock {
+  blockedUserId: string;
+}
+interface IFormCreateUserLikeStack {
+  toUserId: string;
 }

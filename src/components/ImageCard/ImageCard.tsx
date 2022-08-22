@@ -25,9 +25,9 @@ export const ImageCard: FC<IImageCard> = ({
     }
   };
 
-  const handleFavorite = useCallback(() => {
+  const handleFavorite = () => {
     if (typeof onFavorite === 'function') onFavorite(id);
-  }, []);
+  };
 
   return (
     <div className={styleScss.imageCard}>

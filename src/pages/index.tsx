@@ -1,5 +1,6 @@
 import { Layout } from '@/components';
 import Loading from '@/components/Loading/Loading';
+import VerifyOtp from '@/containers/VerifyOtp/VerifyOtp';
 import Welcome from '@/containers/Welcome/Welcome';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -14,7 +15,7 @@ const Home: NextPage = () => {
     return <Loading />;
   }
   return (
-    <Layout title="Home" isFooter={false} isHeader={true} islogo={true}>
+    <Layout title="Home" isFooter={false} isHeader={true} isLogo={true}>
       <Welcome />
     </Layout>
   );

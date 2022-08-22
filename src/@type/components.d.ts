@@ -207,6 +207,24 @@ interface ITags {
 interface IFriend {
   friendInfo: IGetFriendNearUser | null;
 }
+interface IMyInput {
+  isInput?: boolean;
+  txtLabel?: string;
+  txtPlaceholder?: string;
+  isDatePicker?: boolean;
+  isSelection?: boolean;
+  isTextArea?: boolean;
+  name?: string;
+  type?: string;
+  defaultValue?: any;
+  handleChange?: (e: any) => void;
+  handleBlur?: (e: any) => void;
+  handleChangeDatePicker?: (a: Moment | undefined, b: string) => void;
+  value?: string | null | undefined;
+  onSubmitOtp?: any;
+  disabled?: any;
+  errorOTP?: string;
+}
 
 interface IUserAlbum {
   album: IUserImages[];

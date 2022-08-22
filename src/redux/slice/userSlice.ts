@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import userApi from '@/services/user.api';
+import { IInitialStateUser } from '@/@type/redux';
+import { ISignInWithSocial } from '@/@type/services';
 
 export const callAPISendOTP = createAsyncThunk(
   'otp/send-otp',
@@ -7,12 +9,21 @@ export const callAPISendOTP = createAsyncThunk(
     return await userApi.sendOTP(requestOption).then((res) => res);
   },
 );
+
 export const callAPIVerifyCode = createAsyncThunk(
   'otp/verify-otp',
   async (requestOption: IFormOtpPage) => {
     return await userApi.verifyOTP(requestOption).then((res) => res);
   },
 );
+
+export const callAPIVerifyCodeLoginWithSocial = createAsyncThunk(
+  'verify-otp-social',
+  async (requestOption: IFormOtpPage) => {
+    return await userApi.verifyOTPWithSocial(requestOption).then((res) => res);
+  },
+);
+
 export const callAPIUpdateUser = createAsyncThunk(
   'users/update-dream-team',
   async (requestOption: IFormRegisterPage) => {
@@ -21,6 +32,14 @@ export const callAPIUpdateUser = createAsyncThunk(
       .then((res) => res);
   },
 );
+
+export const callApiSignUpWithSocial = createAsyncThunk(
+  'users/signup',
+  async (requestOption: ISignInWithSocial) => {
+    return await userApi.signUpUserWithSocial(requestOption).then((res) => res);
+  },
+);
+
 export const getProfile = createAsyncThunk('auth/profile', async () => {
   return await userApi.getProfile().then((res) => res);
 });
@@ -38,6 +57,7 @@ const initialState: IInitialStateUser = {
   },
   phone: '',
   isGetPhone: false,
+  session: '',
 };
 
 export const userSlice = createSlice({
@@ -88,6 +108,10 @@ export const userSlice = createSlice({
     addPhoneNumber: (state, action) => {
       state.phone = action.payload.phone;
     },
+    setIsSocial: (state) => {
+      state.isSocial = true;
+      state.isVerifyOtp = true;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(callAPISendOTP.fulfilled, (state, action) => {
@@ -96,6 +120,7 @@ export const userSlice = createSlice({
         state.isGetPhone = true;
       }
     });
+
     builder.addCase(callAPIVerifyCode.fulfilled, (state, action) => {
       if (action.payload.status) {
         if (action.payload.data === null) {
@@ -106,22 +131,40 @@ export const userSlice = createSlice({
         }
       }
     });
+
     builder.addCase(callAPIUpdateUser.fulfilled, (state, action) => {
       if (action.payload.status) {
-        console.log(action.payload);
+        localStorage.setItem('token', action.payload.data.token);
+        state.isLogin = true;
       }
     });
+
     builder.addCase(getProfile.fulfilled, (state, action) => {
       if (action.payload.status) {
         state.isLogin = true;
       }
     });
+
     builder.addCase(getProfile.rejected, (state) => {
       state.isLogin = false;
     });
+
+    builder.addCase(callApiSignUpWithSocial.fulfilled, (state, action) => {
+      state.inforUser.email = action.payload?.data?.email;
+    });
+
+    builder.addCase(
+      callAPIVerifyCodeLoginWithSocial.fulfilled,
+      (state, action) => {
+        if (action.payload.status) {
+          state.isLogin = true;
+          localStorage.setItem('token', action.payload.data);
+        }
+      },
+    );
   },
 });
 
 const { reducer, actions } = userSlice;
-export const { resetIsGetPhone, addPhoneNumber } = actions;
+export const { resetIsGetPhone, addPhoneNumber, setIsSocial } = actions;
 export default reducer;

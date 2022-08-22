@@ -14,6 +14,7 @@ import { updateSimpleInfo } from '@/redux/slice/userProfileSlice';
 import { IResponse } from '@/@type/responses';
 import { useRouter } from 'next/router';
 import { UpdateUserProfileEnum } from '@/common/enums/enum';
+import { IUserProfile } from '@/@type/redux';
 
 export const ChangeSimpleInfo: FC = () => {
   const dispatch = useAppDispatch();

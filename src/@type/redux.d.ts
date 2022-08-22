@@ -1,3 +1,6 @@
+import { Session } from 'inspector';
+import { string } from 'yup';
+
 interface IAction {
   code: number;
   message: string;
@@ -18,6 +21,7 @@ interface IInitialStateUser {
     birthday: string;
     gender: GenderEnum;
   };
+  session: unknown;
 }
 
 // Slice Uer Profile Redux
@@ -91,11 +95,17 @@ interface IInitialStateMapLocation {
   zoomLevel: number;
 }
 interface IGetFriendNearUser {
-  friendId: string;
-  friendName: string;
-  friendBirthday: string;
-  friendAvatar: string;
+  id: string;
+  name: string;
+  birthday: Date;
+  avatar: string;
   latitude: number;
   longtitude: number;
   distance: number;
+  unit: string;
+}
+
+interface INameAndEmail {
+  name: string;
+  email: string;
 }

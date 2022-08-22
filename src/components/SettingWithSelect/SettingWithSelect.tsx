@@ -12,6 +12,8 @@ import { IResponse } from '@/@type/responses';
 import * as yup from 'yup';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.module.scss';
+import { IUserProfile } from '@/@type/redux';
+import { MaritalStatusEnum } from '@/common/enums/enum';
 
 export const SettingWithSelect: FC<ISettingWithSelect> = ({
   defaultValue,
@@ -27,7 +29,7 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
 
   const { errors, handleSubmit, touched } = useFormik({
     initialValues: {
-      [name]: defaultValue,
+      [name]: defaultValue ? defaultValue : MaritalStatusEnum.SINGLE,
     },
     onSubmit: async (value) => {
       value[name] = valueSelect;

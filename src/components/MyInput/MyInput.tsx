@@ -1,16 +1,17 @@
-import { DatePicker, Select } from 'antd';
+import { DatePicker, Select, Tag } from 'antd';
 //import Input from 'antd/lib/input/Input';
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import iconArrowDown from '../../../public/assets/arrow-down.svg';
 import iconDate from '../../../public/assets/Calendar.svg';
-import styleCss from './MyInput.module.scss';
+import styleScss from './MyInput.module.scss';
 import { Input } from 'antd';
 
 import { Option } from 'antd/lib/mentions';
 import moment from 'moment';
+import { IMyInput } from '@/@type/components';
+import { CloseCircleOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-
 const MyInput: FC<IMyInput> = ({
   isInput,
   txtLabel,
@@ -24,13 +25,24 @@ const MyInput: FC<IMyInput> = ({
   handleChange,
   handleBlur,
   handleChangeDatePicker,
+  value,
+  onSubmitOtp,
+  disabled,
+  errorOTP,
 }) => {
   const [timerSeconds, setTimerSeconds] = useState<string>();
   const [timerMinutes, setTimerMinus] = useState<string>();
+  const firstRef = useRef<HTMLInputElement>(null);
+  const secondRef = useRef<HTMLInputElement>(null);
+  const thirdRef = useRef<HTMLInputElement>(null);
+  const fourthRef = useRef<HTMLInputElement>(null);
+  const fifthRef = useRef<HTMLInputElement>(null);
+  const sixthRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyPress = (e: any) => {
-    if (e.target.value.length > e.target.maxLength)
-      e.target.value = e.target.value.slice(0, e.target.maxLength);
+  const padWithZeros = (number: number, minLenght: number) => {
+    const numberString = number.toString();
+    if (numberString.length >= minLenght) return numberString;
+    return '0'.repeat(minLenght - numberString.length) + numberString;
   };
 
   const startTimer = (): NodeJS.Timer => {
@@ -52,10 +64,11 @@ const MyInput: FC<IMyInput> = ({
     return interval;
   };
 
-  const padWithZeros = (number: number, minLenght: number) => {
-    const numberString = number.toString();
-    if (numberString.length >= minLenght) return numberString;
-    return '0'.repeat(minLenght - numberString.length) + numberString;
+  const handleChangeOTP = (refs: any) => {
+    const results = refs.reduce((acc: string, curr: any) => {
+      return acc + curr.value;
+    }, '');
+    onSubmitOtp(results);
   };
 
   useEffect(() => {
@@ -66,10 +79,66 @@ const MyInput: FC<IMyInput> = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (
+      firstRef.current &&
+      secondRef.current &&
+      thirdRef.current &&
+      fourthRef.current &&
+      fifthRef.current &&
+      sixthRef.current
+    ) {
+      const refs = [
+        firstRef.current,
+        secondRef.current,
+        thirdRef.current,
+        fourthRef.current,
+        fifthRef.current,
+        sixthRef.current,
+      ];
+      for (let i = 0; i < refs.length; i++) {
+        refs[i].addEventListener('mouseenter', function (event) {
+          if (refs[0].value === '') {
+            refs[0].focus();
+          } else if (refs[1].value === '') {
+            refs[1].focus();
+          } else if (refs[2].value === '') {
+            refs[2].focus();
+          } else if (refs[3].value === '') {
+            refs[3].focus();
+          } else if (refs[4].value === '') {
+            refs[4].focus();
+          } else if (refs[5].value === '') {
+            refs[5].focus();
+          }
+        });
+
+        refs[i].addEventListener('keydown', function (event) {
+          if (event.key === 'Backspace') {
+            refs[i].value = '';
+            handleChangeOTP(refs);
+            if (i !== 0) refs[i - 1].focus();
+          } else {
+            if (i === refs.length - 1 && refs[i].value !== '') {
+              handleChangeOTP(refs);
+              return true;
+            } else if (/^[0-9]*$/.test(event.key)) {
+              refs[i].value = event.key;
+              handleChangeOTP(refs);
+              if (i !== refs.length - 1) refs[i + 1].focus();
+            }
+            event.preventDefault();
+          }
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef]);
+
   if (isTextArea) {
     return (
-      <div className={styleCss.groupInput}>
-        <label className={styleCss.groupInput__label}>
+      <div className={styleScss.groupInput}>
+        <label className={styleScss.groupInput__label}>
           {txtLabel}
           <span style={{ color: '#FE5D5D' }}>*</span>
         </label>
@@ -81,7 +150,7 @@ const MyInput: FC<IMyInput> = ({
           maxLength={200}
           defaultValue={defaultValue}
           placeholder={txtPlaceholder}
-          className={styleCss.groupInput__textArea}
+          className={styleScss.groupInput__textArea}
         />
       </div>
     );
@@ -91,28 +160,42 @@ const MyInput: FC<IMyInput> = ({
 
   if (isInput) {
     return (
-      <div className={styleCss.groupInput}>
-        <label className={styleCss.groupInput__label}>
+      <div className={styleScss.groupInput}>
+        <label className={styleScss.groupInput__label}>
           {txtLabel}
           <span style={{ color: '#FE5D5D' }}>*</span>
         </label>
-        <Input
-          onChange={handleChange}
-          onBlur={handleBlur}
-          name={name}
-          type={type}
-          defaultValue={defaultValue}
-          placeholder={txtPlaceholder}
-          className={styleCss.groupInput__input}
-        />
+        {defaultValue !== undefined ? (
+          <Input
+            disabled={disabled}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name={name}
+            type={type}
+            defaultValue={defaultValue}
+            placeholder={txtPlaceholder}
+            className={styleScss.groupInput__input}
+          />
+        ) : (
+          <Input
+            disabled={disabled}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name={name}
+            type={type}
+            placeholder={txtPlaceholder}
+            className={styleScss.groupInput__input}
+            value={value ?? ''}
+          />
+        )}
       </div>
     );
   }
 
   if (isDatePicker) {
     return (
-      <div className={styleCss.groupInput}>
-        <p className={styleCss.groupInput__label}>Năm sinh</p>
+      <div className={styleScss.groupInput}>
+        <p className={styleScss.groupInput__label}>Năm sinh</p>
         <DatePicker
           name={name}
           onChange={handleChangeDatePicker}
@@ -123,7 +206,7 @@ const MyInput: FC<IMyInput> = ({
               ? moment(defaultValue.toLocaleDateString('vi-VN'), 'DD/MM/YYYY')
               : moment('18/12/1980', 'DD/MM/YYYY')
           }
-          className={styleCss.groupInput__myDatePicker}
+          className={styleScss.groupInput__myDatePicker}
           suffixIcon={<Image src={iconDate} alt="Zodinet" />}
         />
       </div>
@@ -132,15 +215,15 @@ const MyInput: FC<IMyInput> = ({
 
   if (isSelection) {
     return (
-      <div className={styleCss.groupInput}>
-        <p className={styleCss.groupInput__label}>Giới Tính</p>
+      <div className={styleScss.groupInput}>
+        <p className={styleScss.groupInput__label}>Giới Tính</p>
         <div>
           <Select
             onChange={handleChange}
             bordered={false}
             defaultValue="Other"
             suffixIcon={<Image src={iconArrowDown} alt="zodinet" />}
-            className={styleCss.mySelectionInput}
+            className={styleScss.mySelectionInput}
           >
             <Option value="Male">Nam</Option>
             <Option value="Female">Nữ</Option>
@@ -153,30 +236,50 @@ const MyInput: FC<IMyInput> = ({
 
   return (
     <>
-      <div className={styleCss.otpInput}>
-        <div>
-          <input
-            type="number"
-            maxLength={6}
-            onChange={handleChange}
-            className={styleCss.myInput}
-            onInput={(e) => handleKeyPress(e)}
-            onBlur={handleBlur}
-            name={name}
-          />
-          <div className={styleCss.groupDot}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+      <div className={styleScss.otpInput}>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={firstRef} />
+          <span></span>
+        </div>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={secondRef} />
+          <span></span>
+        </div>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={thirdRef} />
+          <span></span>
+        </div>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={fourthRef} />
+          <span></span>
+        </div>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={fifthRef} />
+          <span></span>
+        </div>
+        <div className={styleScss.otpInput__groupInput}>
+          <input type="text" maxLength={1} ref={sixthRef} />
+          <span></span>
         </div>
       </div>
-      <div style={{ textAlign: 'right', marginBottom: '4.1rem' }}>
+      {errorOTP ? (
+        <div className={styleScss.errors__message}>
+          <Tag
+            style={{ width: '100%' }}
+            icon={<CloseCircleOutlined />}
+            color="error"
+          >
+            {errorOTP}
+          </Tag>
+        </div>
+      ) : (
+        ''
+      )}
+      <div
+        style={{ textAlign: 'right', marginBottom: '4.1rem', display: 'block' }}
+      >
         {timerMinutes === '00' && timerSeconds === '00' ? (
-          <button type="button" className={styleCss.bntOutline}>
+          <button type="button" className={styleScss.bntOutline}>
             Gửi Lại OTP
           </button>
         ) : (

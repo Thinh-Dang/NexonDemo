@@ -1,4 +1,4 @@
-import Loading from '@/components/Loading/Loading';
+import Spinning from '@/components/Spinning/Spinning';
 import MapLocationContainer from '@/containers/MapLocation/MapLocation';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
@@ -15,10 +15,9 @@ const MapPage: FC = () => {
   useEffect(() => {
     dispatch(getFriendNearUser());
   }, [dispatch]);
-
   useEffect(() => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.watchPosition(function (position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
         console.log('position.coords.latitude', position.coords.latitude);
         console.log('position.coords.longitude', position.coords.longitude);
 
@@ -31,11 +30,10 @@ const MapPage: FC = () => {
       });
     }
   }, [dispatch]);
-
   return userPosition.lat !== 0 && userPosition.lng !== 0 ? (
     <MapLocationContainer />
   ) : (
-    <Loading />
+    <Spinning />
   );
 };
 

@@ -25,6 +25,10 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
     if (swiper) swiper.slideTo(index, 1000);
   };
 
+  useEffect(() => {
+    setCountFaovrite(favoriteCount(album));
+  }, [album]);
+
   const maxFavorite = parseInt(process.env.NEXT_pUBLIC_MAX_FAVORITE ?? '3');
 
   const dispatch = useAppDispatch();
@@ -44,7 +48,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
     }
   };
 
-  const handleFavorite = useCallback(async (id: string) => {
+  const handleFavorite = async (id: string) => {
     const res = (await dispatch(changeFavoriteImage({ id: id })))
       .payload as IResponse<string | IUserImages>;
 
@@ -64,7 +68,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
     } else {
       message.error('Change favorite image fail.');
     }
-  }, []);
+  };
 
   const handleCloseOvelay = useCallback(() => {
     if (ref.current) ref.current.hidden = true;
