@@ -14,12 +14,12 @@ const UserDetail = (props: IProps) => {
     return today.getFullYear() - birthdate.getFullYear();
   };
   const iconList = {
-    children: '/assets/images/icon8-child 1.svg',
-    alcohol: '/assets/images/icon8-white-wine 1.svg',
-    gender: '/assets/images/icon8-gender 1.svg',
-    religion: '/assets/images/icon8-applause 1.svg',
-    education: '/assets/images/icons8-graduation-cap 2.svg',
-    height: '/assets/images/icon8-length.svg',
+    children: '/assets/images/icons8-child.svg',
+    alcohol: '/assets/images/icons8-white-wine.svg',
+    gender: '/assets/images/icons8-gender.svg',
+    religion: '/assets/images/icons8-applause.svg',
+    education: '/assets/images/icons8-graduation-cap.svg',
+    height: '/assets/images/icons8-length.svg',
     marital_status: '/assets/images/icons8-ring.svg',
   };
   return (

@@ -7,7 +7,7 @@
   background: white;
   transition: overlay 10s ease-in-out;
   opacity: 0;
-  z-index: 6;
+  z-index: 401;
   transform: translateY(100%);
   transition: all 0.5s ease-in-out;
   &-show {
@@ -16,7 +16,7 @@
   }
 }
 .popup {
-  z-index: 7 !important;
+  z-index: 402 !important;
   transform: translateY(0) !important;
   width: calc(100vw - 3.2rem) !important;
   right: 1.6rem !important;
@@ -37,7 +37,7 @@
 .user-detail {
   height: 100%;
   max-height: 100%;
-  padding-bottom: 3rem;
+  padding-bottom: 10rem;
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
