@@ -60,6 +60,14 @@ export const deleteImage = createAsyncThunk(
     return res;
   },
 );
+export const updateSimpleInfo = createAsyncThunk(
+  'users/update-simple-info',
+  async (dto: FormData) => {
+    const res = await UserProfileApi.updateSimpleInfo(dto);
+
+    return res;
+  },
+);
 
 const initialState: IUserProfile = {
   id: '',
@@ -95,7 +103,6 @@ export const userProfileSlice = createSlice({
       ) => {
         if (action.payload.status) {
           const res = action.payload.data;
-          console.log(res);
           const keys = Object.keys(state);
           keys.forEach((element) => {
             state[element] = res[element];
@@ -194,6 +201,21 @@ export const userProfileSlice = createSlice({
           );
 
           state.album.splice(index, 1);
+        }
+      },
+    );
+    builder.addCase(
+      updateSimpleInfo.fulfilled,
+      (
+        state: IUserProfile,
+        action: PayloadAction<IResponse<string | IUserProfile>>,
+      ) => {
+        if (action.payload.status) {
+          const res = action.payload.data as IUserProfile;
+
+          state.avatar = res.avatar;
+          state.birthday = new Date(res.birthday);
+          state.name = res.name;
         }
       },
     );

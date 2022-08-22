@@ -220,3 +220,11 @@ interface IImageCard {
   isFavorite: boolean;
   isAvailableFavorite?: boolean;
 }
+
+// Component Simple Profile Info
+interface ISimpleProfileInfo {
+  name: string;
+  birthday: Date;
+  purposeTite: string | undefined;
+  avatar: string;
+}

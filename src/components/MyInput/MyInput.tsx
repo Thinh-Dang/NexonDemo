@@ -118,7 +118,11 @@ const MyInput: FC<IMyInput> = ({
           onChange={handleChangeDatePicker}
           clearIcon={false}
           format={'DD/MM/YYYY'}
-          defaultValue={moment('18/12/1980', 'DD/MM/YYYY')}
+          defaultValue={
+            defaultValue
+              ? moment(defaultValue.toLocaleDateString('vi-VN'), 'DD/MM/YYYY')
+              : moment('18/12/1980', 'DD/MM/YYYY')
+          }
           className={styleCss.groupInput__myDatePicker}
           suffixIcon={<Image src={iconDate} alt="Zodinet" />}
         />

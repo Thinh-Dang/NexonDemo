@@ -17,6 +17,7 @@ import styleScss from '../../containers/UpdateInfor/UpdateInfor.module.scss';
 import MyInput from '../MyInput/MyInput';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { Button } from '../common';
+import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.module.scss';
 
 export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
   const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
         ))}
       </div>
       <form onSubmit={handleSubmit} className={styleScss.inforUserMain__form}>
-        <div className={styleScss.inforUserMain__form__group}>
+        <div>
           <MyInput
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -85,11 +86,13 @@ export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
             </div>
           )}
         </div>
-        <Button
-          content="Xong"
-          type="submit"
-          btnClass={styleScss.inforUserMain__form__btn}
-        />
+        <div className={buttonScss.changeSimpleInfo__button}>
+          <Button
+            content="Xong"
+            type="submit"
+            btnClass={styleScss.inforUserMain__form__btn}
+          />
+        </div>
       </form>
     </div>
   );

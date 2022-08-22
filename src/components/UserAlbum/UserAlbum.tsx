@@ -15,7 +15,7 @@ import { useAppDispatch } from '@/redux';
 import { changeFavoriteImage } from '@/redux/slice/userProfileSlice';
 import { IResponse } from '@/@type/responses';
 import { IUserImages } from '@/@type/params';
-import SwiperCore, { Thumbs } from 'swiper';
+import SwiperCore from 'swiper';
 
 export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
   const [countFavorite, setCountFaovrite] = useState(favoriteCount(album));
@@ -37,12 +37,12 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
     router.push('/upload-images');
   }, []);
 
-  const handleImageClick = useCallback((index: number) => {
+  const handleImageClick = (index: number) => {
     if (ref.current) {
       ref.current.hidden = false;
       slideTo(index);
     }
-  }, []);
+  };
 
   const handleFavorite = useCallback(async (id: string) => {
     const res = (await dispatch(changeFavoriteImage({ id: id })))
@@ -209,7 +209,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
           ) : null}
         </Row>
       </div>
-      <div ref={ref}>
+      <div hidden ref={ref}>
         <div
           className={styleScss.userAlbum__overlay}
           onClick={handleCloseOvelay}

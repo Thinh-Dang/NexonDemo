@@ -21,7 +21,6 @@ export const purposeSlice = createSlice({
       ) => {
         if (action.payload.status) {
           const res = action.payload.data as IPurpose[];
-          console.log(res);
           for (let i = 0; i < res.length; i++) {
             state.push(res[i]);
           }

@@ -26,6 +26,7 @@ import {
   SettingInfo,
   SettingWithInput,
   SettingWithSelect,
+  SimpleProfileInfo,
   UserAlbum,
 } from '@/components';
 import {
@@ -49,6 +50,7 @@ import {
   ConvertGenderEnum,
   ConvertMaritalStatusEnum,
   ConvertReligionEnum,
+  getPurposetitle,
   pickColor,
 } from '@/utils';
 import { Col, message, Row } from 'antd';
@@ -69,12 +71,6 @@ export const Profile = () => {
   const purposes = useAppSelector((state: RootState) => state.purposeSlice);
 
   const [settingItem, setSettingItem] = useState('');
-
-  const getPurposetitle = (id: string): string | undefined => {
-    const purpose = purposes.find((item) => item.id === id);
-    if (!purpose) return undefined;
-    return purpose.title;
-  };
 
   const cardRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -256,30 +252,21 @@ export const Profile = () => {
           message.success('hello');
         }}
       />
-      <div className={styleCss['profileFrame-simpleInfo']}>
-        <Image
-          className={styleCss['profileFrame-simpleInfo-image']}
-          alt="avatar"
-          src={profile.avatar}
-          width={40}
-          height={40}
-        />
-        <div>
-          <h3 className={styleCss['profileFrame-simpleInfo-nameAndAge']}>
-            {profile.name},{calculateAge(profile.birthday)}t
-          </h3>
-          <p className={styleCss['profileFrame-simpleInfo-reasonHere']}>
-            {getPurposetitle(profile.purposeId)}
-          </p>
-        </div>
-      </div>
+
+      <SimpleProfileInfo
+        name={profile.name}
+        birthday={profile.birthday}
+        purposeTite={getPurposetitle(profile.purposeId, purposes)}
+        avatar={profile.avatar}
+      />
+
       <UserAlbum album={profile.album} />
       <div className={styleCss['profileFrame-settingInfo']}>
         <SettingInfo
           title={'Tại sao bạn lại ở đây'}
           content={
-            getPurposetitle(profile.purposeId)
-              ? getPurposetitle(profile.purposeId)
+            getPurposetitle(profile.purposeId, purposes)
+              ? getPurposetitle(profile.purposeId, purposes)
               : 'Không có'
           }
           onIconClick={openSetting}

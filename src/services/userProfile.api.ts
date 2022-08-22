@@ -17,9 +17,13 @@ const UserProfileApi = {
       string | IUserProfile
     >;
   },
-  updateInfo: async (dto: IUpdateUserProfile): Promise<IResponse<string>> => {
+  updateInfo: async (
+    dto: IUpdateUserProfile,
+  ): Promise<IResponse<string | IUserProfile>> => {
     const url = 'users/secure/update';
-    const res = (await axiosApiCall(url, Method.put, dto)) as IResponse<string>;
+    const res = (await axiosApiCall(url, Method.put, dto)) as IResponse<
+      string | IUserProfile
+    >;
 
     return res;
   },
@@ -69,6 +73,17 @@ const UserProfileApi = {
       Method.delete,
       data,
     )) as IResponse<string>;
+    return res;
+  },
+  updateSimpleInfo: async (
+    dto: FormData,
+  ): Promise<IResponse<string | IUserProfile>> => {
+    const url = 'users/secure/update';
+
+    const res = (await axiosApiCall(url, Method.put, dto, true)) as IResponse<
+      string | IUserProfile
+    >;
+
     return res;
   },
 };

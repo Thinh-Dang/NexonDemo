@@ -11,6 +11,7 @@ import { IResponse } from '@/@type/responses';
 import * as yup from 'yup';
 import MyInput from '../MyInput/MyInput';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.module.scss';
 
 export const SettingWithInput: FC<ISettingWithInput> = ({
   defaultValue,
@@ -54,7 +55,7 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
 
   return (
     <form onSubmit={handleSubmit} className={styleScss.inforUserMain__form}>
-      <div className={styleScss.inforUserMain__form__group}>
+      <div>
         {isTextArea ? (
           <MyInput
             handleBlur={handleBlur}
@@ -88,11 +89,13 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
           </div>
         )}
       </div>
-      <Button
-        content="Xong"
-        type="submit"
-        btnClass={styleScss.inforUserMain__form__btn}
-      />
+      <div className={buttonScss.changeSimpleInfo__button}>
+        <Button
+          content="Xong"
+          type="submit"
+          btnClass={styleScss.inforUserMain__form__btn}
+        />
+      </div>
     </form>
   );
 };

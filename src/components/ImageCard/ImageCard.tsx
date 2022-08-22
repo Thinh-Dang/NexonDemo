@@ -36,11 +36,11 @@ export const ImageCard: FC<IImageCard> = ({
         layout="fill"
         src={url}
         objectFit="cover"
-        objectPosition="top"
+        //objectPosition="top"
       />
       <div className={styleScss.imageCard__icons}>
         <div className={styleScss.imageCard__icon} onClick={handleDelete}>
-          <img src="./assets/images/Close.svg" alt="delete" />
+          <img src="./assets/images/delete.svg" alt="delete" />
         </div>
         {isFavorite && (
           <div className={styleScss.imageCard__icon} onClick={handleFavorite}>

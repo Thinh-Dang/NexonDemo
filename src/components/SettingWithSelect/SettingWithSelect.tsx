@@ -11,6 +11,7 @@ import { updateUserProfile } from '@/redux/slice/userProfileSlice';
 import { IResponse } from '@/@type/responses';
 import * as yup from 'yup';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.module.scss';
 
 export const SettingWithSelect: FC<ISettingWithSelect> = ({
   defaultValue,
@@ -36,8 +37,6 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
         type: settingType,
       };
 
-      console.log(valueRequest);
-
       const res = (await dispatch(updateUserProfile(valueRequest)))
         .payload as IResponse<string | IUserProfile>;
 
@@ -56,7 +55,7 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
 
   return (
     <form onSubmit={handleSubmit} className={styleScss.inforUserMain__form}>
-      <div className={styleScss.inforUserMain__form__group}>
+      <div>
         <MySelect
           source={source}
           defaultValue={defaultValue}
@@ -75,11 +74,13 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
           </div>
         )}
       </div>
-      <Button
-        content="Xong"
-        type="submit"
-        btnClass={styleScss.inforUserMain__form__btn}
-      />
+      <div className={buttonScss.changeSimpleInfo__button}>
+        <Button
+          content="Xong"
+          type="submit"
+          btnClass={styleScss.inforUserMain__form__btn}
+        />
+      </div>
     </form>
   );
 };
