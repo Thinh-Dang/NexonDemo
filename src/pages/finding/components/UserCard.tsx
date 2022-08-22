@@ -5,16 +5,26 @@ interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => (e: { preventDefault: () => void }) => void;
   onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
-  onCheckInfo: (user: IUserNearby) => void;
+  onCheckInfo: (user: IGetFriendNearUser) => void;
+  onInfoClick: () => void;
 }
 
-const UserCard: FC<IProps> = ({ user, onLike, onDislike, onCheckInfo }) => {
+const UserCard: FC<IProps> = ({
+  user,
+  onLike,
+  onDislike,
+  onCheckInfo,
+  onInfoClick,
+}) => {
   const age = (birthday: Date): number => {
     const today = new Date();
     const birthdate = new Date(birthday);
     return today.getFullYear() - birthdate.getFullYear();
   };
-
+  const handleInfoClick = () => {
+    onCheckInfo(user);
+    onInfoClick();
+  };
   return (
     <div
       className="findingPage-card"
@@ -66,6 +76,7 @@ const UserCard: FC<IProps> = ({ user, onLike, onDislike, onCheckInfo }) => {
             alt="information icon"
             width={'16px'}
             height={'16px'}
+            onClick={handleInfoClick}
           />
         </div>
       </div>

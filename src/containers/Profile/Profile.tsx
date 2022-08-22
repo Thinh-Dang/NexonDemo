@@ -524,7 +524,7 @@ export const Profile = () => {
           ))}
         </div>
       </div>
-      <Card height={511} ref={cardRef}>
+      <Card height={'511px'} ref={cardRef}>
         {SwitchCase(settingItem)}
       </Card>
       <div

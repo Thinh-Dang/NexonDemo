@@ -70,8 +70,10 @@ interface IItemHobby {
 
 // Component Card
 interface ICard {
-  height: number;
+  height: string;
   children?: JSX.Element;
+  hasCloseBtn?: boolean;
+  onCloseCard?: () => void;
 }
 
 // Compoenent Item Reason
