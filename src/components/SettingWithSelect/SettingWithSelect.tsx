@@ -27,9 +27,9 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
 
   const dispatch = useAppDispatch();
 
-  const { errors, handleSubmit, touched } = useFormik({
+  const { errors, values, handleSubmit, touched } = useFormik({
     initialValues: {
-      [name]: defaultValue ? defaultValue : MaritalStatusEnum.SINGLE,
+      [name]: defaultValue,
     },
     onSubmit: async (value) => {
       value[name] = valueSelect;
@@ -53,6 +53,7 @@ export const SettingWithSelect: FC<ISettingWithSelect> = ({
 
   const handleSelectChange = useCallback((value: string) => {
     setValueSelect(value);
+    values[name] = value;
   }, []);
 
   return (
