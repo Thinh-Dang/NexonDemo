@@ -53,12 +53,7 @@ export const findingSlice = createSlice({
     builder.addCase(
       // getMatchingFriends
       getMatchingFriends.fulfilled,
-      (state, action: any) => {
-        if (action.payload.status) {
-          const { data } = action.payload;
-          state.matching = data;
-        }
-      },
+      (state, action: any) => {},
     );
     builder.addCase(
       // deleteUserLikeStacks

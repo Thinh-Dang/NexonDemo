@@ -1,6 +1,5 @@
-import { user } from 'firebase-functions/v1/auth';
+import { IGetFriendNearUser } from '@/@type/redux';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => (e: { preventDefault: () => void }) => void;
