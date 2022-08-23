@@ -109,3 +109,7 @@ interface INameAndEmail {
   name: string;
   email: string;
 }
+
+interface IInitialStateUserLikeStack {
+  matching: IMatchingFriend[];
+}
