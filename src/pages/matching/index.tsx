@@ -29,7 +29,7 @@ const MatchPage: FC<IMatchingPage> = ({
   };
 
   useEffect(() => {
-    if (matching.length) {
+    if (matching?.length) {
       setMatchedFriends(matching);
       openMatchPagePopUp();
     }
