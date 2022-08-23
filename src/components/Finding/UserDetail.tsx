@@ -1,6 +1,6 @@
 import { user } from 'firebase-functions/v1/auth';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => (e: { preventDefault: () => void }) => void;
@@ -8,11 +8,38 @@ interface IProps {
 }
 const UserDetail = (props: IProps) => {
   const { user, onLike, onDislike } = props;
+  const hobbyColors = [
+    '#FFF0F0',
+    '#EDF7FF',
+    '#FFF5ED',
+    '#E9FBF1',
+    '#F3D6D6',
+    '#F9EDFF',
+    '#FFEDF6',
+    '#EDDEFF',
+    '#E4DAE4',
+    '#FFDEFC',
+  ];
+  const hobbies = [
+    'mua sắm',
+    'du lịch',
+    'cafe',
+    'đọc sách',
+    'đi chơi',
+    'games',
+    'gigachad',
+    'simp',
+    'fan MU',
+    'wibu',
+    'DIY',
+    'IT',
+  ];
   const age = (birthday: Date): number => {
     const today = new Date();
     const birthdate = new Date(birthday);
     return today.getFullYear() - birthdate.getFullYear();
   };
+
   const iconList = {
     children: '/assets/images/icons8-child.svg',
     alcohol: '/assets/images/icons8-white-wine.svg',
@@ -22,6 +49,7 @@ const UserDetail = (props: IProps) => {
     height: '/assets/images/icons8-length.svg',
     marital_status: '/assets/images/icons8-ring.svg',
   };
+
   return (
     <div className="user-detail">
       <img className="user-detail-avatar" src={user?.avatar} alt="avatar" />
@@ -41,7 +69,7 @@ const UserDetail = (props: IProps) => {
           </span>
         </span>
         <span className="user-detail-infoContainer-quote">
-          <p className="user-detail-infoContainer-quote-openQuote">“</p>
+          <span className="user-detail-infoContainer-quote-openQuote">“</span>
           Hôm nay em đi học, bị điểm kém môn Anh. Cô giáo dạy “Yêu” là “love”,
           mà em cứ viết tên anh.
         </span>
@@ -132,33 +160,41 @@ const UserDetail = (props: IProps) => {
         <section className="user-detail-infoContainer-hobby">
           <p className="user-detail-infoContainer-hobby-title">Tôi thích...</p>
           <div className="user-detail-infoContainer-hobby-list">
-            <span className="user-detail-infoContainer-hobby-list-item">
-              #mua sắm
-            </span>
-            <span className="user-detail-infoContainer-hobby-list-item">
-              #đi chơi
-            </span>
-            <span className="user-detail-infoContainer-hobby-list-item">
-              #du lịch
-            </span>
+            {hobbies.map((hobby, index) => {
+              return (
+                <span
+                  key={`hobby ${index}`}
+                  style={{
+                    backgroundColor: `${
+                      index < hobbyColors.length
+                        ? hobbyColors[index]
+                        : hobbyColors[index - hobbyColors.length]
+                    }`,
+                  }}
+                  className="user-detail-infoContainer-hobby-list-item"
+                >
+                  #{hobby}
+                </span>
+              );
+            })}
           </div>
         </section>
       </div>
-      <div className="user-detail-galery">
+      <div className="user-detail-gallery">
         <img
           src="./assets/images/avatar/avatar1.jpg"
           alt="avatar"
-          className="user-detail-galery-item"
+          className="user-detail-gallery-item"
         />
         <img
           src="./assets/images/avatar/avatar2.jpg"
           alt="avatar"
-          className="user-detail-galery-item"
+          className="user-detail-gallery-item"
         />
         <img
           src="./assets/images/avatar/avatar3.jpg"
           alt="avatar"
-          className="user-detail-galery-item"
+          className="user-detail-gallery-item"
         />
       </div>
     </div>
