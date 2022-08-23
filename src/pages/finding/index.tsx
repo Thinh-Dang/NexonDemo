@@ -1,32 +1,41 @@
+import { IGetFriendNearUser } from '@/@type/redux';
 import { Card, Layout } from '@/components';
 import UserDetail from '@/components/Finding/UserDetail';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
-  createUserBlock,
-  createUserLikeStack,
-} from '@/redux/slice/findingSlice';
-import {
   getFriendNearUser,
   getLastLocation,
 } from '@/redux/slice/mapLocationSlice';
+import { createUserBlock } from '@/redux/slice/userBlockSlice';
+import {
+  createUserLikeStack,
+  deleteUserLikeStacks,
+  getMatchingFriends,
+} from '@/redux/slice/userLikeStackSlice';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { EffectCreative } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import MatchPage from '../matching';
 import UserCard from './components/UserCard';
-import { IUserNearby } from '@/@type/redux';
 
 const FindingPage = () => {
-  const { friendsNearUser } = useAppSelector(
-    (state: RootState) => state.mapLocationSlice,
-  );
   const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const matchingRef = useRef<HTMLDivElement>(null);
+
+  const { friendsNearUser } = useAppSelector(
+    (state: RootState) => state.mapLocationSlice,
+  );
+  const { matching } = useAppSelector(
+    (state: RootState) => state.userLikeStackSlice,
+  );
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser>();
+
   const onOverlayClick = useCallback(() => {
     if (cardRef.current && overlayRef.current) {
       const card = cardRef.current;
@@ -56,6 +65,29 @@ const FindingPage = () => {
       }, 10);
     }
   }, []);
+
+  const openMatchPagePopUp = useCallback(() => {
+    if (matchingRef.current) {
+      const matching = matchingRef.current;
+
+      matching.hidden = false;
+
+      setTimeout(() => {
+        matching.classList.add('show');
+      }, 10);
+    }
+  }, []);
+
+  const closeMatchPagePopUp = useCallback(() => {
+    if (matchingRef.current) {
+      const match = matchingRef.current;
+      const ids = matching.map((el) => el.id);
+      ids.length && dispatch(deleteUserLikeStacks({ ids: ids }));
+      match.classList.remove('show');
+      return;
+    }
+  }, []);
+
   const onLike = (id: string) => (e: { preventDefault: () => void }) => {
     e.preventDefault();
     dispatch(createUserLikeStack({ toUserId: id }));
@@ -80,10 +112,20 @@ const FindingPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getLastLocation());
     dispatch(getFriendNearUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getLastLocation());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMatchingFriends());
+  }, []);
+
+  useEffect(() => {
     setNearbyUsers(friendsNearUser);
-  }, [dispatch, friendsNearUser]);
+  }, [friendsNearUser]);
 
   return (
     <Layout
@@ -95,12 +137,14 @@ const FindingPage = () => {
       <div className="findingPage">
         <div className="findingPage-header">
           <h2 className="findingPage-header-brandName">Binace</h2>
-          <Image
-            src="/assets/images/notification-bell.svg"
-            alt="bell"
-            width={'20px'}
-            height={'20px'}
-          />
+          <div onClick={openMatchPagePopUp}>
+            <Image
+              src="/assets/images/notification-bell.svg"
+              alt="bell"
+              width={'20px'}
+              height={'20px'}
+            />
+          </div>
         </div>
         <Swiper
           className="findingPage-container"
@@ -140,7 +184,7 @@ const FindingPage = () => {
               >
                 <div className="findingPage-card-empty">
                   <p className="findingPage-card-empty-content">
-                    Oops , no one's around
+                    Oops , no one&apos;s around
                   </p>
                 </div>
               </div>
@@ -167,6 +211,12 @@ const FindingPage = () => {
           onClick={onOverlayClick}
           ref={overlayRef}
         ></div>
+        <MatchPage
+          matching={matching}
+          matchingRef={matchingRef}
+          openMatchPagePopUp={openMatchPagePopUp}
+          closeMatchPagePopUp={closeMatchPagePopUp}
+        />
       </div>
     </Layout>
   );

@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 import style from './Layout.module.scss';
 
+import { ILayout } from '@/@type/components';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { getProfile } from '@/redux/slice/userSlice';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useAppSelector, RootState, useAppDispatch } from '@/redux';
 import { Footer, Header } from '../common';
 import Loading from '../Loading/Loading';
-import { getProfile } from '@/redux/slice/userSlice';
-import { ILayout } from '@/@type/components';
 
 export const Layout: FC<ILayout> = ({
   children,
@@ -44,7 +44,7 @@ export const Layout: FC<ILayout> = ({
 
   if (isLogin && location === '/auth/login') {
     router.push('/finding');
-    return <Loading />;
+    // return <Spinning />;
   }
 
   return (

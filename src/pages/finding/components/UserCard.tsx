@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
+import { IGetFriendNearUser } from '@/@type/redux';
 
 interface IProps {
   user: IGetFriendNearUser;
@@ -28,7 +29,11 @@ const UserCard: FC<IProps> = ({
   return (
     <div
       className="findingPage-card"
-      style={{ backgroundImage: `url('${user.avatar}')` }}
+      style={{
+        backgroundImage: user.avatar
+          ? `url('${user.avatar}')`
+          : `url('https://cpad.ask.fm/868/263/174/-79996965-206ftsc-cbcii2enl13de50/large/image.jpg')`,
+      }}
     >
       <div className="findingPage-card-content">
         <p className="findingPage-card-content-info">

@@ -1,3 +1,4 @@
+import { IMatchingFriend } from '@/@type/services';
 // Page Login
 interface IFormLoginPage {
   phone: string;
@@ -40,4 +41,14 @@ interface IFormCreateUserBlock {
 }
 interface IFormCreateUserLikeStack {
   toUserId: string;
+}
+// page matching
+interface IFormDeleteUserLikeStack {
+  ids: string[];
+}
+interface IMatchingPage {
+  matching: IMatchingFriend[];
+  matchingRef: RefObject<HTMLDivElement>;
+  openMatchPagePopUp: () => void;
+  closeMatchPagePopUp: () => void;
 }
