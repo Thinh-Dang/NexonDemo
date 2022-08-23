@@ -22,21 +22,32 @@ import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.modul
 export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
   const dispatch = useAppDispatch();
 
-  const { handleBlur, errors, handleChange, handleSubmit, touched } = useFormik(
-    {
-      initialValues: {
-        name: '',
-      },
-      onSubmit: async (value) => {
-        const res = (await dispatch(createUserHobby(value)))
-          .payload as IResponse<string | IUserHobbies>;
-        if (!res.status) message.error('Create hobby fail');
-      },
-      validationSchema: yup.object({
-        name: yup.string().required('Vui lòng nhập đủ thông tin'),
-      }),
+  const {
+    handleBlur,
+    errors,
+    values,
+    handleChange,
+    handleSubmit,
+    touched,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      name: '',
     },
-  );
+    onSubmit: async (value) => {
+      const res = (await dispatch(createUserHobby(value))).payload as IResponse<
+        string | IUserHobbies
+      >;
+      if (!res.status) {
+        message.error('Create hobby fail');
+      } else {
+        resetForm();
+      }
+    },
+    validationSchema: yup.object({
+      name: yup.string().required('Vui lòng nhập đủ thông tin'),
+    }),
+  });
 
   const handleDelete = useCallback(async (value: string) => {
     const res = (
@@ -71,7 +82,7 @@ export const SettingHobby: FC<ISettingHobby> = ({ hobbies }) => {
             handleChange={handleChange}
             txtLabel={'Sở thích'}
             isInput={true}
-            defaultValue={''}
+            value={values.name}
             name={'name'}
           />
           {touched.name && errors.name && (
