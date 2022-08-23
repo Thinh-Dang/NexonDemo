@@ -14,7 +14,12 @@
     opacity: 1 !important;
     transform: translateY(0);
   }
+  &-notiShow {
+    opacity: 0 !important;
+    transform: translateY(0);
+  }
 }
+
 .popup {
   z-index: 402 !important;
   transform: translateY(0) !important;

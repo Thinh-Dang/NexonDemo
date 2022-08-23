@@ -20,3 +20,4 @@ export * from './SettingWithSelect/SettingWithSelect';
 export * from './SettingHobby/SettingHobby';
 export * from './UserAlbum/UserAlbum';
 export * from './SimpleProfileInfo/SimpleProfileInfo';
+export * from './ItemNotify/ItemNotify';
