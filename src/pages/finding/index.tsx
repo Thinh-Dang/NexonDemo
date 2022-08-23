@@ -1,6 +1,7 @@
 import { IGetFriendNearUser } from '@/@type/redux';
 import { Card, Layout } from '@/components';
 import UserDetail from '@/components/Finding/UserDetail';
+import { NotifyContainer } from '@/containers';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   getFriendNearUser,
@@ -23,7 +24,9 @@ import UserCard from './components/UserCard';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
+
   const cardRef = useRef<HTMLDivElement>(null);
+  const notifyRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const matchingRef = useRef<HTMLDivElement>(null);
 
@@ -37,6 +40,12 @@ const FindingPage = () => {
   const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser>();
 
   const onOverlayClick = useCallback(() => {
+    if (notifyRef.current && !notifyRef.current.hidden && overlayRef.current) {
+      notifyRef.current.hidden = true;
+      overlayRef.current.classList.remove('overlay-notiShow');
+      overlayRef.current.hidden = true;
+    }
+
     if (cardRef.current && overlayRef.current) {
       const card = cardRef.current;
       const overlay = overlayRef.current;
@@ -65,6 +74,19 @@ const FindingPage = () => {
       }, 10);
     }
   }, []);
+
+  const openNotify = () => {
+    if (notifyRef.current && overlayRef.current) {
+      const overlay = overlayRef.current;
+
+      notifyRef.current.hidden = false;
+      overlay.hidden = false;
+
+      setTimeout(() => {
+        overlay.classList.add('overlay-notiShow');
+      }, 10);
+    }
+  };
 
   const openMatchPagePopUp = useCallback(() => {
     if (matchingRef.current) {
@@ -107,6 +129,7 @@ const FindingPage = () => {
       }),
     );
   };
+
   const onCheckInfo = (user: IGetFriendNearUser) => {
     setSelectedUser(user);
   };
@@ -137,14 +160,13 @@ const FindingPage = () => {
       <div className="findingPage">
         <div className="findingPage-header">
           <h2 className="findingPage-header-brandName">Binace</h2>
-          <div onClick={openMatchPagePopUp}>
-            <Image
-              src="/assets/images/notification-bell.svg"
-              alt="bell"
-              width={'20px'}
-              height={'20px'}
-            />
-          </div>
+          <Image
+            onClick={openNotify}
+            src="/assets/images/notification-bell.svg"
+            alt="bell"
+            width={'20px'}
+            height={'20px'}
+          />
         </div>
         <Swiper
           className="findingPage-container"
@@ -205,6 +227,7 @@ const FindingPage = () => {
             />
           )}
         </Card>
+        <NotifyContainer ref={notifyRef} height={'100px'} />
         <div
           className="overlay"
           hidden

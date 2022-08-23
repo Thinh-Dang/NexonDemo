@@ -1,0 +1,16 @@
+.itemNotify {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  column-gap: 10px;
+  border-radius: 20px;
+  background-color: #edf7ff;
+
+  &__content {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
