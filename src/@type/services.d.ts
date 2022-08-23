@@ -126,3 +126,12 @@ interface IUploadImages {
 interface IChangeFavoriteImage {
   id: string;
 }
+
+interface IMatchingFriend {
+  id: string;
+  friend: IFriendMatchingInfo;
+}
+interface IFriendMatchingInfo {
+  id: string;
+  avatar: string;
+}

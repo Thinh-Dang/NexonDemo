@@ -1,24 +1,39 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
+import { IGetFriendNearUser } from '@/@type/redux';
 
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => (e: { preventDefault: () => void }) => void;
   onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
-  onCheckInfo: (user: IUserNearby) => void;
+  onCheckInfo: (user: IGetFriendNearUser) => void;
+  onInfoClick: () => void;
 }
 
-const UserCard: FC<IProps> = ({ user, onLike, onDislike, onCheckInfo }) => {
+const UserCard: FC<IProps> = ({
+  user,
+  onLike,
+  onDislike,
+  onCheckInfo,
+  onInfoClick,
+}) => {
   const age = (birthday: Date): number => {
     const today = new Date();
     const birthdate = new Date(birthday);
     return today.getFullYear() - birthdate.getFullYear();
   };
-
+  const handleInfoClick = () => {
+    onCheckInfo(user);
+    onInfoClick();
+  };
   return (
     <div
       className="findingPage-card"
-      style={{ backgroundImage: `url('${user.avatar}')` }}
+      style={{
+        backgroundImage: user.avatar
+          ? `url('${user.avatar}')`
+          : `url('https://cpad.ask.fm/868/263/174/-79996965-206ftsc-cbcii2enl13de50/large/image.jpg')`,
+      }}
     >
       <div className="findingPage-card-content">
         <p className="findingPage-card-content-info">
@@ -66,6 +81,7 @@ const UserCard: FC<IProps> = ({ user, onLike, onDislike, onCheckInfo }) => {
             alt="information icon"
             width={'16px'}
             height={'16px'}
+            onClick={handleInfoClick}
           />
         </div>
       </div>
