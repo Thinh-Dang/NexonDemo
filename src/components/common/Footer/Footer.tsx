@@ -8,6 +8,7 @@ export const Footer = () => {
     { lable: 'chat', content: 'Trò chuyện', href: '/chat' },
     { lable: 'profile', content: 'Cá nhân', href: '/profile' },
   ];
+
   return (
     <div className="footer">
       {footerItems.map((item, index) => {

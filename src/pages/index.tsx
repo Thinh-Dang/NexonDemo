@@ -1,8 +1,9 @@
-import { Layout } from '@/components';
-import Loading from '@/components/Loading/Loading';
-import Welcome from '@/containers/Welcome/Welcome';
-import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import type { NextPage } from 'next';
+
+import Welcome from '@/containers/Welcome/Welcome';
+import { Layout, Loading } from '@/components';
+
 const Home: NextPage = () => {
   const [isLoading, setLoading] = useState<boolean>(true);
   useEffect(() => {

@@ -20,11 +20,27 @@ interface IMessage {
   createAt: Date;
 }
 
+interface IImageMessage {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string | undefined;
+  buffer: RcFile;
+  size: number | undefined;
+}
+
 interface IMessageSend {
   socketId: string;
   senderId: string;
+  friendId: string;
   conversationId: string;
-  content: string;
+  content?: string;
+  image?: IImageMessage;
+}
+
+interface ISocketDevice {
+  socketId: string;
+  userId: string;
 }
 
 interface IChatContent {
@@ -34,6 +50,11 @@ interface IChatContent {
   setContentChat: Dispatch<SetStateAction<string>>;
   handleClick: (e: any) => void;
   userId: string;
+  fileImage: UploadFile[];
+  handleChange:
+    | ((info: UploadChangeParam<UploadFile<any>>) => void)
+    | undefined;
+  handleUploadImage: () => void;
 }
 
 // Map Container

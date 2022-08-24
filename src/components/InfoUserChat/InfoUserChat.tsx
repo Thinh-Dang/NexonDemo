@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styleCss from './InfoUserChat.module.scss';
 
 import Image from 'next/image';
+import { IInfoUserChat } from '@/@type/components';
 
 export const InfoUserChat: FC<IInfoUserChat> = ({ avatar, title, content }) => {
   return (
@@ -13,6 +14,7 @@ export const InfoUserChat: FC<IInfoUserChat> = ({ avatar, title, content }) => {
             width={48}
             height={48}
             alt="Avatar"
+            className={styleCss.infoUserChat__img}
           />
         </div>
         <div className={styleCss.infoUserChat__heart}>
