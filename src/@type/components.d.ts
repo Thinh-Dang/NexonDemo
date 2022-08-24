@@ -118,8 +118,10 @@ interface IInfoUserChat {
 
 // Component ItemContentChat
 interface IItemContentChat {
+  id: string;
   time?: string;
   content: string;
+  image?: string;
   type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
 }
 // Component ItemChatSlider
