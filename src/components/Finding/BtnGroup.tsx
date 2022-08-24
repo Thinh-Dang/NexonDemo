@@ -9,19 +9,9 @@ interface IProps {
 }
 
 const BtnGroup = ({ userId, onLike, onDislike, onCloseModal }: IProps) => {
-  const handleLike = () => {
-    console.log(userId);
-    onLike(userId);
-    onCloseModal();
-  };
-  const handleDislike = () => {
-    console.log(userId);
-    onDislike(userId);
-    onCloseModal();
-  };
   return (
     <div className="btnGroup">
-      <div className="btnGroup-btn" onClick={handleDislike}>
+      <div className="btnGroup-btn" onClick={onDislike(userId)}>
         <Image
           src="/assets/images/Close.svg"
           alt="close"
@@ -29,7 +19,7 @@ const BtnGroup = ({ userId, onLike, onDislike, onCloseModal }: IProps) => {
           height={'23px'}
         />
       </div>
-      <div className="btnGroup-btn" onClick={handleLike}>
+      <div className="btnGroup-btn" onClick={onLike(userId)}>
         <Image
           src="/assets/images/Union.svg"
           alt="heart"

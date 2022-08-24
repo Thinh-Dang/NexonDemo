@@ -37,7 +37,7 @@ const FindingPage = () => {
     (state: RootState) => state.userLikeStackSlice,
   );
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
-  const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser>();
+  const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser | null>();
 
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden && overlayRef.current) {
@@ -58,6 +58,7 @@ const FindingPage = () => {
       // setTimeout(() => {
       // }, 1000);
     }
+    setSelectedUser(null);
   }, []);
 
   const openPopUp = useCallback(() => {
@@ -118,6 +119,7 @@ const FindingPage = () => {
         return user.id !== id;
       }),
     );
+    onOverlayClick();
   };
 
   const onDislike = (id: string) => (e: { preventDefault: () => void }) => {
@@ -128,6 +130,7 @@ const FindingPage = () => {
         return user.id !== id;
       }),
     );
+    onOverlayClick();
   };
 
   const onCheckInfo = (user: IGetFriendNearUser) => {
