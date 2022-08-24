@@ -4,8 +4,8 @@ import { IGetFriendNearUser } from '@/@type/redux';
 
 interface IProps {
   user: IGetFriendNearUser;
-  onLike: (id: string) => (e: { preventDefault: () => void }) => void;
-  onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
+  onLike: (id: string) => void;
+  onDislike: (id: string) => void;
   onCheckInfo: (user: IGetFriendNearUser) => void;
   onInfoClick: () => void;
 }
@@ -54,7 +54,7 @@ const UserCard: FC<IProps> = ({
         <div className="findingPage-card-content-btnGroup">
           <div
             className="findingPage-card-content-btnGroup-btn"
-            onClick={onDislike(user.id)}
+            onClick={() => onDislike(user.id)}
           >
             <Image
               src="/assets/images/Close.svg"
@@ -65,7 +65,7 @@ const UserCard: FC<IProps> = ({
           </div>
           <div
             className="findingPage-card-content-btnGroup-btn"
-            onClick={onLike(user.id)}
+            onClick={() => onLike(user.id)}
           >
             <Image
               src="/assets/images/Union.svg"

@@ -111,26 +111,22 @@ const FindingPage = () => {
     }
   }, []);
 
-  const onLike = (id: string) => (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const onLike = (id: string) => {
     dispatch(createUserLikeStack({ toUserId: id }));
     setNearbyUsers(
       nearbyUsers.filter((user) => {
         return user.id !== id;
       }),
     );
-    onOverlayClick();
   };
 
-  const onDislike = (id: string) => (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const onDislike = (id: string) => {
     dispatch(createUserBlock({ blockedUserId: id }));
     setNearbyUsers(
       nearbyUsers.filter((user) => {
         return user.id !== id;
       }),
     );
-    onOverlayClick();
   };
 
   const onCheckInfo = (user: IGetFriendNearUser) => {

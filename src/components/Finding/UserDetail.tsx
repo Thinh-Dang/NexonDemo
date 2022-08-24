@@ -3,8 +3,8 @@ import Image from 'next/image';
 import BtnGroup from './BtnGroup';
 interface IProps {
   user: IGetFriendNearUser;
-  onLike: (id: string) => (e: { preventDefault: () => void }) => void;
-  onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
+  onLike: (id: string) => void;
+  onDislike: (id: string) => void;
   onCloseModal: () => void;
 }
 const UserDetail = (props: IProps) => {
