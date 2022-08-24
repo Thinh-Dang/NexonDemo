@@ -1,12 +1,14 @@
 import { IGetFriendNearUser } from '@/@type/redux';
 import Image from 'next/image';
+import BtnGroup from './BtnGroup';
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => (e: { preventDefault: () => void }) => void;
   onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
+  onCloseModal: () => void;
 }
 const UserDetail = (props: IProps) => {
-  const { user, onLike, onDislike } = props;
+  const { user, onLike, onDislike, onCloseModal } = props;
   const hobbyColors = [
     '#FFF0F0',
     '#EDF7FF',
@@ -196,6 +198,12 @@ const UserDetail = (props: IProps) => {
           className="user-detail-gallery-item"
         />
       </div>
+      <BtnGroup
+        userId={user.id}
+        onLike={onLike}
+        onDislike={onDislike}
+        onCloseModal={onCloseModal}
+      />
     </div>
   );
 };
