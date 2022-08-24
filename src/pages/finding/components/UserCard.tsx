@@ -18,9 +18,7 @@ const UserCard: FC<IProps> = ({
   onInfoClick,
 }) => {
   const age = (birthday: Date): number => {
-    const today = new Date();
-    const birthdate = new Date(birthday);
-    return today.getFullYear() - birthdate.getFullYear();
+    return new Date().getFullYear() - new Date(birthday).getFullYear();
   };
   const handleInfoClick = () => {
     onCheckInfo(user);
@@ -61,6 +59,7 @@ const UserCard: FC<IProps> = ({
               alt="close"
               width={'23px'}
               height={'23px'}
+              onClick={() => onDislike(user.id)}
             />
           </div>
           <div
@@ -72,6 +71,7 @@ const UserCard: FC<IProps> = ({
               alt="heart"
               width={'23px'}
               height={'23px'}
+              onClick={() => onLike(user.id)}
             />
           </div>
         </div>

@@ -1,24 +1,14 @@
+import { IListMarkers } from '@/@type/components';
 import { RootState, useAppSelector } from '@/redux';
-import { FC, useEffect, useRef } from 'react';
-import { useMap } from 'react-leaflet';
+import { FC } from 'react';
 import currentPosIcon from '../../../public/assets/images/current-pos-icon.svg';
 import friendPosIcon from '../../../public/assets/images/friend-pos-icon.svg';
 import CustomMarker from './Marker';
 
 const ListMarkers: FC<IListMarkers> = ({ friendsNearUser }) => {
-  const unmounted = useRef(false);
-  const map = useMap();
   const userPosition = useAppSelector(
     (state: RootState) => state.mapLocationSlice.userPosition,
   );
-  useEffect(() => {
-    map.locate().on('locationfound', function () {
-      map.flyTo(userPosition, map.getZoom());
-    });
-    return () => {
-      unmounted.current = true;
-    };
-  }, [map, userPosition]);
 
   return (
     <>
