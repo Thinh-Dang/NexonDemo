@@ -7,9 +7,9 @@ type Props = {
 };
 
 const Timer = ({ stylebtn }: Props) => {
-  const mystate = useAppSelector((state: RootState) => state.userSlice);
+  const myState = useAppSelector((state: RootState) => state.userSlice);
   const requestAgain = {
-    phone: mystate.phone,
+    phone: myState.phone,
   };
   const dispatch = useAppDispatch();
   const sendAgainOpt = () => {
@@ -17,8 +17,11 @@ const Timer = ({ stylebtn }: Props) => {
   };
   const [timerSeconds, setTimerSeconds] = useState<string>();
   const [timerMinutes, setTimerMinus] = useState<string>();
+
   const startTimer = () => {
-    const countDownExp = new Date(Date.now() + 10 * 60 * 1000).getTime();
+    const countDownExp = myState.isValidOtpWhenEmailVerify
+      ? new Date(Date.now() + 5 * 60 * 1000).getTime()
+      : new Date(Date.now() + 10 * 60 * 1000).getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = countDownExp - now;
@@ -34,6 +37,7 @@ const Timer = ({ stylebtn }: Props) => {
       }
     });
   };
+
   const padWithZeros = (number: number, minLenght: number) => {
     const numberString = number.toString();
     if (numberString.length >= minLenght) return numberString;
@@ -43,6 +47,21 @@ const Timer = ({ stylebtn }: Props) => {
   useEffect(() => {
     startTimer();
   }, []);
+  if (myState.isValidOtp) {
+    return (
+      <>
+        <button
+          style={{ opacity: '0.5' }}
+          disabled
+          onClick={sendAgainOpt}
+          type="button"
+          className={stylebtn}
+        >
+          Gửi Lại OTP
+        </button>
+      </>
+    );
+  }
   return (
     <>
       {timerMinutes === '00' && timerSeconds === '00' ? (
@@ -51,7 +70,7 @@ const Timer = ({ stylebtn }: Props) => {
         </button>
       ) : (
         <p>
-          {timerMinutes}:{timerSeconds}
+          {timerMinutes} : {timerSeconds}
         </p>
       )}
     </>

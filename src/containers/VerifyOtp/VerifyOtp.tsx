@@ -13,6 +13,7 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   callAPIVerifyCode,
   callAPIVerifyCodeLoginWithSocial,
+  setIsValidOtp,
 } from '@/redux/slice/userSlice';
 import { Session } from 'next-auth';
 import { IResponse } from '@/@type/responses';
@@ -54,12 +55,11 @@ const VerifyOtp = ({ data }: Props) => {
           message.error('Số điện thoại đã tồn tại');
           break;
         case EXCEED_TIMES_WRONG_OTP:
+          dispatch(setIsValidOtp());
           message.error(
             'Bạn đã nhập sai 3 lần. Vui lòng quay lại sau 10 phút.',
           );
           break;
-        default:
-          message.error('OTP đã hết hạn');
       }
     }
   };
@@ -71,7 +71,11 @@ const VerifyOtp = ({ data }: Props) => {
       await dispatch(callAPIVerifyCodeLoginWithSocial(value))
     ).payload;
     if (results.status) {
-      message.success('Tạo tài khoản thành công');
+      if (data) {
+        message.success('Tạo tài khoản thành công');
+      } else {
+        message.success('Xác thực OTP thành công');
+      }
       router.push('/finding');
     } else {
       switch (results.message) {
@@ -81,8 +85,12 @@ const VerifyOtp = ({ data }: Props) => {
         case THIS_PHONE_NUMBER_IS_EXISTED:
           message.error('Số điện thoại đã tồn tại');
           break;
-        default:
-          message.error('OTP đã hết hạn');
+        case EXCEED_TIMES_WRONG_OTP:
+          dispatch(setIsValidOtp());
+          message.error(
+            'Bạn đã nhập sai 3 lần. Vui lòng quay lại sau 10 phút.',
+          );
+          break;
       }
     }
   };
@@ -127,12 +135,24 @@ const VerifyOtp = ({ data }: Props) => {
           onSubmitOtp={handleChangeOtp}
         />
 
-        <Button
-          btnClass=""
-          isHaveIcon={true}
-          type="submit"
-          content="Tiếp tục"
-        />
+        {!myState.isValidOtp && (
+          <Button
+            btnClass=""
+            isHaveIcon={true}
+            type="submit"
+            content="Tiếp tục"
+          />
+        )}
+        {myState.isValidOtp && (
+          <Button
+            disabled
+            style={{ opacity: '0.5' }}
+            btnClass=""
+            isHaveIcon={true}
+            type="button"
+            content="Tiếp tục"
+          />
+        )}
       </form>
     </>
   );

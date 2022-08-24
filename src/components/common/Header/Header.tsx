@@ -25,7 +25,7 @@ export const Header: FC<IHeader> = ({ isLogo }) => {
       }
     } else if (
       location === '/auth/loginsocial' ||
-      location === 'auth/loginsocial#_='
+      location === 'auth/loginsocial#_=_'
     ) {
       if (mystate.step === 1) {
         signOut({ callbackUrl: '/' });

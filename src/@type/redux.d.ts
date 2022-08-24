@@ -18,6 +18,8 @@ interface IInitialStateUser {
   stateSession: any;
   isHeader: boolean;
   isEmailVerify: boolean;
+  isValidOtp: boolean;
+  isValidOtpWhenEmailVerify: boolean;
 }
 
 // Slice Uer Profile Redux

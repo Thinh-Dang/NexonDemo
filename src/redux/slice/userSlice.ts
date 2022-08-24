@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from '@/services/user.api';
 import { ICheckUserVerified, ISignInWithSocial } from '@/@type/services';
+import { PLEASE_TRY_AGAIN_AFTER_5_MINUES } from '@/common/constantArlertErrors';
+import { message } from 'antd';
 
 export const callAPISendOTP = createAsyncThunk(
   'otp/send-otp',
@@ -62,6 +64,8 @@ const initialState: IInitialStateUser = {
   step: 0,
   stateSession: '',
   isHeader: true,
+  isValidOtp: false,
+  isValidOtpWhenEmailVerify: false,
 };
 
 export const userSlice = createSlice({
@@ -126,6 +130,9 @@ export const userSlice = createSlice({
     setStepLogin: (state) => {
       state.step += 1;
     },
+    setIsValidOtp: (state) => {
+      state.isValidOtp = true;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(callAPIVerifyCode.fulfilled, (state, action) => {
@@ -176,6 +183,15 @@ export const userSlice = createSlice({
         state.phone = action.payload.data;
         state.isEmailVerify = true;
         state.step = 3;
+        message.success('Vui lòng nhập OTP đã được gửi');
+      } else if (
+        !action.payload.status &&
+        action.payload.message === PLEASE_TRY_AGAIN_AFTER_5_MINUES
+      ) {
+        state.isEmailVerify = true;
+        state.isValidOtpWhenEmailVerify = true;
+        state.step = 3;
+        message.error('Vui lòng thử lai sau 5 phút');
       } else {
         state.step = 1;
       }
@@ -190,5 +206,6 @@ export const {
   setIsSocial,
   setStepLoginWithSocial,
   setStepLogin,
+  setIsValidOtp,
 } = actions;
 export default reducer;

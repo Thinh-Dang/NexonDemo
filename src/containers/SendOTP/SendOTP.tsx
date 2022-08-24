@@ -37,6 +37,8 @@ const SendOTP = () => {
         case PLEASE_TRY_AGAIN_A_FEW_MINUTES:
           message.error('Vui lòng thử lai sau giây lát');
           break;
+        default:
+          message.error('Vui lòng thử lai sau giây lát');
       }
     }
   };
