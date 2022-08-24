@@ -104,7 +104,7 @@ interface ISettingHobby {
 // Component Card
 interface ICard {
   height: string;
-  children?: JSX.Element;
+  children?: JSX.Element | null;
   hasCloseBtn?: boolean;
   onCloseCard?: () => void;
 }

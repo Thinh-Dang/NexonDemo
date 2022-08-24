@@ -51,6 +51,10 @@ const UserDetail = (props: IProps) => {
     marital_status: '/assets/images/icons8-ring.svg',
   };
 
+  // const handleDislike = (id: string) => {
+  //   onDislike(id);
+  //   onCloseModal();
+  // };
   return (
     <div className="user-detail">
       <img className="user-detail-avatar" src={user?.avatar} alt="avatar" />
