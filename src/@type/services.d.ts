@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd';
 import {
   AlcoholEnum,
   EducationEnum,
@@ -93,4 +94,50 @@ interface ICreateHobby {
 
 interface IDeleteHobby {
   id: string;
+}
+
+interface IUserBlock {
+  id: string;
+  userId: string;
+  blockUserId: string;
+  createdAt: Date;
+}
+interface IUserLikeStack {
+  id: string;
+  fromUserId: string;
+  toUserId: string;
+  createdAt: Date;
+}
+
+interface ISignInWithSocial {
+  typeSocial: string;
+  name: string;
+  url: string;
+  gender: string;
+  email: string;
+  birthday: string;
+  accessToken: string;
+}
+
+interface IUploadImages {
+  images: UploadFile[];
+}
+
+interface IChangeFavoriteImage {
+  id: string;
+}
+
+interface IMatchingFriend {
+  id: string;
+  friend: IFriendMatchingInfo;
+}
+interface IFriendMatchingInfo {
+  id: string;
+  avatar: string;
+}
+
+interface ICheckUserVerified {
+  email: string;
+  accessToken: string;
+  typeSocial: string;
 }

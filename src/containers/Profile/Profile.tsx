@@ -1,6 +1,5 @@
-import { IChangeUserProfile, IPurpose, IUserHobbies } from '@/@type/params';
 import { IResponse } from '@/@type/responses';
-import { ICreateHobby, IUpdateUserProfile } from '@/@type/services';
+import { IUpdateUserProfile } from '@/@type/services';
 import {
   Color,
   HTag,
@@ -26,13 +25,14 @@ import {
   SettingInfo,
   SettingWithInput,
   SettingWithSelect,
+  SimpleProfileInfo,
+  UserAlbum,
 } from '@/components';
 import {
   ApplauseIcon,
   ChildIcon,
   GenderIcon,
   GraduationIcon,
-  PlusIcons,
   RingIcon,
   RulerIcon,
   SettingIcon,
@@ -40,22 +40,17 @@ import {
 } from '@/components/icon';
 import { Loading } from '@/components';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { updateUserProfile } from '@/redux/slice/userProfileSlice';
 import {
-  createUserHobby,
-  deleteUserHobby,
-  updateUserProfile,
-} from '@/redux/slice/userProfileSlice';
-import {
-  calculateAge,
   ConvertAlcoholEnum,
   ConvertEducationEnum,
   ConvertGenderEnum,
   ConvertMaritalStatusEnum,
   ConvertReligionEnum,
+  getPurposetitle,
   pickColor,
 } from '@/utils';
-import { Col, Row } from 'antd';
-import Image from 'next/image';
+import { message } from 'antd';
 import React, {
   ChangeEvent,
   ReactElement,
@@ -69,34 +64,9 @@ export const Profile = () => {
   const dispatch = useAppDispatch();
 
   const profile = useAppSelector((state: RootState) => state.userProfileSlice);
+  const purposes = useAppSelector((state: RootState) => state.purposeSlice);
 
   const [settingItem, setSettingItem] = useState('');
-  const [purposes, setPurposes] = useState<IPurpose[]>([
-    {
-      id: '55f67ae4-27c1-4c85-989d-d54fec64aa1a',
-      title: 'Muốn hẹn hò',
-      description: 'Where there is a will, there is a way.',
-      image: '/assets/images/icons8-cup 1.svg',
-    },
-    {
-      id: 'b8c1aca0-97b6-406f-b7ea-fd3ef7d65039',
-      title: 'Cần người tâm sự',
-      description: 'Set your target and keep trying until you reach it.',
-      image: '/assets/images/icons8-chat-room 1.svg',
-    },
-    {
-      id: '620a770e-9eb5-4c1c-8290-c1ecc37d40dd',
-      title: 'Tìm mối quan hệ mới',
-      description: 'Never leave that till tomorrow which',
-      image: '/assets/icons8-kiss.svg',
-    },
-  ]);
-
-  const getPurposetitle = (id: string): string | undefined => {
-    const purpose = purposes.find((item) => item.id === id);
-    if (!purpose) return undefined;
-    return purpose.title;
-  };
 
   const cardRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -161,26 +131,6 @@ export const Profile = () => {
     [],
   );
 
-  const handleCreateHobby = useCallback(async (value: ICreateHobby) => {
-    const res = (await dispatch(createUserHobby(value))).payload as IResponse<
-      string | IUserHobbies
-    >;
-
-    if (!res.status) alert('Create hobby fail');
-  }, []);
-
-  const handleDeleteHobby = useCallback(async (value: string) => {
-    const res = (
-      await dispatch(
-        deleteUserHobby({
-          id: value,
-        }),
-      )
-    ).payload as IResponse<string>;
-
-    if (!res.status) alert('Delete hobby fail');
-  }, []);
-
   function SwitchCase(type: string): ReactElement | undefined {
     switch (type) {
       case OpenSettingProfile.REASON:
@@ -199,7 +149,7 @@ export const Profile = () => {
             title={'Giới thiệu bản thân'}
             isTextArea={true}
             name={'description'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.DESCRIPTION}
           />
         );
@@ -210,7 +160,7 @@ export const Profile = () => {
             type={InputEnum.NUMBER}
             title={'Chiều cao'}
             name={'height'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.HEIGHT}
           />
         );
@@ -221,7 +171,7 @@ export const Profile = () => {
             title={'Tình trạng hôn nhân'}
             source={MaritalSource()}
             name={'maritalStatus'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.MARITAL_STATUS}
           />
         );
@@ -232,7 +182,7 @@ export const Profile = () => {
             title={'Rựa bia'}
             name={'alcohol'}
             source={AlcoholSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.ALCOHOL}
           />
         );
@@ -243,7 +193,7 @@ export const Profile = () => {
             title={'Giới tính'}
             name={'gender'}
             source={GenderSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.GENDER}
           />
         );
@@ -254,7 +204,7 @@ export const Profile = () => {
             title={'Tôn giáo'}
             name={'religion'}
             source={ReligionSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.RELIGION}
           />
         );
@@ -265,7 +215,7 @@ export const Profile = () => {
             title={'Học vấn'}
             name={'education'}
             source={EducationSource()}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.EDUCATION}
           />
         );
@@ -276,24 +226,18 @@ export const Profile = () => {
             type={InputEnum.NUMBER}
             title={'Trẻ con'}
             name={'children'}
-            onSubmit={onSubmitChange}
+            onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.CHILDREN}
           />
         );
       case OpenSettingProfile.HOBBIES:
-        return (
-          <SettingHobby
-            hobbies={profile.hobbies}
-            onCreate={handleCreateHobby}
-            onDetele={handleDeleteHobby}
-          />
-        );
+        return <SettingHobby hobbies={profile.hobbies} />;
       default:
         return undefined;
     }
   }
 
-  return profile.avatar ? (
+  return profile.avatar && purposes ? (
     <section className={styleCss.profileFrame}>
       <HeadPage
         hTag={HTag.h2}
@@ -301,145 +245,24 @@ export const Profile = () => {
         icon={<SettingIcon />}
         colorTitle={Color.clr_neutral_100}
         onIconClick={() => {
-          alert('hello');
+          message.success('hello');
         }}
       />
-      <div className={styleCss['profileFrame-simpleInfo']}>
-        <Image
-          className={styleCss['profileFrame-simpleInfo-image']}
-          alt="avatar"
-          src={profile.avatar}
-          width={40}
-          height={40}
-        />
-        <div>
-          <h3 className={styleCss['profileFrame-simpleInfo-nameAndAge']}>
-            {profile.name},{calculateAge(profile.birthday)}t
-          </h3>
-          <p className={styleCss['profileFrame-simpleInfo-reasonHere']}>
-            {getPurposetitle(profile.purposeId)}
-          </p>
-        </div>
-      </div>
-      <div className={styleCss['profileFrame-album']}>
-        <Row gutter={[10, 10]}>
-          {profile.album.length > 0 ? (
-            <Col span={16}>
-              <div>
-                <Image
-                  className={styleCss['profileFrame-album-image']}
-                  alt="avatar"
-                  src={profile.album[0].url}
-                  width={225}
-                  height={225}
-                  layout="responsive"
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-              </div>
-            </Col>
-          ) : null}
-          {profile.album.length > 1 ? (
-            <Col span={8}>
-              <Row gutter={[10, 10]}>
-                <Col span={24}>
-                  <Image
-                    className={styleCss['profileFrame-album-image']}
-                    alt="avatar"
-                    src={profile.album[1].url}
-                    width={109}
-                    height={109}
-                    layout="responsive"
-                    objectFit="cover"
-                    objectPosition="top"
-                  />
-                </Col>
-                <Col span={24}>
-                  {profile.album.length > 2 ? (
-                    <Image
-                      className={styleCss['profileFrame-album-image']}
-                      alt="avatar"
-                      src={profile.album[2].url}
-                      width={109}
-                      height={109}
-                      layout="responsive"
-                      objectFit="cover"
-                      objectPosition="top"
-                    />
-                  ) : (
-                    <div className="profileFrame-album-upload">
-                      <div>
-                        <PlusIcons />
-                      </div>
-                    </div>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          ) : null}
-          {profile.album.length > 3 ? (
-            <Col span={8}>
-              <Image
-                className={styleCss['profileFrame-album-image']}
-                alt="avatar"
-                src={profile.album[3].url}
-                width={109}
-                height={109}
-                layout="responsive"
-                objectFit="cover"
-                objectPosition="top"
-              />
-            </Col>
-          ) : null}
-          {profile.album.length === 5 ? (
-            <Col span={8}>
-              <Image
-                className={styleCss['profileFrame-album-image']}
-                alt="avatar"
-                src={profile.album[4].url}
-                width={109}
-                height={109}
-                layout="responsive"
-                objectFit="cover"
-                objectPosition="top"
-              />
-            </Col>
-          ) : null}
-          {profile.album.length > 5 ? (
-            <Col span={8}>
-              <p className={styleCss['profileFrame-album-remain']}>
-                +{profile.album.length - 5}
-              </p>
-              <div className={styleCss['profileFrame-album-image-count']}>
-                <Image
-                  alt="avatar"
-                  src={profile.album[4].url}
-                  width={109}
-                  height={109}
-                  layout="responsive"
-                  objectFit="cover"
-                  objectPosition="top"
-                />
-              </div>
-            </Col>
-          ) : null}
-          {profile.album.length !== 2 ? (
-            <Col span={8}>
-              <div className={styleCss['profileFrame-album-upload']}>
-                <div>
-                  <PlusIcons />
-                </div>
-              </div>
-            </Col>
-          ) : null}
-        </Row>
-      </div>
+
+      <SimpleProfileInfo
+        name={profile.name}
+        birthday={profile.birthday}
+        purposeTite={getPurposetitle(profile.purposeId, purposes)}
+        avatar={profile.avatar}
+      />
+
+      <UserAlbum album={profile.album} />
       <div className={styleCss['profileFrame-settingInfo']}>
         <SettingInfo
           title={'Tại sao bạn lại ở đây'}
           content={
-            getPurposetitle(profile.purposeId)
-              ? getPurposetitle(profile.purposeId)
+            getPurposetitle(profile.purposeId, purposes)
+              ? getPurposetitle(profile.purposeId, purposes)
               : 'Không có'
           }
           onIconClick={openSetting}
@@ -524,7 +347,7 @@ export const Profile = () => {
           ))}
         </div>
       </div>
-      <Card height={'511'} ref={cardRef}>
+      <Card height={'511px'} ref={cardRef}>
         {SwitchCase(settingItem)}
       </Card>
       <div

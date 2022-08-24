@@ -5,21 +5,26 @@ import VerifyOtp from '@/containers/VerifyOtp/VerifyOtp';
 import { RootState, useAppSelector } from '@/redux';
 import { NextPage } from 'next';
 
-import React from 'react';
-
 const login: NextPage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  const mystate = useAppSelector((state: RootState) => state.userSlice);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const infoUser = useAppSelector((state: RootState) => state.userSlice);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   return (
-    <Layout isLogo={false} title="Login_Phone" isFooter={false} isHeader={true}>
+    <Layout
+      isLogo={false}
+      title="Login_Phone"
+      isFooter={false}
+      isHeader={mystate.isHeader}
+    >
       <>
-        {!infoUser.phone && <SendOTP />}
-        {infoUser.isGetPhone && infoUser.phone && !infoUser.isVerifyOtp && (
-          <VerifyOtp />
-        )}
-        {infoUser.isVerifyOtp && <UpdateInfor />}
+        {mystate.step === 1 && <SendOTP />}
+        {mystate.step === 2 && <VerifyOtp />}
+        {mystate.step === 3 && <UpdateInfor />}
       </>
     </Layout>
   );

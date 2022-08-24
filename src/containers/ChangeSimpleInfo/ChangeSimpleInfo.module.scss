@@ -1,0 +1,19 @@
+.changeSimpleInfo {
+  padding: 0 16px;
+
+  &__avatarContainer {
+    display: flex;
+    justify-content: center;
+
+    &__avatar {
+      width: 150px;
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      overflow: hidden;
+    }
+  }
+
+  &__button {
+    margin-top: 14px;
+  }
+}

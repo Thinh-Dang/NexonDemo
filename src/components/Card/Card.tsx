@@ -1,16 +1,20 @@
 import React from 'react';
 import styleCss from './Card.module.scss';
+import CloseBtn from './CloseBtn';
 
 import { ICard } from '@/@type/components';
 
 export const Card = React.forwardRef<HTMLDivElement, ICard>((props, ref) => (
   <div
     className={styleCss.card}
-    style={{ height: props.height + 'px' }}
+    style={{ height: props.height }}
     ref={ref}
     hidden
   >
     {props.children}
+    {props?.hasCloseBtn && props?.onCloseCard && (
+      <CloseBtn onCloseCard={props.onCloseCard} />
+    )}
   </div>
 ));
 

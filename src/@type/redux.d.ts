@@ -6,12 +6,9 @@ interface IAction {
 
 // Slice User Redux
 interface IInitialStateUser {
-  isStatusApi: boolean;
   isLogin: boolean;
-  isSocial: boolean;
   phone: string;
-  isGetPhone: boolean;
-  isVerifyOtp: boolean;
+  step: number;
   inforUser: {
     id: string;
     name: string;
@@ -19,6 +16,11 @@ interface IInitialStateUser {
     birthday: string;
     gender: GenderEnum;
   };
+  stateSession: any;
+  isHeader: boolean;
+  isEmailVerify: boolean;
+  isValidOtp: boolean;
+  isValidOtpWhenEmailVerify: boolean;
 }
 
 // Slice Uer Profile Redux
@@ -92,11 +94,29 @@ interface IInitialStateMapLocation {
   zoomLevel: number;
 }
 interface IGetFriendNearUser {
-  friendId: string;
-  friendName: string;
-  friendBirthday: string;
-  friendAvatar: string;
+  id: string;
   latitude: number;
   longtitude: number;
+  name: string;
+  birthday: Date;
+  avatar: string;
+  gender: GenderEnum;
+  description: string;
+  children: number;
+  alcohol: AlcoholEnum;
+  religion: ReligionEnum;
+  height: number;
+  education: EducationEnum;
+  maritalStatus: MaritalStatusEnum;
   distance: number;
+  unit: string;
+}
+
+interface INameAndEmail {
+  name: string;
+  email: string;
+}
+
+interface IInitialStateUserLikeStack {
+  matching: IMatchingFriend[];
 }

@@ -11,16 +11,16 @@ export const ReasonPopUp: FC<IReasonPopUp> = ({
 }) => {
   return (
     <div>
-      <div className={styleCss['reasonPopUp-head']}>
-        <h4 className={styleCss['reasonPopUp-head-title']}>
+      <div className={styleCss.reasonPopUp__head}>
+        <h4 className={styleCss.reasonPopUp__head__title}>
           Cho mọi người biết lý do của bạn ở đây?
         </h4>
-        <h4 className={styleCss['reasonPopUp-head-subTitle']}>
+        <h4 className={styleCss.reasonPopUp__head__subTitle}>
           Chúng tôi sẽ chia sẻ điều này trên hồ sơ của bạn. Bạn có thể thay đổi
           bất cứ lúc nào
         </h4>
       </div>
-      <div className={styleCss['reasonPopUp-reasonItems']}>
+      <div className={styleCss.reasonPopUp__reasonItems}>
         {purposes.map((item) => (
           <ItemReason
             key={item.id}

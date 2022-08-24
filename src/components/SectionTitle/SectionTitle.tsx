@@ -20,12 +20,9 @@ export const SectionTitle: FC<ISectionTitle> = ({
       className={styleCss.sectionTitle}
       style={{ marginBottom: marginBottom + 'px' }}
     >
-      <h4 className={styleCss['sectionTitle-title']}>{title}</h4>
+      <h4 className={styleCss.sectionTitle__title}>{title}</h4>
       {editTitle ? (
-        <h4
-          className={styleCss['sectionTitle-editTitle']}
-          onClick={handleClick}
-        >
+        <h4 className={styleCss.sectionTitle__editTitle} onClick={handleClick}>
           {editTitle}
         </h4>
       ) : null}

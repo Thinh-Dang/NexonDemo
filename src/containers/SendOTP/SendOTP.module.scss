@@ -38,7 +38,7 @@
   margin-top: 2.7rem;
   position: relative;
 
-  padding: 0 2rem;
+  padding: 0 1.6rem;
 
   &__content {
     margin: 2.4rem 0;
@@ -60,7 +60,6 @@
     border-radius: 1rem;
     display: flex;
     position: relative;
-    margin-bottom: 7.5rem;
     &__flag {
       padding: 1rem;
       cursor: pointer;
@@ -73,10 +72,15 @@
       height: 5.6rem;
     }
   }
-
-  &__error__message {
-    position: absolute;
-    width: 90%;
-    top: 71%;
+  &__btn {
+    margin-top: 7.5rem;
   }
+  &__error__message {
+    width: 100%;
+  }
+}
+.toastContainer {
+  width: 30%;
+  font-size: 1.4rem;
+  min-height: none;
 }

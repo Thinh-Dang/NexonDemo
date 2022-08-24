@@ -1,0 +1,15 @@
+.uploadImages {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  max-height: 75vh;
+
+  &__images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-height: 60%;
+    overflow: auto;
+  }
+}

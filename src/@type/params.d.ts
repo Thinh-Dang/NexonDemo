@@ -17,6 +17,7 @@ interface IParamGetAllUser {
 interface IUserImages {
   id: string;
   url: string;
+  isFavorite: boolean;
 }
 
 interface IUserHobbies {

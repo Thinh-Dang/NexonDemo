@@ -16,7 +16,7 @@ export const Protected = ({ children }: IProtected) => {
   const location = router.pathname;
   const dispatch = useAppDispatch();
   const [isFetch, setIsFetch] = useState(false);
-  const isLogin = useAppSelector((state: RootState) => state.userSlice.isLogin);
+  const myState = useAppSelector((state: RootState) => state.userSlice);
 
   const fetchInfo = useCallback(async () => {
     const check = (await dispatch(getProfile())).payload;
@@ -27,7 +27,7 @@ export const Protected = ({ children }: IProtected) => {
   }, []);
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!myState.isLogin) {
       fetchInfo();
     } else {
       setIsFetch(true);
@@ -39,14 +39,27 @@ export const Protected = ({ children }: IProtected) => {
       return <></>;
     }
 
-    if (!isLogin && location !== '/auth/login' && location !== '/') {
+    if (
+      !myState.isLogin &&
+      location !== '/auth/login' &&
+      location !== '/' &&
+      location !== '/auth/loginsocial' &&
+      location !== 'auth/loginsocial#_='
+    ) {
       router.push('/');
-      return <></>;
     }
 
-    if (isLogin && (location === '/auth/login' || location === '/')) {
+    if (location === '/auth/login' && myState.step === 0) {
+      router.push('/');
+    }
+
+    if (
+      myState.isLogin &&
+      (location === '/auth/login' ||
+        location === '/auth/loginsocial' ||
+        location === 'auth/loginsocial#_=')
+    ) {
       router.push('/finding');
-      return <></>;
     }
 
     return <>{children}</>;

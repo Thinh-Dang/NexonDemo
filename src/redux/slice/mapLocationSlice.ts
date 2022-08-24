@@ -1,3 +1,4 @@
+import { IInitialStateMapLocation } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import mapLocationApi from '@/services/map-location.api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -43,6 +44,9 @@ export const mapLocationSlice = createSlice({
     },
     updateZoomLevel(state, action: PayloadAction<number>) {
       state.zoomLevel = action.payload;
+    },
+    updateFriendsNearUser(state, action: any) {
+      state.friendsNearUser = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -91,5 +95,6 @@ export const {
   updateCenterPosition,
   updateUserPosition,
   updateZoomLevel,
+  updateFriendsNearUser,
 } = actions;
 export default reducer;
