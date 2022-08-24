@@ -26,6 +26,7 @@
   width: calc(100vw - 3.2rem) !important;
   right: 1.6rem !important;
   padding: 0 !important;
+  bottom: 30px;
 }
 .closeModal-btn {
   position: absolute;
@@ -42,22 +43,38 @@
 .user-detail {
   height: 100%;
   max-height: 100%;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  border-radius: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  .btnGroup {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-inline: 5rem;
+    width: 100%;
+    bottom: 2rem;
+    &-btn {
+      display: flex;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 1.5rem;
+      background-color: white;
+      border: 1px solid #e5e5e5;
+    }
+  }
   &::-webkit-scrollbar {
     display: none;
   }
 
   &-avatar {
-    min-height: 80%;
-    height: 80%;
+    min-height: 85%;
+    height: 85%;
     object-fit: cover;
   }
   &-infoContainer {
@@ -127,7 +144,8 @@
           align-items: center;
           margin-right: 1.6rem;
           margin-bottom: 0.8rem;
-          &-content {
+          &:hover {
+            background-color: #e0e0e0;
           }
         }
       }
