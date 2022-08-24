@@ -15,6 +15,7 @@ export const UploadImages: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const [fileListPreview, setFileListPreview] = useState<UploadFile[]>([]);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isEmty, setIsEmty] = useState(false);
 
@@ -24,6 +25,10 @@ export const UploadImages: FC = () => {
       const newFileList = fileList.slice();
       newFileList.splice(index, 1);
       setFileList(newFileList);
+
+      const newFileListPreview = fileListPreview.slice();
+      newFileListPreview.splice(index, 1);
+      setFileListPreview(newFileListPreview);
     },
     beforeUpload: (file) => {
       const isImageFile =
@@ -33,12 +38,18 @@ export const UploadImages: FC = () => {
       if (!isImageFile) {
         message.error(`${file.name} is not a image file`);
       } else {
-        setFileList([...fileList, file]);
+        const url = URL.createObjectURL(file);
+        const uploadFile = { ...file, url: url };
+        setFileListPreview((list) => [...list, uploadFile]);
+        setFileList((list) => [...list, file]);
         if (isEmty) setIsEmty(false);
       }
-      return isImageFile || Upload.LIST_IGNORE;
+      return true;
     },
+    fileList: fileListPreview,
     listType: 'picture-card',
+    multiple: true,
+    accept: '.png,.jpg,.jpeg',
   };
 
   return (
@@ -53,6 +64,8 @@ export const UploadImages: FC = () => {
         }
 
         setIsEmty(false);
+
+        console.log(fileList);
 
         const formdata = new FormData();
         for (let i = 0; i < fileList.length; i++) {
