@@ -91,6 +91,7 @@ interface IInitialStateMapLocation {
   userPosition: IMap;
   friendsNearUser: IGetFriendNearUser[];
   friendInfo: IGetFriendNearUser | null;
+  friendProfile: IFriendProfile | null;
   zoomLevel: number;
 }
 interface IGetFriendNearUser {
@@ -100,14 +101,6 @@ interface IGetFriendNearUser {
   name: string;
   birthday: Date;
   avatar: string;
-  gender: GenderEnum;
-  description: string;
-  children: number;
-  alcohol: AlcoholEnum;
-  religion: ReligionEnum;
-  height: number;
-  education: EducationEnum;
-  maritalStatus: MaritalStatusEnum;
   distance: number;
   unit: string;
 }
@@ -119,4 +112,8 @@ interface INameAndEmail {
 
 interface IInitialStateUserLikeStack {
   matching: IMatchingFriend[];
+}
+interface IFriendProfile extends IUserProfile {
+  distance: number;
+  unit: string;
 }

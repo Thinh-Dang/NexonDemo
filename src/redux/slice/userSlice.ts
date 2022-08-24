@@ -3,6 +3,7 @@ import userApi from '@/services/user.api';
 import { ICheckUserVerified, ISignInWithSocial } from '@/@type/services';
 import { PLEASE_TRY_AGAIN_AFTER_5_MINUES } from '@/common/constantArlertErrors';
 import { message } from 'antd';
+import { IFormRegisterPage } from '@/@type/page';
 
 export const callAPISendOTP = createAsyncThunk(
   'otp/send-otp',

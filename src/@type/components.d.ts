@@ -103,7 +103,7 @@ interface ISettingHobby {
 // Component Card
 interface ICard {
   height: string;
-  children?: JSX.Element | null;
+  children?: JSX.Element | null | string;
   hasCloseBtn?: boolean;
   onCloseCard?: () => void;
 }
@@ -213,6 +213,7 @@ interface ITags {
 // Component FriendInfo
 interface IFriend {
   friendInfo: IGetFriendNearUser | null;
+  handleInfoClick: (id: string) => void;
 }
 interface IMyInput {
   isInput?: boolean;
