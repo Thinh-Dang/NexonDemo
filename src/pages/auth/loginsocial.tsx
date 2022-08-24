@@ -29,7 +29,7 @@ const loginsocail: NextPage = () => {
     return (
       <Layout
         isLogo={false}
-        title="Login_Social"
+        title="Login Social"
         isFooter={false}
         isHeader={true}
       >

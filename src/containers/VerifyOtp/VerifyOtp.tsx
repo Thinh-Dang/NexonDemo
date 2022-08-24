@@ -30,7 +30,6 @@ type Props = {
 };
 
 const VerifyOtp = ({ data }: Props) => {
-  console.log(data);
   const router = useRouter();
 
   const myState = useAppSelector((state: RootState) => state.userSlice);
@@ -42,11 +41,9 @@ const VerifyOtp = ({ data }: Props) => {
   const [errOTP, setErrOTP] = useState<string>('');
 
   const handleLogiWithPhone = async (value: IFormOtpPage) => {
-    console.log(value);
     const results: IResponse<string> = (
       await dispatch(callAPIVerifyCode(value))
     ).payload;
-    console.log(results);
     if (results.status) {
       message.success('Xác thực OTP thành công');
     } else {
