@@ -55,7 +55,10 @@ export const UploadImages: FC = () => {
           if (isEmty) setIsEmty(false);
 
           albumLenght++;
-        } else {
+        }
+
+        if (albumLenght === maxAlbum) {
+          albumLenght++;
           message.error(`Album chỉ tối đa ${maxAlbum} hình.`);
         }
       }

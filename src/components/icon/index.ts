@@ -8,3 +8,4 @@ export * from './WhiteWineIcon';
 export * from './GenderIcon';
 export * from './ApplauseIcon';
 export * from './GraduationIcon';
+export * from './LogOutIcon';

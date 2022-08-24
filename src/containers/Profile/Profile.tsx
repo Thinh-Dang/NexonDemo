@@ -33,6 +33,7 @@ import {
   ChildIcon,
   GenderIcon,
   GraduationIcon,
+  LogOutIcon,
   RingIcon,
   RulerIcon,
   SettingIcon,
@@ -59,6 +60,7 @@ import React, {
   useState,
 } from 'react';
 import styleCss from './Profile.module.scss';
+import { resetLogin } from '@/redux/slice/userSlice';
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
@@ -237,16 +239,19 @@ export const Profile = () => {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(resetLogin());
+  };
+
   return profile.avatar && purposes ? (
     <section className={styleCss.profileFrame}>
       <HeadPage
         hTag={HTag.h2}
         title={'Tài khoản'}
-        icon={<SettingIcon />}
+        icon={<LogOutIcon />}
         colorTitle={Color.clr_neutral_100}
-        onIconClick={() => {
-          message.success('hello');
-        }}
+        onIconClick={handleLogout}
       />
 
       <SimpleProfileInfo
