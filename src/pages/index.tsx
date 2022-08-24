@@ -1,6 +1,5 @@
 import { Layout } from '@/components';
 import Loading from '@/components/Loading/Loading';
-import VerifyOtp from '@/containers/VerifyOtp/VerifyOtp';
 import Welcome from '@/containers/Welcome/Welcome';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';

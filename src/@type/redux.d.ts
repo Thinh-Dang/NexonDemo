@@ -1,6 +1,3 @@
-import { Session } from 'inspector';
-import { string } from 'yup';
-
 interface IAction {
   code: number;
   message: string;
@@ -9,19 +6,20 @@ interface IAction {
 
 // Slice User Redux
 interface IInitialStateUser {
-  isStatusApi: boolean;
   isLogin: boolean;
-  isSocial: boolean;
   phone: string;
-  isGetPhone: boolean;
-  isVerifyOtp: boolean;
+  step: number;
   inforUser: {
     name: string;
     email: string;
     birthday: string;
     gender: GenderEnum;
   };
-  session: unknown;
+  stateSession: any;
+  isHeader: boolean;
+  isEmailVerify: boolean;
+  isValidOtp: boolean;
+  isValidOtpWhenEmailVerify: boolean;
 }
 
 // Slice Uer Profile Redux

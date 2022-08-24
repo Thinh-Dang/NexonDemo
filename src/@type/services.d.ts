@@ -135,3 +135,9 @@ interface IFriendMatchingInfo {
   id: string;
   avatar: string;
 }
+
+interface ICheckUserVerified {
+  email: string;
+  accessToken: string;
+  typeSocial: string;
+}

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 import { IGetFriendNearUser } from '@/@type/redux';
-
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => void;
