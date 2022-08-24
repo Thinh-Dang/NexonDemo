@@ -1,3 +1,4 @@
+import { IFormCreateUserBlock } from '@/@type/page';
 import { IResponse } from '@/@type/responses';
 import { IUserBlock } from '@/@type/services';
 import userBlocksApi from '@/services/user-blocks.api';

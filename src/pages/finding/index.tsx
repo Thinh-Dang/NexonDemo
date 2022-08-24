@@ -136,7 +136,7 @@ const FindingPage = () => {
 
   useEffect(() => {
     dispatch(getFriendNearUser());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getLastLocation());
@@ -159,7 +159,7 @@ const FindingPage = () => {
     >
       <div className="findingPage">
         <div className="findingPage-header">
-          <h2 className="findingPage-header-brandName">Binace</h2>
+          <h2 className="findingPage-header-brandName">Tinai</h2>
           <Image
             onClick={openNotify}
             src="/assets/images/notification-bell.svg"

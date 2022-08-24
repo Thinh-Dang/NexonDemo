@@ -8,6 +8,7 @@ import userProfileSlice from '../slice/userProfileSlice';
 import userLikeStackSlice from '../slice/userLikeStackSlice';
 import purposeSlice from '../slice/purposeSlice';
 import userBlockSlice from '../slice/userBlockSlice';
+import settingsSlice from '../slice/settingsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   userLikeStackSlice,
   purposeSlice,
   userBlockSlice,
+  settingsSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

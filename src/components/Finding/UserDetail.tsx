@@ -1,4 +1,11 @@
 import { IGetFriendNearUser } from '@/@type/redux';
+import {
+  ConvertAlcoholEnum,
+  ConvertEducationEnum,
+  ConvertGenderEnum,
+  ConvertMaritalStatusEnum,
+  ConvertReligionEnum,
+} from '@/utils';
 import Image from 'next/image';
 interface IProps {
   user: IGetFriendNearUser;
@@ -7,6 +14,8 @@ interface IProps {
 }
 const UserDetail = (props: IProps) => {
   const { user, onLike, onDislike } = props;
+  console.log(user);
+
   const hobbyColors = [
     '#FFF0F0',
     '#EDF7FF',
@@ -69,25 +78,28 @@ const UserDetail = (props: IProps) => {
         </span>
         <span className="user-detail-infoContainer-quote">
           <span className="user-detail-infoContainer-quote-openQuote">“</span>
-          Hôm nay em đi học, bị điểm kém môn Anh. Cô giáo dạy “Yêu” là “love”,
-          mà em cứ viết tên anh.
+          {user?.description}
         </span>
         <section className="user-detail-infoContainer-detail">
           <p className="user-detail-infoContainer-detail-title">
             Thông tin của {user.name}
           </p>
           <div className="user-detail-infoContainer-detail-list">
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.alcohol}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                Không bao giờ
+            {/* ALCOHOL */}
+            {user.alcohol && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.alcohol}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {ConvertAlcoholEnum(user.alcohol)}
+                </span>
               </span>
-            </span>
+            )}
+            {/* CHILDREN */}
             <span className="user-detail-infoContainer-detail-list-item">
               <Image
                 src={iconList.children}
@@ -96,31 +108,37 @@ const UserDetail = (props: IProps) => {
                 height={'24px'}
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
-                Không bao giờ
+                {user.children}
               </span>
             </span>
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.education}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                Bằng cấp 2
+            {/* EDUCATION */}
+            {user.education && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.education}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {ConvertEducationEnum(user.education)}
+                </span>
               </span>
-            </span>
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.gender}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                Nữ thẳng
+            )}
+            {/* GENDER */}
+            {user.gender && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.gender}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {ConvertGenderEnum(user.gender)}
+                </span>
               </span>
-            </span>
+            )}
             <span className="user-detail-infoContainer-detail-list-item">
               <Image
                 src={iconList.height}
@@ -129,31 +147,37 @@ const UserDetail = (props: IProps) => {
                 height={'24px'}
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
-                175 cm
+                {user.height}cm
               </span>
             </span>
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.marital_status}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                Không bao giờ
+            {/* MARITAL STATUS */}
+            {user.maritalStatus && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.marital_status}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {ConvertMaritalStatusEnum(user.maritalStatus)}
+                </span>
               </span>
-            </span>
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.religion}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                Phật giáo
+            )}
+            {/* RELIGION */}
+            {user.religion && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.religion}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {ConvertReligionEnum(user.religion)}
+                </span>
               </span>
-            </span>
+            )}
           </div>
         </section>
         <section className="user-detail-infoContainer-hobby">

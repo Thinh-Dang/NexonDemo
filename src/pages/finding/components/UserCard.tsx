@@ -18,9 +18,7 @@ const UserCard: FC<IProps> = ({
   onInfoClick,
 }) => {
   const age = (birthday: Date): number => {
-    const today = new Date();
-    const birthdate = new Date(birthday);
-    return today.getFullYear() - birthdate.getFullYear();
+    return new Date().getFullYear() - new Date(birthday).getFullYear();
   };
   const handleInfoClick = () => {
     onCheckInfo(user);
@@ -52,26 +50,22 @@ const UserCard: FC<IProps> = ({
           </span>
         </span>
         <div className="findingPage-card-content-btnGroup">
-          <div
-            className="findingPage-card-content-btnGroup-btn"
-            onClick={onDislike(user.id)}
-          >
+          <div className="findingPage-card-content-btnGroup-btn">
             <Image
               src="/assets/images/Close.svg"
               alt="close"
               width={'23px'}
               height={'23px'}
+              onClick={onDislike(user.id)}
             />
           </div>
-          <div
-            className="findingPage-card-content-btnGroup-btn"
-            onClick={onLike(user.id)}
-          >
+          <div className="findingPage-card-content-btnGroup-btn">
             <Image
               src="/assets/images/Union.svg"
               alt="heart"
               width={'23px'}
               height={'23px'}
+              onClick={onLike(user.id)}
             />
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { IListMarkers } from '@/@type/components';
 import { RootState, useAppSelector } from '@/redux';
 import { FC, useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
