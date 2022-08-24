@@ -83,8 +83,17 @@ export const ChangeSimpleInfo: FC = () => {
 
   const handleInputFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setImage(e.target.files[0]);
-      setAvatarUrl(URL.createObjectURL(e.target.files[0]));
+      const file = e.target.files[0];
+      if (
+        file.type !== 'image/png' &&
+        file.type !== 'image/jpg' &&
+        file.type !== 'image/jpeg'
+      ) {
+        message.error(`Only accept png, jpeg, jpg file`);
+        return;
+      }
+      setImage(file);
+      setAvatarUrl(URL.createObjectURL(file));
     }
   };
 

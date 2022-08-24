@@ -37,13 +37,13 @@ const FindingPage = () => {
     (state: RootState) => state.userLikeStackSlice,
   );
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
-  const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser>();
+  const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser | null>();
 
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden && overlayRef.current) {
       notifyRef.current.hidden = true;
-      overlayRef.current.classList.remove('overlay-notiShow');
       overlayRef.current.hidden = true;
+      overlayRef.current.classList.remove('overlay-notiShow');
     }
 
     if (cardRef.current && overlayRef.current) {
@@ -53,11 +53,12 @@ const FindingPage = () => {
       card.classList.remove('popup');
       overlay.classList.remove('overlay-show');
 
-      setTimeout(() => {
-        card.hidden = true;
-        overlay.hidden = true;
-      }, 1000);
+      // card.hidden = true;
+      // overlay.hidden = true;
+      // setTimeout(() => {
+      // }, 1000);
     }
+    setSelectedUser(null);
   }, []);
 
   const openPopUp = useCallback(() => {
@@ -82,9 +83,9 @@ const FindingPage = () => {
       notifyRef.current.hidden = false;
       overlay.hidden = false;
 
-      setTimeout(() => {
-        overlay.classList.add('overlay-notiShow');
-      }, 10);
+      overlay.classList.add('overlay-notiShow');
+      // setTimeout(() => {
+      // }, 10);
     }
   };
 
@@ -214,7 +215,7 @@ const FindingPage = () => {
         <Card
           hasCloseBtn={true}
           onCloseCard={onOverlayClick}
-          height={'93vh'}
+          height={'90vh'}
           ref={cardRef}
         >
           {selectedUser && (
@@ -222,6 +223,7 @@ const FindingPage = () => {
               user={selectedUser}
               onLike={onLike}
               onDislike={onDislike}
+              onCloseModal={onOverlayClick}
             />
           )}
         </Card>

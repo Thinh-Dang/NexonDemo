@@ -50,7 +50,10 @@ const UserCard: FC<IProps> = ({
           </span>
         </span>
         <div className="findingPage-card-content-btnGroup">
-          <div className="findingPage-card-content-btnGroup-btn">
+          <div
+            className="findingPage-card-content-btnGroup-btn"
+            onClick={() => onDislike(user.id)}
+          >
             <Image
               src="/assets/images/Close.svg"
               alt="close"
@@ -59,7 +62,10 @@ const UserCard: FC<IProps> = ({
               onClick={() => onDislike(user.id)}
             />
           </div>
-          <div className="findingPage-card-content-btnGroup-btn">
+          <div
+            className="findingPage-card-content-btnGroup-btn"
+            onClick={() => onLike(user.id)}
+          >
             <Image
               src="/assets/images/Union.svg"
               alt="heart"

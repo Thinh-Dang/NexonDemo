@@ -7,15 +7,15 @@ import {
   ConvertReligionEnum,
 } from '@/utils';
 import Image from 'next/image';
+import BtnGroup from './BtnGroup';
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => void;
   onDislike: (id: string) => void;
+  onCloseModal: () => void;
 }
 const UserDetail = (props: IProps) => {
-  const { user, onLike, onDislike } = props;
-  console.log(user);
-
+  const { user, onLike, onDislike, onCloseModal } = props;
   const hobbyColors = [
     '#FFF0F0',
     '#EDF7FF',
@@ -58,6 +58,10 @@ const UserDetail = (props: IProps) => {
     marital_status: '/assets/images/icons8-ring.svg',
   };
 
+  // const handleDislike = (id: string) => {
+  //   onDislike(id);
+  //   onCloseModal();
+  // };
   return (
     <div className="user-detail">
       <img className="user-detail-avatar" src={user?.avatar} alt="avatar" />
@@ -220,6 +224,12 @@ const UserDetail = (props: IProps) => {
           className="user-detail-gallery-item"
         />
       </div>
+      <BtnGroup
+        userId={user.id}
+        onLike={onLike}
+        onDislike={onDislike}
+        onCloseModal={onCloseModal}
+      />
     </div>
   );
 };
