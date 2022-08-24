@@ -41,9 +41,11 @@ const VerifyOtp = ({ data }: Props) => {
   const [errOTP, setErrOTP] = useState<string>('');
 
   const handleLogiWithPhone = async (value: IFormOtpPage) => {
+    console.log('value', value);
     const results: IResponse<string> = (
       await dispatch(callAPIVerifyCode(value))
     ).payload;
+    console.log('result', results);
     if (results.status) {
       message.success('Xác thực OTP thành công');
     } else {
@@ -115,6 +117,7 @@ const VerifyOtp = ({ data }: Props) => {
               phone: myState.phone,
               code: otp,
             };
+            console.log('valueRequest', valuesRequest);
             data
               ? handleLogiWithSocial(valuesRequest, data.user?.email as string)
               : handleLogiWithPhone(valuesRequest);

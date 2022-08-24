@@ -29,7 +29,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
     setCountFaovrite(favoriteCount(album));
   }, [album]);
 
-  const maxFavorite = parseInt(process.env.NEXT_pUBLIC_MAX_FAVORITE ?? '3');
+  const maxFavorite = parseInt(process.env.NEXT_PUBLIC_MAX_FAVORITE ?? '3');
 
   const dispatch = useAppDispatch();
 

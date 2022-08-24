@@ -8,13 +8,12 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import errorScss from '../UpdateInfor/UpdateInfor.module.scss';
 import { Button } from '@/components/common';
 import Image from 'next/image';
-import Loading from '@/components/Loading/Loading';
+import { Loading } from '@/components/Loading/Loading';
 import styleScss from './ChangeSimpleInfo.module.scss';
 import { updateSimpleInfo } from '@/redux/slice/userProfileSlice';
 import { IResponse } from '@/@type/responses';
 import { useRouter } from 'next/router';
 import { UpdateUserProfileEnum } from '@/common/enums/enum';
-import { IUserProfile } from '@/@type/redux';
 
 export const ChangeSimpleInfo: FC = () => {
   const dispatch = useAppDispatch();

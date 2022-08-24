@@ -103,6 +103,9 @@ export const userSlice = createSlice({
     setIsValidOtp: (state) => {
       state.isValidOtp = true;
     },
+    resetLogin: (state) => {
+      state.isLogin = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(callAPIVerifyCode.fulfilled, (state, action) => {
@@ -179,5 +182,6 @@ export const {
   setStepLoginWithSocial,
   setStepLogin,
   setIsValidOtp,
+  resetLogin,
 } = actions;
 export default reducer;
