@@ -1,3 +1,8 @@
+import {
+  IFormEnterPhonePage,
+  IFormOtpPage,
+  IFormRegisterPage,
+} from '@/@type/page';
 import { ISignInWithSocial } from '@/@type/services';
 import { Method } from '@/common/enums/enum';
 import axiosApiCall from '@/utils/api';
@@ -26,6 +31,9 @@ const userApi = {
   verifyOTPWithSocial: async (requestOption: IFormOtpPage) => {
     const url = 'otp/verify-otp-social';
     return await axiosApiCall(url, Method.post, requestOption);
+  },
+  getFriendProfle: async (id: string) => {
+    return await axiosApiCall(`users/secure/friend-profile/${id}`, Method.get);
   },
 };
 

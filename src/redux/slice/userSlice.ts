@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import userApi from '@/services/user.api';
 import { IInitialStateUser } from '@/@type/redux';
 import { ISignInWithSocial } from '@/@type/services';
+import { IFormRegisterPage } from '@/@type/page';
 
 export const callAPISendOTP = createAsyncThunk(
   'otp/send-otp',

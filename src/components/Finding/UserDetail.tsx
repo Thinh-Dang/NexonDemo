@@ -1,4 +1,5 @@
-import { IGetFriendNearUser } from '@/@type/redux';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { getFriendProfle } from '@/redux/slice/mapLocationSlice';
 import {
   ConvertAlcoholEnum,
   ConvertEducationEnum,
@@ -7,15 +8,24 @@ import {
   ConvertReligionEnum,
 } from '@/utils';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import BtnGroup from './BtnGroup';
 interface IProps {
-  user: IGetFriendNearUser;
+  id: string;
   onLike: (id: string) => void;
   onDislike: (id: string) => void;
   onCloseModal: () => void;
 }
 const UserDetail = (props: IProps) => {
-  const { user, onLike, onDislike, onCloseModal } = props;
+  const { id, onLike, onDislike, onCloseModal } = props;
+  const { friendInfo, friendProfile } = useAppSelector(
+    (state: RootState) => state.mapLocationSlice,
+  );
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getFriendProfle(id));
+  }, [id]);
+
   const hobbyColors = [
     '#FFF0F0',
     '#EDF7FF',
@@ -43,9 +53,7 @@ const UserDetail = (props: IProps) => {
     'IT',
   ];
   const age = (birthday: Date): number => {
-    const today = new Date();
-    const birthdate = new Date(birthday);
-    return today.getFullYear() - birthdate.getFullYear();
+    return new Date().getFullYear() - new Date(birthday).getFullYear();
   };
 
   const iconList = {
@@ -64,10 +72,15 @@ const UserDetail = (props: IProps) => {
   // };
   return (
     <div className="user-detail">
-      <img className="user-detail-avatar" src={user?.avatar} alt="avatar" />
+      <img
+        className="user-detail-avatar"
+        src={friendInfo?.avatar}
+        alt="avatar"
+      />
       <div className="user-detail-infoContainer">
         <p className="user-detail-infoContainer-name">
-          {user?.name}, {user?.birthday && age(user?.birthday) + 't'}
+          {friendInfo?.name},{' '}
+          {friendInfo?.birthday && age(friendInfo?.birthday) + 't'}
         </p>
         <span className="user-detail-infoContainer-location">
           <Image
@@ -77,20 +90,20 @@ const UserDetail = (props: IProps) => {
             height={'16px'}
           />
           <span className="user-detail-infoContainer-location-distance">
-            Cách {user?.distance} {user?.unit}
+            Cách {friendInfo?.distance} {friendInfo?.unit}
           </span>
         </span>
         <span className="user-detail-infoContainer-quote">
           <span className="user-detail-infoContainer-quote-openQuote">“</span>
-          {user?.description}
+          {friendProfile?.description}
         </span>
         <section className="user-detail-infoContainer-detail">
           <p className="user-detail-infoContainer-detail-title">
-            Thông tin của {user.name}
+            Thông tin của {friendInfo?.name}
           </p>
           <div className="user-detail-infoContainer-detail-list">
             {/* ALCOHOL */}
-            {user.alcohol && (
+            {friendProfile?.alcohol && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.alcohol}
@@ -99,7 +112,7 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertAlcoholEnum(user.alcohol)}
+                  {ConvertAlcoholEnum(friendProfile?.alcohol)}
                 </span>
               </span>
             )}
@@ -112,11 +125,13 @@ const UserDetail = (props: IProps) => {
                 height={'24px'}
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
-                {user.children}
+                {friendProfile?.children != 0
+                  ? friendProfile?.children
+                  : 'Chưa có'}
               </span>
             </span>
             {/* EDUCATION */}
-            {user.education && (
+            {friendProfile?.education && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.education}
@@ -125,12 +140,12 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertEducationEnum(user.education)}
+                  {ConvertEducationEnum(friendProfile?.education)}
                 </span>
               </span>
             )}
             {/* GENDER */}
-            {user.gender && (
+            {friendProfile?.gender && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.gender}
@@ -139,7 +154,7 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertGenderEnum(user.gender)}
+                  {ConvertGenderEnum(friendProfile?.gender)}
                 </span>
               </span>
             )}
@@ -151,11 +166,11 @@ const UserDetail = (props: IProps) => {
                 height={'24px'}
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
-                {user.height}cm
+                {friendProfile?.height}cm
               </span>
             </span>
             {/* MARITAL STATUS */}
-            {user.maritalStatus && (
+            {friendProfile?.maritalStatus && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.marital_status}
@@ -164,12 +179,12 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertMaritalStatusEnum(user.maritalStatus)}
+                  {ConvertMaritalStatusEnum(friendProfile?.maritalStatus)}
                 </span>
               </span>
             )}
             {/* RELIGION */}
-            {user.religion && (
+            {friendProfile?.religion && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.religion}
@@ -178,7 +193,7 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertReligionEnum(user.religion)}
+                  {ConvertReligionEnum(friendProfile?.religion)}
                 </span>
               </span>
             )}
@@ -187,45 +202,55 @@ const UserDetail = (props: IProps) => {
         <section className="user-detail-infoContainer-hobby">
           <p className="user-detail-infoContainer-hobby-title">Tôi thích...</p>
           <div className="user-detail-infoContainer-hobby-list">
-            {hobbies.map((hobby, index) => {
-              return (
-                <span
-                  key={`hobby ${index}`}
-                  style={{
-                    backgroundColor: `${
-                      index < hobbyColors.length
-                        ? hobbyColors[index]
-                        : hobbyColors[index - hobbyColors.length]
-                    }`,
-                  }}
-                  className="user-detail-infoContainer-hobby-list-item"
-                >
-                  #{hobby}
-                </span>
-              );
-            })}
+            {friendProfile?.hobbies.length ? (
+              friendProfile?.hobbies.map((hobby, index) => {
+                return (
+                  <span
+                    key={hobby.id}
+                    style={{
+                      backgroundColor: `${
+                        index < hobbyColors.length
+                          ? hobbyColors[index]
+                          : hobbyColors[index - hobbyColors.length]
+                      }`,
+                    }}
+                    className="user-detail-infoContainer-hobby-list-item"
+                  >
+                    #{hobby.name}
+                  </span>
+                );
+              })
+            ) : (
+              <span
+                style={{
+                  backgroundColor: `${hobbyColors[5]}`,
+                }}
+                className="user-detail-infoContainer-hobby-list-item"
+              >
+                Chưa có sở thích
+              </span>
+            )}
           </div>
         </section>
       </div>
       <div className="user-detail-gallery">
-        <img
-          src="./assets/images/avatar/avatar1.jpg"
-          alt="avatar"
-          className="user-detail-gallery-item"
-        />
-        <img
-          src="./assets/images/avatar/avatar2.jpg"
-          alt="avatar"
-          className="user-detail-gallery-item"
-        />
-        <img
-          src="./assets/images/avatar/avatar3.jpg"
-          alt="avatar"
-          className="user-detail-gallery-item"
-        />
+        {friendProfile?.album.length ? (
+          friendProfile.album.map((image) => {
+            return (
+              <img
+                key={`img ${image.id}`}
+                src={image.url}
+                alt="avatar"
+                className="user-detail-gallery-item"
+              />
+            );
+          })
+        ) : (
+          <></>
+        )}
       </div>
       <BtnGroup
-        userId={user.id}
+        userId={id}
         onLike={onLike}
         onDislike={onDislike}
         onCloseModal={onCloseModal}

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Tags from '../common/Tags/Tags';
 import styles from './FriendInfo.module.scss';
 
-const FriendInfoComponent: FC<IFriend> = ({ friendInfo }) => {
+const FriendInfoComponent: FC<IFriend> = ({ friendInfo, handleInfoClick }) => {
   return friendInfo ? (
     <div className={styles.container}>
       <div className={styles.friend_info}>
@@ -33,8 +33,9 @@ const FriendInfoComponent: FC<IFriend> = ({ friendInfo }) => {
         <Image
           src="/assets/images/information-icon.svg"
           alt="Information Icon"
-          width={'24px'}
-          height={'24px'}
+          width={'16px'}
+          height={'16px'}
+          onClick={() => handleInfoClick(friendInfo?.id)}
         />
       </div>
     </div>

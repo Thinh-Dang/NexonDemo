@@ -6,6 +6,7 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   getFriendNearUser,
   getLastLocation,
+  updateFriendInfo,
 } from '@/redux/slice/mapLocationSlice';
 import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import {
@@ -37,8 +38,7 @@ const FindingPage = () => {
     (state: RootState) => state.userLikeStackSlice,
   );
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
-  const [selectedUser, setSelectedUser] = useState<IGetFriendNearUser | null>();
-
+  const [idSelected, setIdSelected] = useState<string | null>();
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden && overlayRef.current) {
       notifyRef.current.hidden = true;
@@ -58,7 +58,7 @@ const FindingPage = () => {
       // setTimeout(() => {
       // }, 1000);
     }
-    setSelectedUser(null);
+    setIdSelected(null);
   }, []);
 
   const openPopUp = useCallback(() => {
@@ -130,7 +130,8 @@ const FindingPage = () => {
   };
 
   const onCheckInfo = (user: IGetFriendNearUser) => {
-    setSelectedUser(user);
+    dispatch(updateFriendInfo(user));
+    setIdSelected(user.id);
   };
 
   useEffect(() => {
@@ -143,6 +144,7 @@ const FindingPage = () => {
 
   useEffect(() => {
     dispatch(getMatchingFriends());
+    matching?.length && openMatchPagePopUp();
   }, []);
 
   useEffect(() => {
@@ -218,9 +220,9 @@ const FindingPage = () => {
           height={'90vh'}
           ref={cardRef}
         >
-          {selectedUser && (
+          {idSelected && (
             <UserDetail
-              user={selectedUser}
+              id={idSelected}
               onLike={onLike}
               onDislike={onDislike}
               onCloseModal={onOverlayClick}
