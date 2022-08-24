@@ -21,3 +21,4 @@ export * from './SettingHobby/SettingHobby';
 export * from './UserAlbum/UserAlbum';
 export * from './SimpleProfileInfo/SimpleProfileInfo';
 export * from './ItemNotify/ItemNotify';
+export * from './Timer/Timer';

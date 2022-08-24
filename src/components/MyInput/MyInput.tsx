@@ -1,16 +1,15 @@
-import { DatePicker, Select, Tag } from 'antd';
-//import Input from 'antd/lib/input/Input';
+import { DatePicker, Input, Select, Tag } from 'antd';
 import Image from 'next/image';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import iconArrowDown from '../../../public/assets/arrow-down.svg';
 import iconDate from '../../../public/assets/Calendar.svg';
 import styleScss from './MyInput.module.scss';
-import { Input } from 'antd';
 
-import { Option } from 'antd/lib/mentions';
-import moment from 'moment';
 import { IMyInput } from '@/@type/components';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { Option } from 'antd/lib/mentions';
+import moment from 'moment';
+import Timer from '../Timer/Timer';
 const { TextArea } = Input;
 const MyInput: FC<IMyInput> = ({
   isInput,
@@ -30,54 +29,12 @@ const MyInput: FC<IMyInput> = ({
   disabled,
   errorOTP,
 }) => {
-  const [timerSeconds, setTimerSeconds] = useState<string>();
-  const [timerMinutes, setTimerMinus] = useState<string>();
   const firstRef = useRef<HTMLInputElement>(null);
   const secondRef = useRef<HTMLInputElement>(null);
   const thirdRef = useRef<HTMLInputElement>(null);
   const fourthRef = useRef<HTMLInputElement>(null);
   const fifthRef = useRef<HTMLInputElement>(null);
   const sixthRef = useRef<HTMLInputElement>(null);
-
-  const padWithZeros = (number: number, minLenght: number) => {
-    const numberString = number.toString();
-    if (numberString.length >= minLenght) return numberString;
-    return '0'.repeat(minLenght - numberString.length) + numberString;
-  };
-
-  const startTimer = (): NodeJS.Timer => {
-    const countDownExp = new Date(Date.now() + 10 * 60 * 1000).getTime();
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownExp - now;
-      const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
-      const newMinutes = padWithZeros(minutes, 2);
-      const seconds = Math.floor((distance % (60 * 1000)) / 1000);
-      const newSeconds = padWithZeros(seconds, 2);
-      if (distance < 0) {
-        clearInterval(interval);
-      } else {
-        setTimerMinus(newMinutes);
-        setTimerSeconds(newSeconds);
-      }
-    });
-    return interval;
-  };
-
-  const handleChangeOTP = (refs: any) => {
-    const results = refs.reduce((acc: string, curr: any) => {
-      return acc + curr.value;
-    }, '');
-    onSubmitOtp(results);
-  };
-
-  useEffect(() => {
-    const timer = startTimer();
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   useEffect(() => {
     if (
@@ -116,15 +73,15 @@ const MyInput: FC<IMyInput> = ({
         refs[i].addEventListener('keydown', function (event) {
           if (event.key === 'Backspace') {
             refs[i].value = '';
-            handleChangeOTP(refs);
+            onSubmitOtp(refs);
             if (i !== 0) refs[i - 1].focus();
           } else {
             if (i === refs.length - 1 && refs[i].value !== '') {
-              handleChangeOTP(refs);
+              onSubmitOtp(refs);
               return true;
             } else if (/^[0-9]*$/.test(event.key)) {
               refs[i].value = event.key;
-              handleChangeOTP(refs);
+              onSubmitOtp(refs);
               if (i !== refs.length - 1) refs[i + 1].focus();
             }
             event.preventDefault();
@@ -185,7 +142,7 @@ const MyInput: FC<IMyInput> = ({
             type={type}
             placeholder={txtPlaceholder}
             className={styleScss.groupInput__input}
-            value={value ?? ''}
+            value={value ? value : '' ?? ''}
           />
         )}
       </div>
@@ -227,7 +184,7 @@ const MyInput: FC<IMyInput> = ({
           >
             <Option value="Male">Nam</Option>
             <Option value="Female">Nữ</Option>
-            <Option value="Other">Other</Option>
+            <Option value="Other">Khác</Option>
           </Select>
         </div>
       </div>
@@ -276,17 +233,14 @@ const MyInput: FC<IMyInput> = ({
         ''
       )}
       <div
-        style={{ textAlign: 'right', marginBottom: '4.1rem', display: 'block' }}
+        style={{
+          textAlign: 'right',
+          marginBottom: '4.1rem',
+          display: 'block',
+          marginTop: '3.6rem',
+        }}
       >
-        {timerMinutes === '00' && timerSeconds === '00' ? (
-          <button type="button" className={styleScss.bntOutline}>
-            Gửi Lại OTP
-          </button>
-        ) : (
-          <p>
-            {timerMinutes}:{timerSeconds}
-          </p>
-        )}
+        <Timer stylebtn={styleScss.bntOutline} />
       </div>
     </>
   );

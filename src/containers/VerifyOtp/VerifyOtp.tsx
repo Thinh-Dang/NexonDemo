@@ -4,7 +4,7 @@ import Content from '@/components/Content/Content';
 import MyInput from '@/components/MyInput/MyInput';
 import { OTPValidationSchema } from '@/Validation/Validations';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { Tag } from 'antd';
+import { message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import styleScss from './VerifyOtp.module.scss';
@@ -13,16 +13,24 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   callAPIVerifyCode,
   callAPIVerifyCodeLoginWithSocial,
+  setIsValidOtp,
 } from '@/redux/slice/userSlice';
 import { Session } from 'next-auth';
 import { IResponse } from '@/@type/responses';
 import { useRouter } from 'next/router';
+import {
+  EXCEED_TIMES_WRONG_OTP,
+  OTP_NOT_VALID,
+  THIS_PHONE_NUMBER_IS_EXISTED,
+} from '@/common/constantArlertErrors';
+import { IFormOtpPage } from '@/@type/page';
 
 type Props = {
   data?: Session;
 };
 
 const VerifyOtp = ({ data }: Props) => {
+  console.log(data);
   const router = useRouter();
 
   const myState = useAppSelector((state: RootState) => state.userSlice);
@@ -33,18 +41,58 @@ const VerifyOtp = ({ data }: Props) => {
 
   const [errOTP, setErrOTP] = useState<string>('');
 
-  const handleLogiWithPhone = (value: IFormOtpPage) => {
-    dispatch(callAPIVerifyCode(value));
+  const handleLogiWithPhone = async (value: IFormOtpPage) => {
+    const results: IResponse<string> = (
+      await dispatch(callAPIVerifyCode(value))
+    ).payload;
+    if (results.status) {
+      message.success('Xác thực OTP thành công');
+    } else {
+      switch (results.message) {
+        case OTP_NOT_VALID:
+          message.error('OTP không đúng');
+          break;
+        case THIS_PHONE_NUMBER_IS_EXISTED:
+          message.error('Số điện thoại đã tồn tại');
+          break;
+        case EXCEED_TIMES_WRONG_OTP:
+          dispatch(setIsValidOtp());
+          message.error(
+            'Bạn đã nhập sai 3 lần. Vui lòng quay lại sau 10 phút.',
+          );
+          break;
+      }
+    }
   };
 
   const handleLogiWithSocial = async (value: IFormOtpPage, email: string) => {
     value.email = email;
 
-    const result: IResponse<string> = (
+    const results: IResponse<string> = (
       await dispatch(callAPIVerifyCodeLoginWithSocial(value))
     ).payload;
-    if (result.status) {
+    if (results.status) {
+      if (data) {
+        message.success('Tạo tài khoản thành công');
+      } else {
+        message.success('Xác thực OTP thành công');
+      }
       router.push('/finding');
+    } else {
+      switch (results.message) {
+        case OTP_NOT_VALID:
+          message.error('OTP không đúng');
+          break;
+        case THIS_PHONE_NUMBER_IS_EXISTED:
+          message.error('Số điện thoại đã tồn tại');
+          break;
+        case EXCEED_TIMES_WRONG_OTP:
+          dispatch(setIsValidOtp());
+          message.error(
+            'Bạn đã nhập sai 3 lần. Vui lòng quay lại sau 10 phút.',
+          );
+          break;
+      }
     }
   };
 
@@ -88,12 +136,24 @@ const VerifyOtp = ({ data }: Props) => {
           onSubmitOtp={handleChangeOtp}
         />
 
-        <Button
-          btnClass=""
-          isHaveIcon={true}
-          type="submit"
-          content="Tiếp tục"
-        />
+        {!myState.isValidOtp && (
+          <Button
+            btnClass=""
+            isHaveIcon={true}
+            type="submit"
+            content="Tiếp tục"
+          />
+        )}
+        {myState.isValidOtp && (
+          <Button
+            disabled
+            style={{ opacity: '0.5' }}
+            btnClass=""
+            isHaveIcon={true}
+            type="button"
+            content="Tiếp tục"
+          />
+        )}
       </form>
     </>
   );
