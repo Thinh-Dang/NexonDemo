@@ -25,7 +25,6 @@
     @include elementCenter();
     justify-content: space-evenly;
     width: 100%;
-    margin-top: 1.6rem;
     padding: 1.6rem 0.8rem;
     background-color: $clr-neutral-0;
   }
@@ -41,6 +40,14 @@
     width: 70%;
   }
 
+  &__images {
+    @include elementCenter();
+
+    img {
+      border-radius: 1.6rem;
+    }
+  }
+
   &__input {
     background-color: $clr-neutral-5;
     padding: 0rem 2.4rem;
@@ -51,6 +58,12 @@
     line-height: 1.8rem;
     color: $clr-neutral-80;
     width: 100%;
+  }
+
+  &__emojiPicker {
+    position: absolute;
+    bottom: 150%;
+    left: 10%;
   }
 
   &__emoji {

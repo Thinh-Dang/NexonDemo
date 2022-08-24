@@ -120,7 +120,6 @@ const MyInput: FC<IMyInput> = ({
   }
 
   // Input normal
-
   if (isInput) {
     return (
       <div className={styleScss.groupInput}>

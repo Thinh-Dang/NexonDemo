@@ -66,10 +66,10 @@ export const ConvertReligionEnum = (religion: string): string => {
       return 'Thiên chúa giáo';
       break;
     case ReligionEnum.NON_RELIGIONS:
-      return 'Không';
+      return 'Không có';
       break;
     case ReligionEnum.OTHER:
-      return 'Khác';
+      return 'Tôn giáo khác';
       break;
     default:
       return '';

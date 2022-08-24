@@ -1,6 +1,7 @@
-import { IInitialStateMapLocation } from '@/@type/redux';
+import { IInitialStateMapLocation, IGetFriendNearUser } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import mapLocationApi from '@/services/map-location.api';
+import userApi from '@/services/user.api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IInitialStateMapLocation = {
@@ -8,6 +9,7 @@ const initialState: IInitialStateMapLocation = {
   userPosition: { lat: 0, lng: 0 },
   friendsNearUser: [],
   friendInfo: null,
+  friendProfile: null,
   zoomLevel: 16,
 };
 
@@ -29,6 +31,14 @@ export const getLastLocation = createAsyncThunk(
     return await mapLocationApi.getLastLocation();
   },
 );
+
+export const getFriendProfle = createAsyncThunk(
+  'getFriendProfle',
+  async (id: string) => {
+    return await userApi.getFriendProfle(id);
+  },
+);
+
 export const mapLocationSlice = createSlice({
   name: 'mapLocation',
   initialState: initialState,
@@ -84,6 +94,15 @@ export const mapLocationSlice = createSlice({
             lat: data.latitude,
             lng: data.longtitude,
           };
+        }
+      },
+    );
+    builder.addCase(
+      // getFriendNearUser
+      getFriendProfle.fulfilled,
+      (state: IInitialStateMapLocation, action: any) => {
+        if (action.payload.status) {
+          state.friendProfile = action.payload.data;
         }
       },
     );

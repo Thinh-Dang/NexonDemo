@@ -36,6 +36,9 @@ const userApi = {
     const url = 'otp/user-verified';
     return await axiosApiCall(url, Method.post, requestOption);
   },
+  getFriendProfle: async (id: string) => {
+    return await axiosApiCall(`users/secure/friend-profile/${id}`, Method.get);
+  },
 };
 
 export default userApi;
