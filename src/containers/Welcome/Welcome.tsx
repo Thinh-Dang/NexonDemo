@@ -8,9 +8,12 @@ import iconGG from '../../../public/assets/gg.svg';
 import iconApple from '../../../public/assets/apple-icon.svg';
 import logoWelcome from '../../../public/assets/images/img-welcome.svg';
 import styleScss from './Welcome.module.scss';
+import { useAppDispatch } from '@/redux';
+import { setStepLogin } from '@/redux/slice/userSlice';
 
 const Welcome = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   return (
     <main className={styleScss.wrapper}>
       <Image src={logoWelcome} alt="Zodinet" />
@@ -23,6 +26,7 @@ const Welcome = () => {
         isHaveIcon={false}
         type="button"
         onClick={() => {
+          dispatch(setStepLogin());
           router.push('/auth/login');
         }}
         btnClass={styleScss.wrapper__btn}
@@ -36,7 +40,10 @@ const Welcome = () => {
           btnClass={styleScss.wrapper__icon}
           content={<Image src={iconFB} alt="Zodinet" />}
           onClick={() =>
-            signIn('facebook', { redirect: false, callbackUrl: '/auth/login' })
+            signIn('facebook', {
+              redirect: false,
+              callbackUrl: '/auth/loginsocial',
+            })
           }
         />
 
@@ -53,7 +60,10 @@ const Welcome = () => {
           btnClass={styleScss.wrapper__icon}
           content={<Image src={iconGG} alt="Zodinet" />}
           onClick={() =>
-            signIn('google', { redirect: false, callbackUrl: '/auth/login' })
+            signIn('google', {
+              redirect: false,
+              callbackUrl: '/auth/loginsocial',
+            })
           }
         />
       </div>

@@ -117,3 +117,9 @@ interface ISignInWithSocial {
   birthday: string;
   accessToken: string;
 }
+
+interface ICheckUserVerified {
+  email: string;
+  accessToken: string;
+  typeSocial: string;
+}

@@ -10,6 +10,7 @@ import { Option } from 'antd/lib/mentions';
 import moment from 'moment';
 import { IMyInput } from '@/@type/components';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import Timer from '../Timer/Timer';
 
 // eslint-disable-next-line @typescript-eslint/ban-types, react-hooks/rules-of-hooks
 const MyInput: FC<IMyInput> = ({
@@ -27,42 +28,12 @@ const MyInput: FC<IMyInput> = ({
   disabled,
   errorOTP,
 }) => {
-  const [timerSeconds, setTimerSeconds] = useState<string>();
-  const [timerMinutes, setTimerMinus] = useState<string>();
   const firstRef = useRef<HTMLInputElement>(null);
   const secondRef = useRef<HTMLInputElement>(null);
   const thirdRef = useRef<HTMLInputElement>(null);
   const fourthRef = useRef<HTMLInputElement>(null);
   const fifthRef = useRef<HTMLInputElement>(null);
   const sixthRef = useRef<HTMLInputElement>(null);
-
-  const startTimer = () => {
-    const countDownExp = new Date(Date.now() + 10 * 60 * 1000).getTime();
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownExp - now;
-      const minutes = Math.floor((distance % (60 * 60 * 1000)) / (1000 * 60));
-      const newMinutes = padWithZeros(minutes, 2);
-      const seconds = Math.floor((distance % (60 * 1000)) / 1000);
-      const newSeconds = padWithZeros(seconds, 2);
-      if (distance < 0) {
-        clearInterval(interval);
-      } else {
-        setTimerMinus(newMinutes);
-        setTimerSeconds(newSeconds);
-      }
-    });
-  };
-
-  const padWithZeros = (number: number, minLenght: number) => {
-    const numberString = number.toString();
-    if (numberString.length >= minLenght) return numberString;
-    return '0'.repeat(minLenght - numberString.length) + numberString;
-  };
-
-  useEffect(() => {
-    startTimer();
-  }, []);
 
   useEffect(() => {
     if (
@@ -142,7 +113,7 @@ const MyInput: FC<IMyInput> = ({
           name={name}
           placeholder={txtPlaceholder}
           className={styleScss.groupInput__input}
-          value={value}
+          value={value ? value : ''}
         />
       </div>
     );
@@ -179,7 +150,7 @@ const MyInput: FC<IMyInput> = ({
           >
             <Option value="Male">Nam</Option>
             <Option value="Female">Nữ</Option>
-            <Option value="Other">Other</Option>
+            <Option value="Other">Khác</Option>
           </Select>
         </div>
       </div>
@@ -228,17 +199,14 @@ const MyInput: FC<IMyInput> = ({
         ''
       )}
       <div
-        style={{ textAlign: 'right', marginBottom: '4.1rem', display: 'block' }}
+        style={{
+          textAlign: 'right',
+          marginBottom: '4.1rem',
+          display: 'block',
+          marginTop: '3.6rem',
+        }}
       >
-        {timerMinutes === '00' && timerSeconds === '00' ? (
-          <button type="button" className={styleScss.bntOutline}>
-            Gửi Lại OTP
-          </button>
-        ) : (
-          <p>
-            {timerMinutes}:{timerSeconds}
-          </p>
-        )}
+        <Timer stylebtn={styleScss.bntOutline} />
       </div>
     </>
   );

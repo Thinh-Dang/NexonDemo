@@ -20,7 +20,7 @@ export const Layout: FC<ILayout> = ({
   const location = router.pathname;
   const dispatch = useAppDispatch();
   const [isFetch, setIsFectch] = useState(false);
-  const isLogin = useAppSelector((state: RootState) => state.userSlice.isLogin);
+  const myState = useAppSelector((state: RootState) => state.userSlice);
 
   const fecthInfo = async () => {
     const check = (await dispatch(getProfile())).payload;
@@ -31,20 +31,28 @@ export const Layout: FC<ILayout> = ({
   };
 
   useEffect(() => {
-    fecthInfo();
+    // fecthInfo();
   }, []);
 
-  if (!isFetch) {
-    return <Loading />;
-  }
-
-  if (!isLogin && location !== '/auth/login' && location !== '/') {
+  if (
+    !myState.isLogin &&
+    location !== '/auth/login' &&
+    location !== '/' &&
+    location !== '/auth/loginsocial' &&
+    location !== 'auth/loginsocial#_='
+  ) {
     router.push('/');
   }
-
-  if (isLogin && location === '/auth/login') {
+  if (location === '/auth/login' && myState.step === 0) {
+    router.push('/');
+  }
+  if (
+    myState.isLogin &&
+    (location === '/auth/login' ||
+      location === '/auth/loginsocial' ||
+      location === 'auth/loginsocial#_=')
+  ) {
     router.push('/finding');
-    return <Loading />;
   }
 
   return (

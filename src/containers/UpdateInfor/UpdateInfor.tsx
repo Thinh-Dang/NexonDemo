@@ -8,10 +8,11 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   callApiSignUpWithSocial,
   callAPIUpdateUser,
+  setStepLogin,
 } from '@/redux/slice/userSlice';
 import { inForUserSchema } from '@/Validation/Validations';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import { Tag } from 'antd';
+import { message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
@@ -22,6 +23,7 @@ import imgInfor from '../../../public/assets/images/Login - Info.svg';
 import styleScss from './UpdateInfor.module.scss';
 
 type Props = {
+  // eslint-disable-next-line react/require-default-props
   data?: Session;
 };
 
@@ -46,10 +48,11 @@ const UpdateInfor = ({ data }: Props) => {
       await dispatch(callAPIUpdateUser(valueRequest))
     ).payload;
     if (result.status) {
+      message.success('Tạo tài khoản thành công');
       router.push('/finding');
     }
   };
-  const loginWithSocial = ({ name, email }: INameAndEmail) => {
+  const loginWithSocial = async ({ name, email }: INameAndEmail) => {
     const valueRequest: ISignInWithSocial = {
       email,
       name,
@@ -59,7 +62,12 @@ const UpdateInfor = ({ data }: Props) => {
       accessToken: data?.accessToken as string,
       url: data?.user?.image as string,
     };
-    dispatch(callApiSignUpWithSocial(valueRequest));
+    const result = (await dispatch(callApiSignUpWithSocial(valueRequest)))
+      .payload;
+    if (result.status) {
+      message.success('Cập nhật thông tin thành công');
+      dispatch(setStepLogin());
+    }
   };
 
   const { handleBlur, errors, handleChange, values, handleSubmit, touched } =
@@ -78,9 +86,11 @@ const UpdateInfor = ({ data }: Props) => {
   const handdleChangeGender = (value: string) => {
     setGender(value);
   };
+
   const handdleChangeBirthday = (date: Date, dateString: string) => {
     setBirthday(dateString);
   };
+
   return (
     <div className={styleScss.inforUserMain}>
       <Image src={imgInfor} alt="Zodinet" />
