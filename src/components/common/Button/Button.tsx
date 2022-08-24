@@ -1,8 +1,10 @@
-import inconArrowRight from '../../../../public/assets/Arrow-Right-Circle.svg';
-import Image from 'next/image';
 import { FC } from 'react';
+import Image from 'next/image';
 import styleScss from './Button.module.scss';
 import { IButton } from '@/@type/components';
+
+import { IButton } from '../../../@type/components';
+import inconArrowRight from '../../../../public/assets/Arrow-Right-Circle.svg';
 
 export const Button: FC<IButton> = ({
   type,

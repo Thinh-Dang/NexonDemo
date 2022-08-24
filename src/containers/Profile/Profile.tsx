@@ -1,12 +1,10 @@
-import { IPurpose } from '@/@type/params';
-import { IUserProfile } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import { IUpdateUserProfile } from '@/@type/services';
 import {
   Color,
   HTag,
   InputEnum,
-  OpenSettingProile,
+  OpenSettingProfile,
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
 import {
@@ -35,17 +33,15 @@ import {
   ChildIcon,
   GenderIcon,
   GraduationIcon,
-  PlusIcons,
   RingIcon,
   RulerIcon,
   SettingIcon,
   WhiteWineIcon,
 } from '@/components/icon';
-import Loading from '@/components/Loading/Loading';
+import { Loading } from '@/components';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { updateUserProfile } from '@/redux/slice/userProfileSlice';
 import {
-  calculateAge,
   ConvertAlcoholEnum,
   ConvertEducationEnum,
   ConvertGenderEnum,
@@ -54,8 +50,7 @@ import {
   getPurposetitle,
   pickColor,
 } from '@/utils';
-import { Col, message, Row } from 'antd';
-import Image from 'next/image';
+import { message } from 'antd';
 import React, {
   ChangeEvent,
   ReactElement,
@@ -107,7 +102,7 @@ export const Profile = () => {
     }
   }, []);
 
-  const openSetting = useCallback((type: OpenSettingProile) => {
+  const openSetting = useCallback((type: OpenSettingProfile) => {
     setSettingItem(type);
     openPopUp();
   }, []);
@@ -138,7 +133,7 @@ export const Profile = () => {
 
   function SwitchCase(type: string): ReactElement | undefined {
     switch (type) {
-      case OpenSettingProile.REASON:
+      case OpenSettingProfile.REASON:
         return (
           <ReasonPopUp
             purposes={purposes}
@@ -146,7 +141,7 @@ export const Profile = () => {
             onChange={changeReason}
           />
         );
-      case OpenSettingProile.DESCRIPTION:
+      case OpenSettingProfile.DESCRIPTION:
         return (
           <SettingWithInput
             defaultValue={profile.description}
@@ -158,7 +153,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.DESCRIPTION}
           />
         );
-      case OpenSettingProile.HEIGHT:
+      case OpenSettingProfile.HEIGHT:
         return (
           <SettingWithInput
             defaultValue={profile.height}
@@ -169,7 +164,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.HEIGHT}
           />
         );
-      case OpenSettingProile.MARITAL:
+      case OpenSettingProfile.MARITAL:
         return (
           <SettingWithSelect
             defaultValue={profile.maritalStatus}
@@ -180,7 +175,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.MARITAL_STATUS}
           />
         );
-      case OpenSettingProile.ALCOHOL:
+      case OpenSettingProfile.ALCOHOL:
         return (
           <SettingWithSelect
             defaultValue={profile.alcohol}
@@ -191,7 +186,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.ALCOHOL}
           />
         );
-      case OpenSettingProile.GENDER:
+      case OpenSettingProfile.GENDER:
         return (
           <SettingWithSelect
             defaultValue={profile.gender}
@@ -202,7 +197,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.GENDER}
           />
         );
-      case OpenSettingProile.RELIGION:
+      case OpenSettingProfile.RELIGION:
         return (
           <SettingWithSelect
             defaultValue={profile.religion}
@@ -213,7 +208,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.RELIGION}
           />
         );
-      case OpenSettingProile.EDUCATION:
+      case OpenSettingProfile.EDUCATION:
         return (
           <SettingWithSelect
             defaultValue={profile.education}
@@ -224,7 +219,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.EDUCATION}
           />
         );
-      case OpenSettingProile.CHILD:
+      case OpenSettingProfile.CHILD:
         return (
           <SettingWithInput
             defaultValue={profile.children}
@@ -235,7 +230,7 @@ export const Profile = () => {
             settingType={UpdateUserProfileEnum.CHILDREN}
           />
         );
-      case OpenSettingProile.HOBBIES:
+      case OpenSettingProfile.HOBBIES:
         return <SettingHobby hobbies={profile.hobbies} />;
       default:
         return undefined;
@@ -271,13 +266,13 @@ export const Profile = () => {
               : 'Không có'
           }
           onIconClick={openSetting}
-          type={OpenSettingProile.REASON}
+          type={OpenSettingProfile.REASON}
         />
         <SettingInfo
           title={'Giới thiệu bản thân'}
           content={profile.description}
           onIconClick={openSetting}
-          type={OpenSettingProile.DESCRIPTION}
+          type={OpenSettingProfile.DESCRIPTION}
         />
       </div>
       <div className={styleCss['profileFrame-info']}>
@@ -288,49 +283,49 @@ export const Profile = () => {
             title={'Chiều cao'}
             value={profile.height + 'cm'}
             onIconClick={openSetting}
-            type={OpenSettingProile.HEIGHT}
+            type={OpenSettingProfile.HEIGHT}
           />
           <InfoItem
             icon={<RingIcon />}
             title={'Hôn nhân'}
             value={ConvertMaritalStatusEnum(profile.maritalStatus)}
             onIconClick={openSetting}
-            type={OpenSettingProile.MARITAL}
+            type={OpenSettingProfile.MARITAL}
           />
           <InfoItem
             icon={<ChildIcon />}
             title={'Trẻ con'}
             value={profile.children === 0 ? 'Không có' : profile.children}
             onIconClick={openSetting}
-            type={OpenSettingProile.CHILD}
+            type={OpenSettingProfile.CHILD}
           />
           <InfoItem
             icon={<WhiteWineIcon />}
             title={'Rựu bia'}
             value={ConvertAlcoholEnum(profile.alcohol)}
             onIconClick={openSetting}
-            type={OpenSettingProile.ALCOHOL}
+            type={OpenSettingProfile.ALCOHOL}
           />
           <InfoItem
             icon={<GenderIcon />}
             title={'Giới tính'}
             value={ConvertGenderEnum(profile.gender)}
             onIconClick={openSetting}
-            type={OpenSettingProile.GENDER}
+            type={OpenSettingProfile.GENDER}
           />
           <InfoItem
             icon={<ApplauseIcon />}
             title={'Tôn giáo'}
             value={ConvertReligionEnum(profile.religion)}
             onIconClick={openSetting}
-            type={OpenSettingProile.RELIGION}
+            type={OpenSettingProfile.RELIGION}
           />
           <InfoItem
             icon={<GraduationIcon />}
             title={'Học vấn'}
             value={ConvertEducationEnum(profile.education)}
             onIconClick={openSetting}
-            type={OpenSettingProile.EDUCATION}
+            type={OpenSettingProfile.EDUCATION}
           />
         </div>
       </div>
@@ -339,7 +334,7 @@ export const Profile = () => {
           title={'Sở thích'}
           editTitle={'Chỉnh sửa'}
           marginBottom={10}
-          settingType={OpenSettingProile.HOBBIES}
+          settingType={OpenSettingProfile.HOBBIES}
           onEditClick={openSetting}
         />
         <div className={styleCss['profileFrame-hobby-hobbyItems']}>

@@ -2,15 +2,14 @@ import {
   Color,
   HTag,
   InputEnum,
-  OpenSettingProile,
-  OperationTypeEnum,
+  OpenSettingProfile,
   UpdateUserProfileEnum,
 } from '@/common/enums/enum';
 import { number, string } from 'yup';
 import { ISettingSource, IUserHobbies, IUserImages } from './params';
 import { ICreateHobby, IUpdateUserProfile } from './services';
 
-// Component Layout
+// Component Header
 interface IHeader {
   isLogo: boolean;
 }
@@ -37,8 +36,8 @@ interface IHeaderPage {
 interface ISettingInfor {
   title: string;
   content: string | undefined;
-  onIconClick: (type: OpenSettingProile) => void;
-  type: OpenSettingProile;
+  onIconClick: (type: OpenSettingProfile) => void;
+  type: OpenSettingProfile;
 }
 
 // Component Info Item
@@ -46,8 +45,8 @@ interface IInfoItem {
   icon: JSX.Element;
   title: string;
   value: string | number;
-  onIconClick: (type: OpenSettingProile) => void;
-  type: OpenSettingProile;
+  onIconClick: (type: OpenSettingProfile) => void;
+  type: OpenSettingProfile;
 }
 
 // Component Section Title
@@ -55,8 +54,8 @@ interface ISectionTitle {
   title: string;
   editTitle?: string;
   marginBottom?: number;
-  settingType?: OpenSettingProile;
-  onEditClick?: (type: OpenSettingProile) => void;
+  settingType?: OpenSettingProfile;
+  onEditClick?: (type: OpenSettingProfile) => void;
 }
 
 // Component Item Hobby
@@ -143,8 +142,10 @@ interface IInfoUserChat {
 
 // Component ItemContentChat
 interface IItemContentChat {
+  id: string;
   time?: string;
   content: string;
+  image?: string;
   type: typeItemContentChat.FRIEND | typeItemContentChat.YOU;
 }
 // Component ItemChatSlider
@@ -163,11 +164,15 @@ interface IItemMessageChat {
   content: string;
   createAt: Date;
 }
+
+// Component Content
 interface IContent {
   contentTitle: string;
   contentText: string;
   classContent: string;
 }
+
+// Component Button
 interface IButton {
   type: any;
   id?: string;

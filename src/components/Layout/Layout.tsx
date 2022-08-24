@@ -1,13 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import style from './Layout.module.scss';
 
-import { ILayout } from '@/@type/components';
-import { RootState, useAppDispatch, useAppSelector } from '@/redux';
-import { getProfile } from '@/redux/slice/userSlice';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { Footer, Header } from '../common';
-import Loading from '../Loading/Loading';
+import { ILayout } from '@/@type/components';
 
 export const Layout: FC<ILayout> = ({
   children,
@@ -16,46 +12,6 @@ export const Layout: FC<ILayout> = ({
   isLogo = false,
   title,
 }) => {
-  const router = useRouter();
-  const location = router.pathname;
-  const dispatch = useAppDispatch();
-  const [isFetch, setIsFectch] = useState(false);
-  const myState = useAppSelector((state: RootState) => state.userSlice);
-
-  const fecthInfo = async () => {
-    const check = (await dispatch(getProfile())).payload;
-
-    if (check) {
-      setIsFectch(true);
-    }
-  };
-
-  useEffect(() => {
-    // fecthInfo();
-  }, []);
-
-  if (
-    !myState.isLogin &&
-    location !== '/auth/login' &&
-    location !== '/' &&
-    location !== '/auth/loginsocial' &&
-    location !== 'auth/loginsocial#_='
-  ) {
-    router.push('/');
-  }
-  if (location === '/auth/login' && myState.step === 0) {
-    router.push('/');
-  }
-  if (
-    myState.isLogin &&
-    (location === '/auth/login' ||
-      location === '/auth/loginsocial' ||
-      location === 'auth/loginsocial#_=')
-  ) {
-    router.push('/finding');
-    // return <Spinning />;
-  }
-
   return (
     <div className={style.layout}>
       <Head>

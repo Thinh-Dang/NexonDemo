@@ -10,6 +10,7 @@ interface IInitialStateUser {
   phone: string;
   step: number;
   inforUser: {
+    id: string;
     name: string;
     email: string;
     birthday: string;
