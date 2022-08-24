@@ -1,3 +1,4 @@
+import { IFriendMatchingInfo } from '@/@type/services';
 import React, { useEffect, useRef, useState } from 'react';
 import { IMatchedFriends } from '..';
 import Heart from './heart';
@@ -13,7 +14,7 @@ export interface IHeart {
 interface IProps {
   matchedFriend: {
     id: string;
-    imgUrl: string;
+    friend: IFriendMatchingInfo;
   };
 }
 
@@ -23,9 +24,9 @@ const HeartContainer = ({ matchedFriend }: IProps) => {
   // 'https://www.rollingstone.com/wp-content/uploads/2020/07/Screen-Shot-2020-07-15-at-11.24.37-AM.jpg';
   const [friendImg, setFriendImg] = useState<string>('');
   useEffect(() => {
-    setFriendImg(matchedFriend?.imgUrl);
+    setFriendImg(matchedFriend?.friend?.avatar);
   }, [matchedFriend]);
-  const secondImgUrl = matchedFriend?.imgUrl;
+  const secondImgUrl = matchedFriend?.friend?.avatar;
   // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eNIMrgAzk55Yl1S69ZQRH2NdmyNCJJJY3g&usqp=CAU';
   const generateRandomHearts = () => {
     const HEART_AMOUNT = 20;

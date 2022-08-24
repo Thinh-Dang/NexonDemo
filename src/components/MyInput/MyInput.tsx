@@ -1,24 +1,25 @@
-import { DatePicker, Select, Tag } from 'antd';
-import Input from 'antd/lib/input/Input';
+import { DatePicker, Input, Select, Tag } from 'antd';
 import Image from 'next/image';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import iconArrowDown from '../../../public/assets/arrow-down.svg';
 import iconDate from '../../../public/assets/Calendar.svg';
 import styleScss from './MyInput.module.scss';
 
-import { Option } from 'antd/lib/mentions';
-import moment from 'moment';
 import { IMyInput } from '@/@type/components';
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { Option } from 'antd/lib/mentions';
+import moment from 'moment';
 import Timer from '../Timer/Timer';
-
-// eslint-disable-next-line @typescript-eslint/ban-types, react-hooks/rules-of-hooks
+const { TextArea } = Input;
 const MyInput: FC<IMyInput> = ({
   isInput,
   txtLabel,
   txtPlaceholder,
   isDatePicker,
   isSelection,
+  isTextArea,
+  type,
+  defaultValue,
   name,
   handleChange,
   handleBlur,
@@ -72,15 +73,15 @@ const MyInput: FC<IMyInput> = ({
         refs[i].addEventListener('keydown', function (event) {
           if (event.key === 'Backspace') {
             refs[i].value = '';
-            handleChangeOTP(refs);
+            onSubmitOtp(refs);
             if (i !== 0) refs[i - 1].focus();
           } else {
             if (i === refs.length - 1 && refs[i].value !== '') {
-              handleChangeOTP(refs);
+              onSubmitOtp(refs);
               return true;
             } else if (/^[0-9]*$/.test(event.key)) {
               refs[i].value = event.key;
-              handleChangeOTP(refs);
+              onSubmitOtp(refs);
               if (i !== refs.length - 1) refs[i + 1].focus();
             }
             event.preventDefault();
@@ -90,12 +91,27 @@ const MyInput: FC<IMyInput> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef]);
-  const handleChangeOTP = (refs: any) => {
-    const results = refs.reduce((acc: string, curr: any) => {
-      return acc + curr.value;
-    }, '');
-    onSubmitOtp(results);
-  };
+
+  if (isTextArea) {
+    return (
+      <div className={styleScss.groupInput}>
+        <label className={styleScss.groupInput__label}>
+          {txtLabel}
+          <span style={{ color: '#FE5D5D' }}>*</span>
+        </label>
+        <TextArea
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name={name}
+          rows={6}
+          maxLength={200}
+          defaultValue={defaultValue}
+          placeholder={txtPlaceholder}
+          className={styleScss.groupInput__textArea}
+        />
+      </div>
+    );
+  }
 
   // Input normal
 
@@ -106,15 +122,29 @@ const MyInput: FC<IMyInput> = ({
           {txtLabel}
           <span style={{ color: '#FE5D5D' }}>*</span>
         </label>
-        <Input
-          disabled={disabled}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          name={name}
-          placeholder={txtPlaceholder}
-          className={styleScss.groupInput__input}
-          value={value ? value : ''}
-        />
+        {defaultValue !== undefined ? (
+          <Input
+            disabled={disabled}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name={name}
+            type={type}
+            defaultValue={defaultValue}
+            placeholder={txtPlaceholder}
+            className={styleScss.groupInput__input}
+          />
+        ) : (
+          <Input
+            disabled={disabled}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name={name}
+            type={type}
+            placeholder={txtPlaceholder}
+            className={styleScss.groupInput__input}
+            value={value ? value : '' ?? ''}
+          />
+        )}
       </div>
     );
   }
@@ -128,7 +158,11 @@ const MyInput: FC<IMyInput> = ({
           onChange={handleChangeDatePicker}
           clearIcon={false}
           format={'DD/MM/YYYY'}
-          defaultValue={moment('18/12/1980', 'DD/MM/YYYY')}
+          defaultValue={
+            defaultValue
+              ? moment(defaultValue.toLocaleDateString('vi-VN'), 'DD/MM/YYYY')
+              : moment('18/12/1980', 'DD/MM/YYYY')
+          }
           className={styleScss.groupInput__myDatePicker}
           suffixIcon={<Image src={iconDate} alt="Zodinet" />}
         />

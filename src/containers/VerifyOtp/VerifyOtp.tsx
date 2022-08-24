@@ -23,6 +23,7 @@ import {
   OTP_NOT_VALID,
   THIS_PHONE_NUMBER_IS_EXISTED,
 } from '@/common/constantArlertErrors';
+import { IFormOtpPage } from '@/@type/page';
 
 type Props = {
   data?: Session;

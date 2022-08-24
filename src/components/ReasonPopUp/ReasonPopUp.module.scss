@@ -1,13 +1,13 @@
 @import '../../styles/init/variables';
 
 .reasonPopUp {
-  &-head {
+  &__head {
     display: flex;
     flex-direction: column;
     row-gap: 4px;
     margin-bottom: 40px;
 
-    &-title {
+    &__title {
       font-size: 1.6rem;
       line-height: 2.4rem;
       font-weight: 700;
@@ -15,7 +15,7 @@
       color: $clr-neutral-100;
     }
 
-    &-subTitle {
+    &__subTitle {
       font-size: 1.4rem;
       line-height: 1.8rem;
       font-weight: 400;
@@ -24,7 +24,7 @@
     }
   }
 
-  &-reasonItems {
+  &__reasonItems {
     display: grid;
     row-gap: 16px;
   }

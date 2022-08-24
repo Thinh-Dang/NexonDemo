@@ -1,0 +1,28 @@
+@import '../../styles/init/variables';
+
+.simpleInfo {
+  margin-top: 10px;
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+
+  &__image {
+    border-radius: 12px;
+  }
+
+  &__nameAndAge {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.6rem;
+  }
+
+  &__reasonHere {
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.8rem;
+    color: $clr-neutral-100;
+    opacity: 0.5;
+    font-size: 1.4rem;
+  }
+}

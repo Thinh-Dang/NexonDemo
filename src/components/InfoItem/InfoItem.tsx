@@ -15,14 +15,14 @@ export const InfoItem: FC<IInfoItem> = ({
   }, []);
 
   return (
-    <div className={styleCss.infoItem}>
-      <div className={styleCss['infoItem-spacing']}>
+    <div className={styleCss.infoItem} onClick={handlleClick}>
+      <div className={styleCss.infoItem__spacing}>
         {icon}
-        <h4 className={styleCss['infoItem-title']}>{title}</h4>
+        <h4 className={styleCss.infoItem__title}>{title}</h4>
       </div>
-      <div className={styleCss['infoItem-spacing']}>
-        <span className={styleCss['infoItem-value']}>{value}</span>
-        <div className={styleCss['infoItem-arrowLeft']} onClick={handlleClick}>
+      <div className={styleCss.infoItem__spacing}>
+        <span className={styleCss.infoItem__value}>{value}</span>
+        <div className={styleCss.infoItem__arrowLeft}>
           <ArrowRightIcon />
         </div>
       </div>

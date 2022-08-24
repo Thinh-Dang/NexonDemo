@@ -8,19 +8,19 @@
   background-color: $clr-neutral-5;
   border-radius: 12px;
 
-  &-content {
+  &__content {
     display: flex;
     column-gap: 8px;
     align-items: center;
     max-width: 85%;
 
-    &-title {
+    &__title {
       font-size: 1.6rem;
       line-height: 2.4rem;
       font-weight: 700;
       margin: 0;
     }
-    &-subTitle {
+    &__subTitle {
       font-size: 1.4rem;
       line-height: 1.8rem;
       font-weight: 400;
@@ -28,7 +28,7 @@
     }
   }
 
-  &-radio {
+  &__radio {
     margin: 0;
     height: fit-content;
   }

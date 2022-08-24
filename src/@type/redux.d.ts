@@ -94,11 +94,19 @@ interface IInitialStateMapLocation {
 }
 interface IGetFriendNearUser {
   id: string;
+  latitude: number;
+  longtitude: number;
   name: string;
   birthday: Date;
   avatar: string;
-  latitude: number;
-  longtitude: number;
+  gender: GenderEnum;
+  description: string;
+  children: number;
+  alcohol: AlcoholEnum;
+  religion: ReligionEnum;
+  height: number;
+  education: EducationEnum;
+  maritalStatus: MaritalStatusEnum;
   distance: number;
   unit: string;
 }
@@ -106,4 +114,8 @@ interface IGetFriendNearUser {
 interface INameAndEmail {
   name: string;
   email: string;
+}
+
+interface IInitialStateUserLikeStack {
+  matching: IMatchingFriend[];
 }

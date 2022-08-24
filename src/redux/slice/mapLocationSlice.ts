@@ -1,3 +1,4 @@
+import { IInitialStateMapLocation } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import mapLocationApi from '@/services/map-location.api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';

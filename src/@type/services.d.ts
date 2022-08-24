@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd';
 import {
   AlcoholEnum,
   EducationEnum,
@@ -116,6 +117,23 @@ interface ISignInWithSocial {
   email: string;
   birthday: string;
   accessToken: string;
+}
+
+interface IUploadImages {
+  images: UploadFile[];
+}
+
+interface IChangeFavoriteImage {
+  id: string;
+}
+
+interface IMatchingFriend {
+  id: string;
+  friend: IFriendMatchingInfo;
+}
+interface IFriendMatchingInfo {
+  id: string;
+  avatar: string;
 }
 
 interface ICheckUserVerified {

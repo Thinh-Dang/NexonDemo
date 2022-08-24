@@ -6,7 +6,7 @@
   align-items: center;
   padding: 8px 0;
 
-  &-title {
+  &__title {
     font-size: 1.4rem;
     line-height: 2.4rem;
     margin: 0;
@@ -14,7 +14,7 @@
     color: $clr-neutral-100;
   }
 
-  &-content {
+  &__content {
     color: $clr-neutral-65;
     line-height: 1.8rem;
     font-size: 1.4rem;
@@ -22,7 +22,7 @@
     margin: 0;
   }
 
-  &-icon {
+  &__icon {
     height: fit-content;
     padding: 8px;
     display: flex;
