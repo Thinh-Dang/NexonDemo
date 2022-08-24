@@ -73,15 +73,15 @@ const MyInput: FC<IMyInput> = ({
         refs[i].addEventListener('keydown', function (event) {
           if (event.key === 'Backspace') {
             refs[i].value = '';
-            onSubmitOtp(refs);
+            handleChangeOTP(refs);
             if (i !== 0) refs[i - 1].focus();
           } else {
             if (i === refs.length - 1 && refs[i].value !== '') {
-              onSubmitOtp(refs);
+              handleChangeOTP(refs);
               return true;
             } else if (/^[0-9]*$/.test(event.key)) {
               refs[i].value = event.key;
-              onSubmitOtp(refs);
+              handleChangeOTP(refs);
               if (i !== refs.length - 1) refs[i + 1].focus();
             }
             event.preventDefault();
@@ -89,6 +89,12 @@ const MyInput: FC<IMyInput> = ({
         });
       }
     }
+    const handleChangeOTP = (refs: any) => {
+      const results = refs.reduce((acc: string, curr: any) => {
+        return acc + curr.value;
+      }, '');
+      onSubmitOtp(results);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstRef, secondRef, thirdRef, fourthRef, fifthRef, sixthRef]);
 

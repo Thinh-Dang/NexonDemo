@@ -17,7 +17,7 @@ const login: NextPage = () => {
   return (
     <Layout
       isLogo={false}
-      title="Login_Phone"
+      title="Login Phone"
       isFooter={false}
       isHeader={mystate.isHeader}
     >
