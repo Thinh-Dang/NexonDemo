@@ -42,9 +42,11 @@ const VerifyOtp = ({ data }: Props) => {
   const [errOTP, setErrOTP] = useState<string>('');
 
   const handleLogiWithPhone = async (value: IFormOtpPage) => {
+    console.log(value);
     const results: IResponse<string> = (
       await dispatch(callAPIVerifyCode(value))
     ).payload;
+    console.log(results);
     if (results.status) {
       message.success('Xác thực OTP thành công');
     } else {
@@ -107,7 +109,7 @@ const VerifyOtp = ({ data }: Props) => {
   return (
     <>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           if (otp?.length != 6) {
             setErrOTP('Vui Lòng Nhập OTP đã được gửi');

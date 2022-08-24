@@ -1,3 +1,8 @@
+import {
+  IFormEnterPhonePage,
+  IFormOtpPage,
+  IFormRegisterPage,
+} from '@/@type/page';
 import { ICheckUserVerified, ISignInWithSocial } from '@/@type/services';
 import { Method } from '@/common/enums/enum';
 import axiosApiCall from '@/utils/api';
