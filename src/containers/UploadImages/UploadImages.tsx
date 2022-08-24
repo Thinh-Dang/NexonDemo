@@ -1,7 +1,7 @@
 import { IUserImages } from '@/@type/params';
 import { IResponse } from '@/@type/responses';
 import { Button } from '@/components/common';
-import { useAppDispatch } from '@/redux';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { uploadImages } from '@/redux/slice/userProfileSlice';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Tag, Upload } from 'antd';
@@ -14,6 +14,12 @@ import styleScss from './UploadImages.module.scss';
 export const UploadImages: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  let albumLenght = useAppSelector(
+    (state: RootState) => state.userProfileSlice.album.length,
+  );
+
+  const maxAlbum = parseInt(process.env.NEXT_PUBLIC_ALBUM_LENGTH ?? '0');
 
   const [fileListPreview, setFileListPreview] = useState<UploadFile[]>([]);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -38,11 +44,20 @@ export const UploadImages: FC = () => {
       if (!isImageFile) {
         message.error(`${file.name} is not a image file`);
       } else {
-        const url = URL.createObjectURL(file);
-        const uploadFile = { ...file, url: url };
-        setFileListPreview((list) => [...list, uploadFile]);
-        setFileList((list) => [...list, file]);
-        if (isEmty) setIsEmty(false);
+        if (albumLenght < maxAlbum) {
+          const url = URL.createObjectURL(file);
+
+          const uploadFile = { ...file, url: url };
+
+          setFileListPreview((list) => [...list, uploadFile]);
+          setFileList((list) => [...list, file]);
+
+          if (isEmty) setIsEmty(false);
+
+          albumLenght++;
+        } else {
+          message.error(`Album chỉ tối đa ${maxAlbum} hình.`);
+        }
       }
       return true;
     },
