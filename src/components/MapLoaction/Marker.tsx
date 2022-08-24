@@ -3,6 +3,7 @@ import { useAppDispatch } from '@/redux';
 import { updateFriendInfo } from '@/redux/slice/mapLocationSlice';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import React from 'react';
 import { FC } from 'react';
 import { Marker } from 'react-leaflet';
 
@@ -32,4 +33,4 @@ const CustomMarker: FC<IMarkers> = ({ coord, icon, friendInfo }) => {
   );
 };
 
-export default CustomMarker;
+export default React.memo(CustomMarker);

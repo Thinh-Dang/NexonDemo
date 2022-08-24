@@ -9,8 +9,8 @@ import {
 import Image from 'next/image';
 interface IProps {
   user: IGetFriendNearUser;
-  onLike: (id: string) => (e: { preventDefault: () => void }) => void;
-  onDislike: (id: string) => (e: { preventDefault: () => void }) => void;
+  onLike: (id: string) => void;
+  onDislike: (id: string) => void;
 }
 const UserDetail = (props: IProps) => {
   const { user, onLike, onDislike } = props;

@@ -4,17 +4,15 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   createOrUpdateLocation,
   getFriendNearUser,
-  updateFriendInfo,
 } from '@/redux/slice/mapLocationSlice';
 import { getRadius } from '@/redux/slice/settingsSlice';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 
 const MapPage: FC = () => {
   const dispatch = useAppDispatch();
   const { userPosition } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
   );
-  const [f, setF] = useState();
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -27,21 +25,12 @@ const MapPage: FC = () => {
             longtitude: position.coords.longitude,
           }),
         );
+        dispatch(getFriendNearUser());
+        dispatch(getRadius());
       });
     }
   }, []);
 
-  useEffect(() => {
-    dispatch(getFriendNearUser());
-  }, []);
-
-  useEffect(() => {
-    dispatch(getRadius());
-  }, []);
-
-  useEffect(() => {
-    f && dispatch(updateFriendInfo(f));
-  });
   return userPosition.lat !== 0 && userPosition.lng !== 0 ? (
     <MapLocationContainer />
   ) : (

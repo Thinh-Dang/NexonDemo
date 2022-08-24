@@ -18,7 +18,6 @@ const MapComponent: FC = () => {
 
     return null;
   }
-
   return (
     <MapContainer
       center={userPosition}
