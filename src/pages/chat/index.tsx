@@ -2,8 +2,9 @@ import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 
 import { ChatHome } from '@/containers';
-import chatApi from '../../services/chat.api';
 import { IItemChatSlider, IItemMessageChat } from '@/@type/components';
+
+import chatApi from '../../services/chat.api';
 
 const ChatPage: NextPage = () => {
   const [chatSlider, setChatSlider] = useState<IItemChatSlider[]>([]);

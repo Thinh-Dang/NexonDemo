@@ -1,7 +1,8 @@
-import { ICard } from '@/@type/components';
 import React from 'react';
 import styleCss from './Card.module.scss';
 import CloseBtn from './CloseBtn';
+
+import { ICard } from '@/@type/components';
 
 export const Card = React.forwardRef<HTMLDivElement, ICard>((props, ref) => (
   <div

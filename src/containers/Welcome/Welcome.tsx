@@ -16,7 +16,8 @@ const Welcome = () => {
   const dispatch = useAppDispatch();
   return (
     <main className={styleScss.wrapper}>
-      <Image src={logoWelcome} alt="Zodinet" />
+      <Image layout="responsive" src={logoWelcome} alt="Zodinet" />
+
       <Content
         classContent={styleScss.wrapper__class_content}
         contentTitle="Đăng Nhập"

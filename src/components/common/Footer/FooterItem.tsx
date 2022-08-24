@@ -23,6 +23,7 @@ const FooterItem = ({ item }: IProps) => {
     item.color = '#A7ADB2';
     item.iconUrl = `./assets/images/${item.lable}.svg`;
   }
+
   return (
     <Link href={item?.href}>
       <a style={{ color: item.color }} className="footer-item">

@@ -1,3 +1,4 @@
+import { IFormRegisterPage } from '@/@type/page';
 import { INameAndEmail } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import { ISignInWithSocial } from '@/@type/services';

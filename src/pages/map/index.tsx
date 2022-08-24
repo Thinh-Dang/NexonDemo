@@ -1,3 +1,4 @@
+import { Card } from '@/components/Card/Card';
 import Spinning from '@/components/Spinning/Spinning';
 import MapLocationContainer from '@/containers/MapLocation/MapLocation';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
@@ -6,7 +7,7 @@ import {
   getFriendNearUser,
 } from '@/redux/slice/mapLocationSlice';
 import { getRadius } from '@/redux/slice/settingsSlice';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 
 const MapPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,9 @@ const MapPage: FC = () => {
   }, []);
 
   return userPosition.lat !== 0 && userPosition.lng !== 0 ? (
-    <MapLocationContainer />
+    <>
+      <MapLocationContainer />
+    </>
   ) : (
     <Spinning />
   );

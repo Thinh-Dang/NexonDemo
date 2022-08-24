@@ -30,7 +30,6 @@ type Props = {
 };
 
 const VerifyOtp = ({ data }: Props) => {
-  console.log(data);
   const router = useRouter();
 
   const myState = useAppSelector((state: RootState) => state.userSlice);
@@ -109,7 +108,7 @@ const VerifyOtp = ({ data }: Props) => {
   return (
     <>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           if (otp?.length != 6) {
             setErrOTP('Vui Lòng Nhập OTP đã được gửi');
