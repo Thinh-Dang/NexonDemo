@@ -84,9 +84,10 @@ export const ChangeSimpleInfo: FC = () => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (
-        file.type !== 'image/png' &&
-        file.type !== 'image/jpg' &&
-        file.type !== 'image/jpeg'
+        !file ||
+        (file.type !== 'image/png' &&
+          file.type !== 'image/jpg' &&
+          file.type !== 'image/jpeg')
       ) {
         message.error(`Only accept png, jpeg, jpg file`);
         return;

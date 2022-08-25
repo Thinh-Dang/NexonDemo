@@ -5,14 +5,13 @@ import {
   ICreateHobby,
   IDeleteHobby,
   IUpdateUserProfile,
-  IUploadImages,
 } from '@/@type/services';
 import { Method } from '@/common/enums/enum';
 import axiosApiCall from '@/utils/api';
 
 const UserProfileApi = {
   getInfo: async (): Promise<IResponse<string | IUserProfile>> => {
-    const url = 'users/secure/user-profile';
+    const url = 'secure/users/user-profile';
     return (await axiosApiCall(url, Method.get)) as IResponse<
       string | IUserProfile
     >;
@@ -20,7 +19,7 @@ const UserProfileApi = {
   updateInfo: async (
     dto: IUpdateUserProfile,
   ): Promise<IResponse<string | IUserProfile>> => {
-    const url = 'users/secure/update';
+    const url = 'secure/users/update';
     const res = (await axiosApiCall(url, Method.put, dto)) as IResponse<
       string | IUserProfile
     >;
@@ -30,7 +29,7 @@ const UserProfileApi = {
   createUserHobby: async (
     dto: ICreateHobby,
   ): Promise<IResponse<IUserHobbies | string>> => {
-    const url = 'users/secure/hobbies';
+    const url = 'secure/users/hobbies';
     const res = (await axiosApiCall(url, Method.post, dto)) as IResponse<
       IUserHobbies | string
     >;
@@ -38,7 +37,7 @@ const UserProfileApi = {
     return res;
   },
   deleteUserHobby: async (dto: IDeleteHobby): Promise<IResponse<string>> => {
-    const url = 'users/secure/hobbies';
+    const url = 'secure/users/hobbies';
     const res = (await axiosApiCall(
       url,
       Method.delete,
@@ -49,7 +48,7 @@ const UserProfileApi = {
   uploadImages: async (
     data: FormData,
   ): Promise<IResponse<string | IUserImages[]>> => {
-    const url = 'users/secure/up-images';
+    const url = 'secure/users/upload-images';
     const res = (await axiosApiCall(url, Method.post, data, true)) as IResponse<
       string | IUserImages[]
     >;
@@ -58,7 +57,7 @@ const UserProfileApi = {
   changeFavoriteImage: async (
     data: IChangeFavoriteImage,
   ): Promise<IResponse<string | IUserImages>> => {
-    const url = 'users/secure/change-image-favorite';
+    const url = 'secure/users/change-image-favorite';
     const res = (await axiosApiCall(url, Method.post, data)) as IResponse<
       string | IUserImages
     >;
@@ -67,7 +66,7 @@ const UserProfileApi = {
   deleteImage: async (
     data: IChangeFavoriteImage,
   ): Promise<IResponse<string>> => {
-    const url = 'users/secure/delete-image';
+    const url = 'secure/users/delete-image';
     const res = (await axiosApiCall(
       url,
       Method.delete,
@@ -78,7 +77,7 @@ const UserProfileApi = {
   updateSimpleInfo: async (
     dto: FormData,
   ): Promise<IResponse<string | IUserProfile>> => {
-    const url = 'users/secure/update';
+    const url = 'secure/users/update';
 
     const res = (await axiosApiCall(url, Method.put, dto, true)) as IResponse<
       string | IUserProfile
