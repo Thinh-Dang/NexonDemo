@@ -40,10 +40,10 @@ const FindingPage = () => {
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [idSelected, setIdSelected] = useState<string | null>();
   const onOverlayClick = useCallback(() => {
-    if (notifyRef.current && !notifyRef.current.hidden && overlayRef.current) {
-      notifyRef.current.hidden = true;
-      overlayRef.current.hidden = true;
-      overlayRef.current.classList.remove('overlay-notiShow');
+    if (notifyRef.current && !notifyRef.current.hidden) {
+      notifyRef.current.classList.remove('notifyShow');
+      // overlayRef.current.hidden = true;
+      // overlayRef.current.classList.remove('overlay-notiShow');
     }
 
     if (cardRef.current && overlayRef.current) {
@@ -81,9 +81,10 @@ const FindingPage = () => {
       const overlay = overlayRef.current;
 
       notifyRef.current.hidden = false;
-      overlay.hidden = false;
+      notifyRef.current.classList.add('notifyShow');
+      // overlay.hidden = false;
 
-      overlay.classList.add('overlay-notiShow');
+      // overlay.classList.add('overlay-notiShow');
       // setTimeout(() => {
       // }, 10);
     }
@@ -160,7 +161,7 @@ const FindingPage = () => {
     >
       <div className="findingPage">
         <div className="findingPage-header">
-          <h2 className="findingPage-header-brandName">Tinai</h2>
+          <h2 className="findingPage-header-brandName">Tinher</h2>
           <Image
             onClick={openNotify}
             src="/assets/images/notification-bell.svg"
@@ -229,7 +230,11 @@ const FindingPage = () => {
             />
           )}
         </Card>
-        <NotifyContainer ref={notifyRef} height={'100px'} />
+        <NotifyContainer
+          ref={notifyRef}
+          height={'100vh'}
+          onCloseCard={onOverlayClick}
+        />
         <div
           className="overlay"
           hidden
