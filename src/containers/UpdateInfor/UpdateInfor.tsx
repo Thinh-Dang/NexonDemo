@@ -1,5 +1,4 @@
 import { IFormRegisterPage } from '@/@type/page';
-import { INameAndEmail } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import { ISignInWithSocial } from '@/@type/services';
 import { Button } from '@/components/common/Button/Button';
@@ -16,7 +15,6 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import { message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
