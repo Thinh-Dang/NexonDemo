@@ -37,7 +37,7 @@ const userApi = {
     return await axiosApiCall(url, Method.post, requestOption);
   },
   getFriendProfle: async (id: string) => {
-    return await axiosApiCall(`users/secure/friend-profile/${id}`, Method.get);
+    return await axiosApiCall(`secure/users/friend-profile/${id}`, Method.get);
   },
 };
 

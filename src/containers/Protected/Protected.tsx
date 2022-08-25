@@ -27,7 +27,7 @@ export const Protected = ({ children }: IProtected) => {
   }, []);
 
   useEffect(() => {
-    if (!myState.isLogin) {
+    if (!myState.isLogin && localStorage.getItem('token')) {
       fetchInfo();
     } else {
       setIsFetch(true);
@@ -44,7 +44,7 @@ export const Protected = ({ children }: IProtected) => {
       location !== '/auth/login' &&
       location !== '/' &&
       location !== '/auth/loginsocial' &&
-      location !== 'auth/loginsocial#_='
+      location !== '/auth/loginsocial#_='
     ) {
       router.push('/');
     }
@@ -55,9 +55,10 @@ export const Protected = ({ children }: IProtected) => {
 
     if (
       myState.isLogin &&
-      (location === '/auth/login' ||
+      (location === '/' ||
+        location === '/auth/login' ||
         location === '/auth/loginsocial' ||
-        location === 'auth/loginsocial#_=')
+        location === '/auth/loginsocial#_=')
     ) {
       router.push('/finding');
     }

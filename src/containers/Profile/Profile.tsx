@@ -61,6 +61,7 @@ import React, {
 } from 'react';
 import styleCss from './Profile.module.scss';
 import { resetLogin } from '@/redux/slice/userSlice';
+import { signOut } from 'next-auth/react';
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
@@ -241,6 +242,7 @@ export const Profile = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    signOut({ callbackUrl: '/' });
     dispatch(resetLogin());
   };
 
