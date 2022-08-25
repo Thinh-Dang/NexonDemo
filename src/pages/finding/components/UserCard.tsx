@@ -58,7 +58,6 @@ const UserCard: FC<IProps> = ({
               alt="close"
               width={'23px'}
               height={'23px'}
-              onClick={() => onDislike(user.id)}
             />
           </div>
           <div
@@ -70,7 +69,6 @@ const UserCard: FC<IProps> = ({
               alt="heart"
               width={'23px'}
               height={'23px'}
-              onClick={() => onLike(user.id)}
             />
           </div>
         </div>

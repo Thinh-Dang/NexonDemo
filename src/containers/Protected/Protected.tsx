@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
 import { getProfile } from '@/redux/slice/userSlice';
 import { useAppSelector, RootState, useAppDispatch } from '@/redux';
+import Image from 'next/image';
 
 interface IProtected {
   children: React.ReactNode;
@@ -68,11 +69,15 @@ export const Protected = ({ children }: IProtected) => {
 
   return (
     <div className={styleCss.protected}>
-      <Alert
-        message="CẢNH BÁO THIẾT BỊ"
-        description="Website chỉ hoạt động trên thiết bị mobile. Cảm ơn !!!"
-        type="error"
-        showIcon
+      <div>
+        <h1>CẢNH BÁO THIẾT BỊ</h1>
+        <p>Website chỉ hoạt động trên thiết bị mobile. Cảm ơn !!!</p>
+      </div>
+      <Image
+        src="/assets/images/device_warning.png"
+        width={'400px'}
+        height={'400px'}
+        alt="device warning image"
       />
     </div>
   );
