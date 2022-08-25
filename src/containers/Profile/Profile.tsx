@@ -62,6 +62,7 @@ import React, {
 import styleCss from './Profile.module.scss';
 import { resetLogin } from '@/redux/slice/userSlice';
 import { signOut } from 'next-auth/react';
+import Spinning from '@/components/Spinning/Spinning';
 
 export const Profile = () => {
   const dispatch = useAppDispatch();
@@ -365,6 +366,6 @@ export const Profile = () => {
       ></div>
     </section>
   ) : (
-    <Loading />
+    <Spinning />
   );
 };

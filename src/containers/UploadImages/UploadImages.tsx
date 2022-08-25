@@ -3,27 +3,39 @@ import { IResponse } from '@/@type/responses';
 import { Button } from '@/components/common';
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { uploadImages } from '@/redux/slice/userProfileSlice';
-import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, Tag, Upload } from 'antd';
+import {
+  CloseCircleOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+import { message, Spin, Tag, Upload } from 'antd';
 import { RcFile, UploadFile, UploadProps } from 'antd/lib/upload/interface';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import buttonScss from '../../containers/UpdateInfor/UpdateInfor.module.scss';
 import styleScss from './UploadImages.module.scss';
 
+const antIcon = (
+  <LoadingOutlined style={{ fontSize: 24, color: 'white' }} spin />
+);
+
 export const UploadImages: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  let albumLenght = useAppSelector(
-    (state: RootState) => state.userProfileSlice.album.length,
-  );
+  // let albumLength = useAppSelector(
+  //   (state: RootState) => state.userProfileSlice.album.length,
+  // );
 
   const maxAlbum = parseInt(process.env.NEXT_PUBLIC_ALBUM_LENGTH ?? '0');
 
   const [fileListPreview, setFileListPreview] = useState<UploadFile[]>([]);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isEmty, setIsEmty] = useState(false);
+  const [isFormSubmit, setIsFormSubmit] = useState(false);
+  const [albumLength, setAlbumLength] = useState(
+    useAppSelector((state: RootState) => state.userProfileSlice.album.length),
+  );
 
   const props: UploadProps = {
     onRemove: (file) => {
@@ -41,26 +53,28 @@ export const UploadImages: FC = () => {
         file.type === 'image/png' ||
         file.type === 'image/jpg' ||
         file.type === 'image/jpeg';
+
       if (!isImageFile) {
         message.error(`${file.name} is not a image file`);
       } else {
-        if (albumLenght < maxAlbum) {
-          const url = URL.createObjectURL(file);
+        const url = URL.createObjectURL(file);
 
-          const uploadFile = { ...file, url: url };
+        const uploadFile = { ...file, url: url };
 
-          setFileListPreview((list) => [...list, uploadFile]);
-          setFileList((list) => [...list, file]);
+        setFileListPreview((list) => {
+          if (list.length < maxAlbum - albumLength) {
+            return [...list, uploadFile];
+          }
+          return list;
+        });
+        setFileList((list) => {
+          if (list.length < maxAlbum - albumLength) {
+            return [...list, file];
+          }
+          return list;
+        });
 
-          if (isEmty) setIsEmty(false);
-
-          albumLenght++;
-        }
-
-        if (albumLenght === maxAlbum) {
-          albumLenght++;
-          message.error(`Album chỉ tối đa ${maxAlbum} hình.`);
-        }
+        if (isEmty) setIsEmty(false);
       }
       return true;
     },
@@ -81,9 +95,11 @@ export const UploadImages: FC = () => {
           return;
         }
 
+        setIsFormSubmit(true);
         setIsEmty(false);
 
-        console.log(fileList);
+        console.log('fileList', fileList);
+        console.log('albumLength', albumLength);
 
         const formdata = new FormData();
         for (let i = 0; i < fileList.length; i++) {
@@ -95,12 +111,16 @@ export const UploadImages: FC = () => {
 
         if (!res.status) {
           message.error('Upload images fail.');
+          setIsFormSubmit(false);
         } else {
           message.success('Upload images success');
           router.push('/profile');
         }
       }}
     >
+      <div className={styleScss.uploadImages__remind}>
+        Bạn chỉ có thể up tối đa {maxAlbum - albumLength} hình
+      </div>
       <div className={styleScss.uploadImages__images}>
         <Upload {...props}>
           <div>
@@ -121,7 +141,7 @@ export const UploadImages: FC = () => {
         )}
       </div>
       <Button
-        content="Xong"
+        content={isFormSubmit ? <Spin indicator={antIcon} /> : 'Xong'}
         type="submit"
         btnClass={buttonScss.inforUserMain__form__btn}
       />
