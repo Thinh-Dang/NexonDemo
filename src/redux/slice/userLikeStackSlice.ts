@@ -1,12 +1,13 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import {
   IFormCreateUserLikeStack,
   IFormDeleteUserLikeStack,
 } from '@/@type/page';
-import { IInitialStateUserLikeStack } from '@/@type/redux';
 import { IResponse } from '@/@type/responses';
 import { IUserLikeStack } from '@/@type/services';
+
 import userLikeStacksApi from '@/services/userLikeStacks.api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState: IInitialStateUserLikeStack = {
   matching: [],
@@ -50,16 +51,16 @@ export const findingSlice = createSlice({
         }
       },
     );
-    builder.addCase(
-      // getMatchingFriends
-      getMatchingFriends.fulfilled,
-      (state, action: any) => {},
-    );
-    builder.addCase(
-      // deleteUserLikeStacks
-      deleteUserLikeStacks.fulfilled,
-      (state, action: any) => {},
-    );
+    // builder.addCase(
+    //   // getMatchingFriends
+    //   getMatchingFriends.fulfilled,
+    //   (state, action: any) => {},
+    // );
+    // builder.addCase(
+    //   // deleteUserLikeStacks
+    //   deleteUserLikeStacks.fulfilled,
+    //   (state, action: any) => {},
+    // );
   },
 });
 const { reducer, actions } = findingSlice;

@@ -7,10 +7,10 @@ interface IAction {
 // Slice User Redux
 interface IInitialStateUser {
   isLogin: boolean;
+  id: string;
   phone: string;
   step: number;
   inforUser: {
-    id: string;
     name: string;
     email: string;
     birthday: string;
@@ -50,10 +50,12 @@ interface IUserProfile {
 // Slice Chat Redux
 interface IMessage {
   id: string;
-  sender_id: string;
-  conversation_id: string;
+  senderId: string;
+  friendId: string;
+  conversationId: string;
   content: string;
   image: string;
+  createAt: Date;
 }
 
 interface IConversation {

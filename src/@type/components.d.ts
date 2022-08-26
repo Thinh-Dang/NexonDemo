@@ -254,3 +254,14 @@ interface ISimpleProfileInfo {
   purposeTite: string | undefined;
   avatar: string;
 }
+
+// Component Item Notify
+interface IItemNotify {
+  notification: {
+    id: string;
+    message: string;
+    createAt: string;
+    type: string;
+    isRead: boolean;
+  };
+}

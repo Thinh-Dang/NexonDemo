@@ -5,7 +5,6 @@ import { getItemLocalStorage } from './storage';
 const http = axios.create({
   headers: {
     'Content-type': `application/json;charset=UTF-8`,
-    // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMmE0ZmExZS04OTc0LTQ2YWMtOTJlNy1kZTc5MmViZWNjNDIiLCJwaG9uZSI6IjA5ODc2NTQzMjEiLCJyb2xlIjoidXNlciIsImlhdCI6MTY2MDg4MDI5MywiZXhwIjoxNjYwOTY2NjkzfQ.vr7U_ylKno6ONITNWEtat7SCLAEseWO0dIJANLH1zIo`,
   },
 });
 

@@ -1,8 +1,10 @@
-import { IInitialStateMapLocation, IGetFriendNearUser } from '@/@type/redux';
-import { IResponse } from '@/@type/responses';
-import mapLocationApi from '@/services/map-location.api';
-import userApi from '@/services/user.api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { IMap } from '../../@type/components';
+import { IFormCreateOrUpdateLocation } from '../../@type/page';
+
+import userApi from '@/services/user.api';
+import mapLocationApi from '@/services/map-location.api';
 
 const initialState: IInitialStateMapLocation = {
   centerPosition: { lat: 0, lng: 0 },
@@ -15,22 +17,19 @@ const initialState: IInitialStateMapLocation = {
 
 export const createOrUpdateLocation = createAsyncThunk(
   'createOrUpdateLocation',
-  async (requestOption: IFormCreateOrUpdateLocation): Promise<IResponse> => {
+  async (requestOption: IFormCreateOrUpdateLocation) => {
     return await mapLocationApi.createOrUpdateLocation(requestOption);
   },
 );
 export const getFriendNearUser = createAsyncThunk(
   'getFriendNearUser',
-  async (): Promise<IResponse> => {
+  async () => {
     return await mapLocationApi.getFriendNearUser();
   },
 );
-export const getLastLocation = createAsyncThunk(
-  'getLastLocation',
-  async (): Promise<IResponse> => {
-    return await mapLocationApi.getLastLocation();
-  },
-);
+export const getLastLocation = createAsyncThunk('getLastLocation', async () => {
+  return await mapLocationApi.getLastLocation();
+});
 
 export const getFriendProfle = createAsyncThunk(
   'getFriendProfle',

@@ -1,8 +1,10 @@
-import { IFormCreateUserBlock } from '@/@type/page';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import { IResponse } from '@/@type/responses';
+import { IFormCreateUserBlock } from '@/@type/page';
+
 import { IUserBlock } from '@/@type/services';
 import userBlocksApi from '@/services/user-blocks.api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const createUserBlock = createAsyncThunk(
   'createUserBlock',
@@ -12,6 +14,7 @@ export const createUserBlock = createAsyncThunk(
     return await userBlocksApi.createUserBlock(requestOption);
   },
 );
+
 export const findingSlice = createSlice({
   name: 'userBlockSlice',
   initialState: {},

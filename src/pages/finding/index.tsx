@@ -1,30 +1,35 @@
-import { IGetFriendNearUser } from '@/@type/redux';
-import { Card, Layout } from '@/components';
-import UserDetail from '@/components/Finding/UserDetail';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { EffectCreative } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-creative';
+
+import Image from 'next/image';
+import MatchPage from '../matching';
 import { NotifyContainer } from '@/containers';
+import { IItemNotify } from '../../@type/components';
+import { Card, Layout, UserCard } from '@/components';
+import UserDetail from '@/components/Finding/UserDetail';
+
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import {
   getFriendNearUser,
   getLastLocation,
   updateFriendInfo,
 } from '@/redux/slice/mapLocationSlice';
-import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import {
   createUserLikeStack,
   deleteUserLikeStacks,
   getMatchingFriends,
 } from '@/redux/slice/userLikeStackSlice';
-import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { EffectCreative } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/effect-creative';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import MatchPage from '../matching';
-import UserCard from './components/UserCard';
+
+import { useSocket } from '@/contexts/useSocket';
+import notificationApi from '../../services/notification.api';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
+  const socket = useSocket();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const notifyRef = useRef<HTMLDivElement>(null);
@@ -37,13 +42,14 @@ const FindingPage = () => {
   const { matching } = useAppSelector(
     (state: RootState) => state.userLikeStackSlice,
   );
+
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [idSelected, setIdSelected] = useState<string | null>();
+  const [notifications, setNotifications] = useState<IItemNotify[]>([]);
+
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden) {
       notifyRef.current.classList.remove('notifyShow');
-      // overlayRef.current.hidden = true;
-      // overlayRef.current.classList.remove('overlay-notiShow');
     }
 
     if (cardRef.current && overlayRef.current) {
@@ -52,11 +58,6 @@ const FindingPage = () => {
 
       card.classList.remove('popup');
       overlay.classList.remove('overlay-show');
-
-      // card.hidden = true;
-      // overlay.hidden = true;
-      // setTimeout(() => {
-      // }, 1000);
     }
     setIdSelected(null);
   }, []);
@@ -82,11 +83,6 @@ const FindingPage = () => {
 
       notifyRef.current.hidden = false;
       notifyRef.current.classList.add('notifyShow');
-      // overlay.hidden = false;
-
-      // overlay.classList.add('overlay-notiShow');
-      // setTimeout(() => {
-      // }, 10);
     }
   };
 
@@ -114,6 +110,7 @@ const FindingPage = () => {
 
   const onLike = (id: string) => {
     dispatch(createUserLikeStack({ toUserId: id }));
+    socket.emit('send-notification', id);
     setNearbyUsers(
       nearbyUsers.filter((user) => {
         return user.id !== id;
@@ -135,22 +132,37 @@ const FindingPage = () => {
     setIdSelected(user.id);
   };
 
+  const getNotification = async () => {
+    const notifications = await notificationApi.getNotificationByUserId();
+
+    if (notifications.status) {
+      setNotifications(notifications.data);
+    }
+  };
+
   useEffect(() => {
     dispatch(getFriendNearUser());
-  }, []);
-
-  useEffect(() => {
     dispatch(getLastLocation());
-  }, []);
-
-  useEffect(() => {
     dispatch(getMatchingFriends());
     matching?.length && openMatchPagePopUp();
+    getNotification();
   }, []);
 
   useEffect(() => {
     setNearbyUsers(friendsNearUser);
   }, [friendsNearUser]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('notification-received', (data: IItemNotify) => {
+        setNotifications([...notifications, data]);
+      });
+
+      return () => {
+        socket.off('notification-received');
+      };
+    }
+  }, [notifications]);
 
   return (
     <Layout
@@ -234,6 +246,7 @@ const FindingPage = () => {
           ref={notifyRef}
           height={'100vh'}
           onCloseCard={onOverlayClick}
+          notifications={notifications}
         />
         <div
           className="overlay"

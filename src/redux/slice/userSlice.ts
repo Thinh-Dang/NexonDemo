@@ -58,8 +58,8 @@ export const checkUserVerified = createAsyncThunk(
 );
 const initialState: IInitialStateUser = {
   isLogin: false,
+  id: '',
   inforUser: {
-    id: '',
     name: '',
     email: '',
     birthday: '',
@@ -130,13 +130,13 @@ export const userSlice = createSlice({
     builder.addCase(getProfile.fulfilled, (state, action) => {
       if (action.payload.status) {
         state.isLogin = true;
-        state.inforUser.id = action.payload.data.id;
+        state.id = action.payload.data.id;
       }
     });
 
     builder.addCase(getProfile.rejected, (state) => {
       state.isLogin = false;
-      state.inforUser.id = '';
+      state.id = '';
     });
 
     builder.addCase(callApiSignUpWithSocial.fulfilled, (state, action) => {
