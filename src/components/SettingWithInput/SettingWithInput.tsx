@@ -1,6 +1,6 @@
 import { ISettingWithInput } from '@/@type/components';
 import { message, Tag } from 'antd';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button } from '../common';
 import styleScss from '../../containers/UpdateInfor/UpdateInfor.module.scss';
 import { useFormik } from 'formik';
@@ -23,6 +23,14 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
   settingType,
 }) => {
   const dispatch = useAppDispatch();
+
+  const [num, setNum] = useState<number>();
+
+  useEffect(() => {
+    if (!isNaN(defaultValue as number)) {
+      setNum(parseInt(defaultValue as string));
+    }
+  }, []);
 
   const { handleBlur, errors, handleChange, handleSubmit, touched } = useFormik(
     {
@@ -48,7 +56,12 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
         onClosePopUp();
       },
       validationSchema: yup.object({
-        [name]: yup.string().required('Vui lòng nhập đủ thông tin'),
+        [name]: isTextArea
+          ? yup.string().required('Vui lòng nhập đủ thông tin')
+          : yup
+              .number()
+              .positive('Vui lòng nhập số dương.')
+              .required('Vui lòng nhập đủ thông tin.'),
       }),
     },
   );
