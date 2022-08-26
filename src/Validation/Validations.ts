@@ -13,9 +13,13 @@ export const OTPValidationSchema = yup.object({
   code: yup.string().required('Vui Lòng Nhập OTP đã được gửi'),
 });
 export const inForUserSchema = yup.object({
-  name: yup.string().required('Vui lòng nhập tên'),
+  name: yup
+    .string()
+    .required('Vui lòng nhập tên')
+    .max(50, 'Vui lòng không nhập quá 50 ký tự'),
   email: yup
     .string()
     .required('Vui lòng nhập email')
-    .email('Vui lòng nhập đúng email'),
+    .email('Vui lòng nhập đúng email')
+    .max(50, 'Vui lòng không nhập quá 50 ký tự'),
 });

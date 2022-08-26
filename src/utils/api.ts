@@ -28,13 +28,13 @@ http.interceptors.request.use(
       error: error,
       data: null,
       message: null,
-    } as IResponse;
+    } as IResponse<any>;
   },
 );
 
 http.interceptors.response.use(
   function (response) {
-    return response.data as IResponse;
+    return response.data as IResponse<any>;
   },
 
   function (error) {
@@ -43,7 +43,7 @@ http.interceptors.response.use(
       error_code: error,
       data: null,
       message: null,
-    } as IResponse;
+    } as IResponse<any>;
   },
 );
 
@@ -52,9 +52,9 @@ const axiosApiCall = async <T = any>(
   method: string,
   body = {},
   isFormData?: boolean,
-): Promise<IResponse> => {
+): Promise<IResponse<any>> => {
   if (isFormData) {
-    return http.request<T, IResponse>({
+    return http.request<T, IResponse<any>>({
       method,
       url: `${process.env.NEXT_PUBLIC_API_URL}/${url}`,
       data: body,
@@ -63,7 +63,7 @@ const axiosApiCall = async <T = any>(
       },
     });
   }
-  return http.request<T, IResponse>({
+  return http.request<T, IResponse<any>>({
     method,
     url: `${process.env.NEXT_PUBLIC_API_URL}/${url}`,
     data: body,

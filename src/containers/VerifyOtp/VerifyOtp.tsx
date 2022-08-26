@@ -42,10 +42,8 @@ const VerifyOtp = ({ data }: Props) => {
 
   const handleLogiWithPhone = async (value: IFormOtpPage) => {
     console.log('value', value);
-    const results: IResponse<string> = (
-      await dispatch(callAPIVerifyCode(value))
-    ).payload;
-    console.log('result', results);
+    const results = (await dispatch(callAPIVerifyCode(value)))
+      .payload as IResponse<string>;
     if (results.status) {
       message.success('Xác thực OTP thành công');
     } else {
@@ -69,9 +67,8 @@ const VerifyOtp = ({ data }: Props) => {
   const handleLogiWithSocial = async (value: IFormOtpPage, email: string) => {
     value.email = email;
 
-    const results: IResponse<string> = (
-      await dispatch(callAPIVerifyCodeLoginWithSocial(value))
-    ).payload;
+    const results = (await dispatch(callAPIVerifyCodeLoginWithSocial(value)))
+      .payload as IResponse<string>;
     if (results.status) {
       if (data) {
         message.success('Tạo tài khoản thành công');
