@@ -5,7 +5,7 @@ import Tags from '../common/Tags/Tags';
 import styles from './FriendInfo.module.scss';
 
 const FriendInfoComponent: FC<IFriend> = ({ friendInfo, handleInfoClick }) => {
-  return friendInfo ? (
+  return friendInfo?.name ? (
     <div className={styles.container}>
       <div className={styles.friend_info}>
         <div className={styles.friend_info__div_image}>

@@ -45,7 +45,9 @@ const FindingPage = () => {
     (state: RootState) => state.userLikeStackSlice,
   );
 
-  const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
+  const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[] | null>(
+    null,
+  );
   const [idSelected, setIdSelected] = useState<string | null>();
   const [notifications, setNotifications] = useState<IItemNotify[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -112,28 +114,30 @@ const FindingPage = () => {
   }, []);
 
   const onLike = (id: string) => {
-    const arr = nearbyUsers.filter((user) => {
+    const arr = nearbyUsers?.filter((user) => {
       return user.id !== id;
     });
-    if (arr.length === 0) {
+    if (arr?.length === 0) {
       dispatch(updateFriendInfo(null));
+    } else {
+      dispatch(updateFriendInfo(arr[0]));
     }
     dispatch(createUserLikeStack({ toUserId: id }));
     socket.emit('send-notification', id);
-    dispatch(updateFriendInfo(arr[0]));
     dispatch(updateFriendsNearUser(arr));
     setNearbyUsers(arr);
   };
 
   const onDislike = (id: string) => {
-    const arr = nearbyUsers.filter((user) => {
+    const arr = nearbyUsers?.filter((user) => {
       return user.id !== id;
     });
-    if (arr.length === 0) {
+    if (arr?.length === 0) {
       dispatch(updateFriendInfo(null));
+    } else {
+      dispatch(updateFriendsNearUser(arr));
     }
     dispatch(createUserBlock({ blockedUserId: id }));
-    dispatch(updateFriendsNearUser(arr));
 
     setNearbyUsers(arr);
   };

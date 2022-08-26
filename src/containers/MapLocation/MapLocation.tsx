@@ -9,7 +9,11 @@ import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import { createUserLikeStack } from '@/redux/slice/userLikeStackSlice';
 import { useAppDispatch } from '@/redux';
 import UserDetail from '@/components/Finding/UserDetail';
-import { updateFriendsNearUser } from '@/redux/slice/mapLocationSlice';
+import {
+  updateFriendInfo,
+  updateFriendsNearUser,
+} from '@/redux/slice/mapLocationSlice';
+import { useSocket } from '@/contexts/useSocket';
 
 const MapWithNoSSR: ComponentType = dynamic(
   () => import('@/components/MapLoaction/Map'),
@@ -21,6 +25,8 @@ const MapLocationContainer: FC = () => {
   const { friendsNearUser, friendInfo } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
   );
+  const socket = useSocket();
+
   const [selectedId, setSelectedId] = useState<string | null>('');
   const dispatch = useAppDispatch();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -60,11 +66,25 @@ const MapLocationContainer: FC = () => {
   }, []);
   const onLike = (id: string) => {
     const newList = friendsNearUser.filter((el) => el.id !== id);
-    dispatch(createUserLikeStack({ toUserId: id }));
+    if (newList?.length === 0) {
+      dispatch(updateFriendInfo(null));
+    } else {
+      dispatch(updateFriendInfo(newList[0]));
+    }
+    socket.emit('send-notification', id);
     dispatch(updateFriendsNearUser(newList));
+    dispatch(createUserLikeStack({ toUserId: id }));
   };
 
   const onDislike = (id: string) => {
+    const newList = friendsNearUser.filter((el) => el.id !== id);
+    if (newList?.length === 0) {
+      dispatch(updateFriendInfo(null));
+    } else {
+      dispatch(updateFriendInfo(newList[0]));
+    }
+    socket.emit('send-notification', id);
+    dispatch(updateFriendsNearUser(newList));
     dispatch(createUserBlock({ blockedUserId: id }));
   };
   return (
