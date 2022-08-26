@@ -8,7 +8,7 @@ import Image from 'next/image';
 import MatchPage from '../matching';
 import { NotifyContainer } from '@/containers';
 import { IItemNotify } from '../../@type/components';
-import { Card, Layout, UserCard } from '@/components';
+import { Card, Layout, Loading, UserCard } from '@/components';
 import UserDetail from '@/components/Finding/UserDetail';
 
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
@@ -26,6 +26,7 @@ import {
 
 import { useSocket } from '@/contexts/useSocket';
 import notificationApi from '../../services/notification.api';
+import Spinning from '@/components/Spinning/Spinning';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
@@ -46,6 +47,7 @@ const FindingPage = () => {
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [idSelected, setIdSelected] = useState<string | null>();
   const [notifications, setNotifications] = useState<IItemNotify[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden) {
@@ -140,8 +142,16 @@ const FindingPage = () => {
     }
   };
 
+  const getUsers = async () => {
+    const isGetFriendNearUser = await dispatch(getFriendNearUser());
+
+    if (isGetFriendNearUser.payload) {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    dispatch(getFriendNearUser());
+    getUsers();
     dispatch(getLastLocation());
     dispatch(getMatchingFriends());
     matching?.length && openMatchPagePopUp();
@@ -182,51 +192,69 @@ const FindingPage = () => {
             height={'20px'}
           />
         </div>
-        <Swiper
-          className="findingPage-container"
-          grabCursor={true}
-          effect={'creative'}
-          creativeEffect={{
-            prev: {
-              shadow: true,
-              translate: ['-130%', 0, -500],
-            },
-            next: {
-              shadow: true,
-              translate: ['130%', 0, -500],
-            },
-          }}
-          modules={[EffectCreative]}
-        >
-          {nearbyUsers.length > 0 ? (
-            nearbyUsers.map((user, index) => (
-              <SwiperSlide key={index} className="findingPage-container-swiper">
-                <UserCard
-                  user={user}
-                  onLike={onLike}
-                  onDislike={onDislike}
-                  onCheckInfo={onCheckInfo}
-                  onInfoClick={openPopUp}
-                />
-              </SwiperSlide>
-            ))
-          ) : (
-            <SwiperSlide>
-              <div
-                className="findingPage-cardEmpty"
-                style={{
-                  backgroundImage: `url('./assets/images/empty-finding.jpg')`,
-                }}
-              >
-                <div className="findingPage-card-empty">
-                  <p className="findingPage-card-empty-content">
-                    Oops , no one&apos;s around
-                  </p>
+        {!isLoading ? (
+          <Swiper
+            className="findingPage-container"
+            grabCursor={true}
+            effect={'creative'}
+            creativeEffect={{
+              prev: {
+                shadow: true,
+                translate: ['-130%', 0, -500],
+              },
+              next: {
+                shadow: true,
+                translate: ['130%', 0, -500],
+              },
+            }}
+            modules={[EffectCreative]}
+          >
+            {nearbyUsers.length > 0 ? (
+              nearbyUsers.map((user, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="findingPage-container-swiper"
+                >
+                  <UserCard
+                    user={user}
+                    onLike={onLike}
+                    onDislike={onDislike}
+                    onCheckInfo={onCheckInfo}
+                    onInfoClick={openPopUp}
+                  />
+                </SwiperSlide>
+              ))
+            ) : (
+              <SwiperSlide>
+                <div
+                  className="findingPage-cardEmpty"
+                  style={{
+                    backgroundImage: `url('./assets/images/empty-finding.jpg')`,
+                  }}
+                >
+                  <div className="findingPage-card-empty">
+                    <p className="findingPage-card-empty-content">
+                      Oops , no one&apos;s around
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          )}
-        </Swiper>
+              </SwiperSlide>
+            )}
+          </Swiper>
+        ) : (
+          <div
+            className="spinning-container"
+            style={{
+              height: '76%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Spinning />
+          </div>
+        )}
+
         <Card
           hasCloseBtn={true}
           onCloseCard={onOverlayClick}
