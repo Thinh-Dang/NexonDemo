@@ -105,7 +105,7 @@ export const ChangeSimpleInfo: FC = () => {
           onClick={handleImageClick}
         >
           <Image
-            src={avatarUrl ? avatarUrl : avatar}
+            src={avatarUrl ?? avatar ?? '/assets/images/default.jpg'}
             alt="avatar"
             width={100}
             height={100}
