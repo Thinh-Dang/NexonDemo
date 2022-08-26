@@ -60,9 +60,8 @@ const SendOTP = () => {
     useFormik({
       initialValues: { phone: '' },
       onSubmit: async (values) => {
-        const results: IResponse<string> = (
-          await dispatch(callAPISendOTP(values))
-        ).payload;
+        const results = (await dispatch(callAPISendOTP(values)))
+          .payload as IResponse<string>;
         handleAfterCallApi(results);
       },
       validationSchema: phoneValidationSchema,
