@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styleCss from './Protected.module.scss';
 
-import { Alert } from 'antd';
 import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
 import { getProfile } from '@/redux/slice/userSlice';
@@ -29,6 +28,7 @@ export const Protected = ({ children }: IProtected) => {
 
   useEffect(() => {
     fetchInfo();
+    setIsFetch(false);
   }, [myState.isLogin]);
 
   if (isMobile) {
@@ -44,10 +44,12 @@ export const Protected = ({ children }: IProtected) => {
       location !== '/auth/loginsocial#_='
     ) {
       router.push('/');
+      return <></>;
     }
 
     if (location === '/auth/login' && myState.step === 0) {
       router.push('/');
+      return <></>;
     }
 
     if (
@@ -58,6 +60,7 @@ export const Protected = ({ children }: IProtected) => {
         location === '/auth/loginsocial#_=')
     ) {
       router.push('/finding');
+      return <></>;
     }
 
     return <>{children}</>;

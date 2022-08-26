@@ -17,7 +17,7 @@ const userApi = {
     return await axiosApiCall(url, Method.post, requestOption);
   },
   createUserWithPhoneNumber: async (requestOption: IFormRegisterPage) => {
-    const url = 'users/update-dream-team';
+    const url = 'users/update-profile';
     return await axiosApiCall(url, Method.post, requestOption);
   },
   getProfile: async () => {

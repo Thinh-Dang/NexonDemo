@@ -14,17 +14,13 @@ const ChatContentPage: NextPage = () => {
   const router = useRouter();
   const socket = useSocket();
   const { friendId } = router.query;
-  const userId = useAppSelector(
-    (state: RootState) => state.userSlice.inforUser.id,
-  );
+  const userId = useAppSelector((state: RootState) => state.userSlice.id);
 
   const [conversationId, setConversationId] = useState<string>('');
   const [infoFriend, setInfoFriend] = useState<IUserFriend>();
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [contentChat, setContentChat] = useState<string>('');
   const [fileImage, setFileImage] = useState<UploadFile[]>([]);
-
-  console.log('re render', new Date());
 
   // Handle Change Image
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
@@ -44,7 +40,6 @@ const ChatContentPage: NextPage = () => {
       };
 
       const messageRequest: IMessageSend = {
-        socketId: socket.id,
         senderId: userId,
         friendId: friendId as string,
         conversationId: conversationId,
@@ -61,7 +56,13 @@ const ChatContentPage: NextPage = () => {
   useEffect(() => {
     if (socket) {
       socket.on('message-received', (data: IMessage) => {
-        setMessages([data, ...messages]);
+        if (!conversationId) {
+          getConversation();
+        }
+
+        if (data.conversationId === conversationId) {
+          setMessages([data, ...messages]);
+        }
       });
     }
 
@@ -76,7 +77,6 @@ const ChatContentPage: NextPage = () => {
 
     if (contentChat && socket && friendId) {
       const messageRequest: IMessageSend = {
-        socketId: socket.id,
         senderId: userId,
         friendId: friendId as string,
         conversationId: conversationId,

@@ -1,31 +1,37 @@
-import { IGetFriendNearUser } from '@/@type/redux';
-import { Card, Layout } from '@/components';
-import UserDetail from '@/components/Finding/UserDetail';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { EffectCreative } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-creative';
+
+import Image from 'next/image';
+import MatchPage from '../matching';
 import { NotifyContainer } from '@/containers';
+import { IItemNotify } from '../../@type/components';
+import { Card, Layout, Loading, UserCard } from '@/components';
+import UserDetail from '@/components/Finding/UserDetail';
+
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import {
   getFriendNearUser,
   getLastLocation,
   updateFriendInfo,
   updateFriendsNearUser,
 } from '@/redux/slice/mapLocationSlice';
-import { createUserBlock } from '@/redux/slice/userBlockSlice';
 import {
   createUserLikeStack,
   deleteUserLikeStacks,
   getMatchingFriends,
 } from '@/redux/slice/userLikeStackSlice';
-import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { EffectCreative } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/effect-creative';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import MatchPage from '../matching';
-import UserCard from './components/UserCard';
+
+import { useSocket } from '@/contexts/useSocket';
+import notificationApi from '../../services/notification.api';
+import Spinning from '@/components/Spinning/Spinning';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
+  const socket = useSocket();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const notifyRef = useRef<HTMLDivElement>(null);
@@ -38,13 +44,15 @@ const FindingPage = () => {
   const { matching } = useAppSelector(
     (state: RootState) => state.userLikeStackSlice,
   );
+
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [idSelected, setIdSelected] = useState<string | null>();
+  const [notifications, setNotifications] = useState<IItemNotify[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden) {
       notifyRef.current.classList.remove('notifyShow');
-      // overlayRef.current.hidden = true;
-      // overlayRef.current.classList.remove('overlay-notiShow');
     }
 
     if (cardRef.current && overlayRef.current) {
@@ -53,11 +61,6 @@ const FindingPage = () => {
 
       card.classList.remove('popup');
       overlay.classList.remove('overlay-show');
-
-      // card.hidden = true;
-      // overlay.hidden = true;
-      // setTimeout(() => {
-      // }, 1000);
     }
     setIdSelected(null);
   }, []);
@@ -83,11 +86,6 @@ const FindingPage = () => {
 
       notifyRef.current.hidden = false;
       notifyRef.current.classList.add('notifyShow');
-      // overlay.hidden = false;
-
-      // overlay.classList.add('overlay-notiShow');
-      // setTimeout(() => {
-      // }, 10);
     }
   };
 
@@ -121,6 +119,7 @@ const FindingPage = () => {
       dispatch(updateFriendInfo(null));
     }
     dispatch(createUserLikeStack({ toUserId: id }));
+    socket.emit('send-notification', id);
     dispatch(updateFriendInfo(arr[0]));
     dispatch(updateFriendsNearUser(arr));
     setNearbyUsers(arr);
@@ -144,22 +143,45 @@ const FindingPage = () => {
     setIdSelected(user.id);
   };
 
-  useEffect(() => {
-    dispatch(getFriendNearUser());
-  }, []);
+  const getNotification = async () => {
+    const notifications = await notificationApi.getNotificationByUserId();
+
+    if (notifications.status) {
+      setNotifications(notifications.data);
+    }
+  };
+
+  const getUsers = async () => {
+    const isGetFriendNearUser = await dispatch(getFriendNearUser());
+
+    if (isGetFriendNearUser.payload) {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
+    getUsers();
     dispatch(getLastLocation());
-  }, []);
-
-  useEffect(() => {
     dispatch(getMatchingFriends());
     matching?.length && openMatchPagePopUp();
+    getNotification();
   }, []);
 
   useEffect(() => {
     setNearbyUsers(friendsNearUser);
   }, [friendsNearUser]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('notification-received', (data: IItemNotify) => {
+        setNotifications([...notifications, data]);
+      });
+
+      return () => {
+        socket.off('notification-received');
+      };
+    }
+  }, [notifications]);
 
   return (
     <Layout
@@ -179,51 +201,69 @@ const FindingPage = () => {
             height={'20px'}
           />
         </div>
-        <Swiper
-          className="findingPage-container"
-          grabCursor={true}
-          effect={'creative'}
-          creativeEffect={{
-            prev: {
-              shadow: true,
-              translate: ['-130%', 0, -500],
-            },
-            next: {
-              shadow: true,
-              translate: ['130%', 0, -500],
-            },
-          }}
-          modules={[EffectCreative]}
-        >
-          {nearbyUsers.length > 0 ? (
-            nearbyUsers.map((user, index) => (
-              <SwiperSlide key={index} className="findingPage-container-swiper">
-                <UserCard
-                  user={user}
-                  onLike={onLike}
-                  onDislike={onDislike}
-                  onCheckInfo={onCheckInfo}
-                  onInfoClick={openPopUp}
-                />
-              </SwiperSlide>
-            ))
-          ) : (
-            <SwiperSlide>
-              <div
-                className="findingPage-cardEmpty"
-                style={{
-                  backgroundImage: `url('./assets/images/empty-finding.jpg')`,
-                }}
-              >
-                <div className="findingPage-card-empty">
-                  <p className="findingPage-card-empty-content">
-                    Oops , no one&apos;s around
-                  </p>
+        {!isLoading ? (
+          <Swiper
+            className="findingPage-container"
+            grabCursor={true}
+            effect={'creative'}
+            creativeEffect={{
+              prev: {
+                shadow: true,
+                translate: ['-130%', 0, -500],
+              },
+              next: {
+                shadow: true,
+                translate: ['130%', 0, -500],
+              },
+            }}
+            modules={[EffectCreative]}
+          >
+            {nearbyUsers.length > 0 ? (
+              nearbyUsers.map((user, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="findingPage-container-swiper"
+                >
+                  <UserCard
+                    user={user}
+                    onLike={onLike}
+                    onDislike={onDislike}
+                    onCheckInfo={onCheckInfo}
+                    onInfoClick={openPopUp}
+                  />
+                </SwiperSlide>
+              ))
+            ) : (
+              <SwiperSlide>
+                <div
+                  className="findingPage-cardEmpty"
+                  style={{
+                    backgroundImage: `url('./assets/images/empty-finding.jpg')`,
+                  }}
+                >
+                  <div className="findingPage-card-empty">
+                    <p className="findingPage-card-empty-content">
+                      Oops , no one&apos;s around
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          )}
-        </Swiper>
+              </SwiperSlide>
+            )}
+          </Swiper>
+        ) : (
+          <div
+            className="spinning-container"
+            style={{
+              height: '76%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Spinning />
+          </div>
+        )}
+
         <Card
           hasCloseBtn={true}
           onCloseCard={onOverlayClick}
@@ -243,6 +283,7 @@ const FindingPage = () => {
           ref={notifyRef}
           height={'100vh'}
           onCloseCard={onOverlayClick}
+          notifications={notifications}
         />
         <div
           className="overlay"

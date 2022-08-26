@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
-import { IGetFriendNearUser } from '@/@type/redux';
+
 interface IProps {
   user: IGetFriendNearUser;
   onLike: (id: string) => void;
@@ -9,7 +9,7 @@ interface IProps {
   onInfoClick: () => void;
 }
 
-const UserCard: FC<IProps> = ({
+export const UserCard: FC<IProps> = ({
   user,
   onLike,
   onDislike,
@@ -85,5 +85,3 @@ const UserCard: FC<IProps> = ({
     </div>
   );
 };
-
-export default UserCard;
