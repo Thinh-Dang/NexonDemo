@@ -97,7 +97,7 @@ export const ChangeSimpleInfo: FC = () => {
     }
   };
 
-  return avatar ? (
+  return (
     <form onSubmit={handleSubmit} className={styleScss.changeSimpleInfo}>
       <div className={styleScss.changeSimpleInfo__avatarContainer}>
         <div
@@ -105,7 +105,9 @@ export const ChangeSimpleInfo: FC = () => {
           onClick={handleImageClick}
         >
           <Image
-            src={avatarUrl ?? avatar ?? '/assets/images/default.jpg'}
+            src={
+              (avatarUrl ? avatarUrl : avatar) || '/assets/images/default.jpg'
+            }
             alt="avatar"
             width={100}
             height={100}
@@ -171,7 +173,5 @@ export const ChangeSimpleInfo: FC = () => {
         />
       </div>
     </form>
-  ) : (
-    <Loading />
   );
 };

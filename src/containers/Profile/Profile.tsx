@@ -163,6 +163,7 @@ export const Profile = () => {
             defaultValue={profile.height}
             type={InputEnum.NUMBER}
             title={'Chiều cao'}
+            numMax={200}
             name={'height'}
             onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.HEIGHT}
@@ -230,6 +231,7 @@ export const Profile = () => {
             type={InputEnum.NUMBER}
             title={'Trẻ con'}
             name={'children'}
+            numMax={5}
             onClosePopUp={onOverlayClick}
             settingType={UpdateUserProfileEnum.CHILDREN}
           />
@@ -247,7 +249,7 @@ export const Profile = () => {
     dispatch(resetLogin());
   };
 
-  return profile.avatar && purposes ? (
+  return profile && purposes ? (
     <section className={styleCss.profileFrame}>
       <HeadPage
         hTag={HTag.h2}
@@ -366,6 +368,16 @@ export const Profile = () => {
       ></div>
     </section>
   ) : (
-    <Spinning />
+    <div
+      className="spinning-container"
+      style={{
+        height: '80vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Spinning />
+    </div>
   );
 };

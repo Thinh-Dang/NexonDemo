@@ -88,6 +88,7 @@ interface ISettingWithSelect {
 
 interface ISettingWithInput {
   defaultValue: number | string;
+  numMax?: number;
   type: InputEnum;
   title: string;
   name: string;

@@ -17,8 +17,8 @@ const ChatPage: NextPage = () => {
     chatApi.getListFriends().then((data) => {
       if (data.status) {
         setChatSlider([...[], ...data.data]);
-        setIsLoading(false);
       }
+      setIsLoading(false);
     });
 
     chatApi.getConversationsByUserId().then((data) => {
