@@ -43,9 +43,8 @@ const UpdateInfor = ({ data }: Props) => {
       gender,
       phone: myState.phone,
     };
-    const result: IResponse<string> = (
-      await dispatch(callAPIUpdateUser(valueRequest))
-    ).payload;
+    const result = (await dispatch(callAPIUpdateUser(valueRequest)))
+      .payload as IResponse<string>;
     if (result.status) {
       message.success('Tạo tài khoản thành công');
       router.push('/finding');
@@ -62,7 +61,7 @@ const UpdateInfor = ({ data }: Props) => {
       url: data?.user?.image as string,
     };
     const result = (await dispatch(callApiSignUpWithSocial(valueRequest)))
-      .payload;
+      .payload as IResponse<string>;
     if (result.status) {
       message.success('Cập nhật thông tin thành công');
       dispatch(setStepLogin());
@@ -102,7 +101,12 @@ const UpdateInfor = ({ data }: Props) => {
         <div className={styleScss.inforUserMain__form__group}>
           <MyInput
             handleBlur={handleBlur}
-            handleChange={handleChange}
+            handleChange={(e) => {
+              if (e.target.value.length > 50) {
+                return;
+              }
+              handleChange(e);
+            }}
             txtLabel="Họ tên"
             txtPlaceholder="Ví dụ: Trần Ngọc Tâm"
             isInput={true}
@@ -123,7 +127,12 @@ const UpdateInfor = ({ data }: Props) => {
           )}
           <MyInput
             handleBlur={handleBlur}
-            handleChange={handleChange}
+            handleChange={(e) => {
+              if (e.target.value.length > 50) {
+                return;
+              }
+              handleChange(e);
+            }}
             txtLabel="Email"
             txtPlaceholder="Ví dụ: tamtn@hehe.com"
             isInput={true}
