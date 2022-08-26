@@ -30,7 +30,6 @@ interface IImageMessage {
 }
 
 interface IMessageSend {
-  socketId: string;
   senderId: string;
   friendId: string;
   conversationId: string;
@@ -60,4 +59,13 @@ interface IChatContent {
 // Map Container
 interface IMapLocationContainer {
   friendsNearUser: IGetFriendNearUser[];
+}
+
+// Notify Container
+interface INotifyContainer {
+  notifications: IItemNotify[];
+  height: string;
+  children?: JSX.Element | null | string;
+  hasCloseBtn?: boolean;
+  onCloseCard?: () => void;
 }

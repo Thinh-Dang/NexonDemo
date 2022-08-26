@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 const SocketContext = createContext<Socket | string>(
-  'No permission to use this context',
+  'Connect Server Socket Failed',
 );
 
 interface ISocketContext {
@@ -19,25 +19,29 @@ interface ISocketContext {
 
 export const SocketProvider: FC<ISocketContext> = ({ children }) => {
   const url = process.env.NEXT_PUBLIC_SOCKET_URL ?? '';
-  const userId = useAppSelector(
-    (state: RootState) => state.userSlice.inforUser.id,
-  );
+  const user = useAppSelector((state: RootState) => state.userSlice);
   const [socket, setSocket] = useState<Socket | string>(
-    'No permission to use this context',
+    'Connect Server Socket Failed',
   );
 
   // Connect Socket
   useMemo(() => {
-    if (userId) {
+    if (user.id && user.isLogin) {
       setSocket(
         io(url, {
           query: {
-            userId,
+            userId: user.id,
           },
         }),
       );
     }
-  }, [userId]);
+
+    if (!user.isLogin && typeof socket !== 'string') {
+      return () => {
+        socket?.disconnect();
+      };
+    }
+  }, [user.id]);
 
   // Disconnect Socket
   useEffect(() => {
@@ -57,7 +61,7 @@ export const useSocket = (): Socket => {
   const context = useContext(SocketContext);
 
   if (typeof context === 'string') {
-    throw new Error('No permission to use this context');
+    throw new Error(context);
   }
 
   return context;
