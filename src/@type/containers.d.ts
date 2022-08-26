@@ -2,6 +2,7 @@
 interface IChatHome {
   chatSlider: IItemChatSlider[];
   conversationSlider: IItemMessageChat[];
+  isLoading: boolean;
 }
 
 // Container Chat Content

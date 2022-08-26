@@ -16,7 +16,7 @@ export const ItemNotify: FC<IItemNotify> = ({ notification }) => {
       />
       <div className={styleScss.itemNotify__content}>
         <p>{notification.message}</p>
-        <p>{moment(notification.createAt).startOf('hour').fromNow()}</p>
+        <p>{moment(notification.createAt).fromNow()}</p>
       </div>
     </div>
   );

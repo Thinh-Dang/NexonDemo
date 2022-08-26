@@ -11,11 +11,13 @@ const ChatPage: NextPage = () => {
   const [conversationSlider, setConversationSlider] = useState<
     IItemMessageChat[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     chatApi.getListFriends().then((data) => {
       if (data.status) {
         setChatSlider([...[], ...data.data]);
+        setIsLoading(false);
       }
     });
 
@@ -27,7 +29,11 @@ const ChatPage: NextPage = () => {
   }, []);
 
   return (
-    <ChatHome chatSlider={chatSlider} conversationSlider={conversationSlider} />
+    <ChatHome
+      chatSlider={chatSlider}
+      conversationSlider={conversationSlider}
+      isLoading={isLoading}
+    />
   );
 };
 

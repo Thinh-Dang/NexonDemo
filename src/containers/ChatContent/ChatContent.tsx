@@ -62,7 +62,6 @@ export const ChatContent: FC<IChatContent> = ({
           title={infoFriend.name}
           content={`Đã kết đôi ${moment(infoFriend.createAt)
             .locale('vi')
-            .startOf('hour')
             .fromNow()}`}
         />
         <section className={styleCss.chatContent__content}>
