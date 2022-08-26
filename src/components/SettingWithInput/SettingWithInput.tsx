@@ -12,12 +12,14 @@ import * as yup from 'yup';
 import MyInput from '../MyInput/MyInput';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import buttonScss from '../../containers/ChangeSimpleInfo/ChangeSimpleInfo.module.scss';
+import { InputEnum } from '@/common/enums/enum';
 
 export const SettingWithInput: FC<ISettingWithInput> = ({
   defaultValue,
   type,
   isTextArea,
   title,
+  numMax,
   onClosePopUp,
   name,
   settingType,
@@ -48,7 +50,18 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
         onClosePopUp();
       },
       validationSchema: yup.object({
-        [name]: yup.string().required('Vui lòng nhập đủ thông tin'),
+        [name]: isTextArea
+          ? yup.string().required('Vui lòng nhập đủ thông tin')
+          : numMax
+          ? yup
+              .number()
+              .min(0, 'Giá trị phải lớn hơn 0')
+              .max(numMax, `Giá trị không được quá ${numMax}`)
+              .required('Vui lòng nhập đủ thông tin.')
+          : yup
+              .number()
+              .min(0, 'Giá trị phải lớn hơn 0')
+              .required('Vui lòng nhập đủ thông tin.'),
       }),
     },
   );
@@ -73,6 +86,7 @@ export const SettingWithInput: FC<ISettingWithInput> = ({
             txtLabel={title}
             isInput={true}
             defaultValue={defaultValue}
+            type={InputEnum.NUMBER}
             name={name}
           />
         )}

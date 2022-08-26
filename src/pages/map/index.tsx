@@ -39,7 +39,17 @@ const MapPage: FC = () => {
       <MapLocationContainer />
     </>
   ) : (
-    <Spinning />
+    <div
+      className="spinning-container"
+      style={{
+        height: '80vh',
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <Spinning />
+    </div>
   );
 };
 
