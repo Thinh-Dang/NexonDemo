@@ -17,6 +17,7 @@ import {
   getFriendNearUser,
   getLastLocation,
   updateFriendInfo,
+  updateFriendsNearUser,
 } from '@/redux/slice/mapLocationSlice';
 import {
   createUserLikeStack,
@@ -111,22 +112,30 @@ const FindingPage = () => {
   }, []);
 
   const onLike = (id: string) => {
+    const arr = nearbyUsers.filter((user) => {
+      return user.id !== id;
+    });
+    if (arr.length === 0) {
+      dispatch(updateFriendInfo(null));
+    }
     dispatch(createUserLikeStack({ toUserId: id }));
     socket.emit('send-notification', id);
-    setNearbyUsers(
-      nearbyUsers.filter((user) => {
-        return user.id !== id;
-      }),
-    );
+    dispatch(updateFriendInfo(arr[0]));
+    dispatch(updateFriendsNearUser(arr));
+    setNearbyUsers(arr);
   };
 
   const onDislike = (id: string) => {
+    const arr = nearbyUsers.filter((user) => {
+      return user.id !== id;
+    });
+    if (arr.length === 0) {
+      dispatch(updateFriendInfo(null));
+    }
     dispatch(createUserBlock({ blockedUserId: id }));
-    setNearbyUsers(
-      nearbyUsers.filter((user) => {
-        return user.id !== id;
-      }),
-    );
+    dispatch(updateFriendsNearUser(arr));
+
+    setNearbyUsers(arr);
   };
 
   const onCheckInfo = (user: IGetFriendNearUser) => {
