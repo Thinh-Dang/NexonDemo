@@ -18,7 +18,7 @@ const MapWithNoSSR: ComponentType = dynamic(
   },
 );
 const MapLocationContainer: FC = () => {
-  const { friendsNearUser } = useAppSelector(
+  const { friendsNearUser, friendInfo } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
   );
   const [selectedId, setSelectedId] = useState<string | null>('');
@@ -73,7 +73,7 @@ const MapLocationContainer: FC = () => {
         <MapLocationHead title="Home" description="" url="" ogImage="" />
         <MapWithNoSSR />
         <FriendInfoComponent
-          friendInfo={friendsNearUser[0]}
+          friendInfo={friendInfo}
           handleInfoClick={handleInfoClick}
         />
         <Card

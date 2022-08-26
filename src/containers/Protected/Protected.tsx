@@ -28,12 +28,8 @@ export const Protected = ({ children }: IProtected) => {
   }, []);
 
   useEffect(() => {
-    if (!myState.isLogin && localStorage.getItem('token')) {
-      fetchInfo();
-    } else {
-      setIsFetch(true);
-    }
-  }, []);
+    fetchInfo();
+  }, [myState.isLogin]);
 
   if (isMobile) {
     if (!isFetch) {
