@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/common/Button/Button';
-import Content from '@/components/Content/Content';
-import MyInput from '@/components/MyInput/MyInput';
-import { OTPValidationSchema } from '@/Validation/Validations';
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { message, Tag } from 'antd';
-import { useFormik } from 'formik';
-import Image from 'next/image';
-import styleScss from './VerifyOtp.module.scss';
-import imgOtpPage from '../../../public/assets/images/img-otp.svg';
-import { RootState, useAppDispatch, useAppSelector } from '@/redux';
-import {
-  callAPIVerifyCode,
-  callAPIVerifyCodeLoginWithSocial,
-  setIsValidOtp,
-} from '@/redux/slice/userSlice';
-import { Session } from 'next-auth';
+import { IFormOtpPage } from '@/@type/page';
 import { IResponse } from '@/@type/responses';
-import { useRouter } from 'next/router';
 import {
   EXCEED_TIMES_WRONG_OTP,
   OTP_NOT_VALID,
   THIS_PHONE_NUMBER_IS_EXISTED,
 } from '@/common/constantArlertErrors';
-import { IFormOtpPage } from '@/@type/page';
+import { Button } from '@/components/common/Button/Button';
+import Content from '@/components/Content/Content';
+import MyInput from '@/components/MyInput/MyInput';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
+import {
+  callAPIVerifyCode,
+  callAPIVerifyCodeLoginWithSocial,
+  setIsValidOtp,
+  setLoading,
+} from '@/redux/slice/userSlice';
+import { LoadingOutlined } from '@ant-design/icons';
+import { message, Spin } from 'antd';
+import { Session } from 'next-auth';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import imgOtpPage from '../../../public/assets/images/img-otp.svg';
+import styleScss from './VerifyOtp.module.scss';
+import styleButtonLoading from '../../containers/SendOTP/SendOTP.module.scss';
 
 type Props = {
   data?: Session;
 };
 
 const VerifyOtp = ({ data }: Props) => {
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
   const router = useRouter();
 
   const myState = useAppSelector((state: RootState) => state.userSlice);
@@ -41,9 +43,9 @@ const VerifyOtp = ({ data }: Props) => {
   const [errOTP, setErrOTP] = useState<string>('');
 
   const handleLogiWithPhone = async (value: IFormOtpPage) => {
-    console.log('value', value);
     const results = (await dispatch(callAPIVerifyCode(value)))
       .payload as IResponse<string>;
+    dispatch(setLoading(false));
     if (results.status) {
       message.success('Xác thực OTP thành công');
     } else {
@@ -66,9 +68,9 @@ const VerifyOtp = ({ data }: Props) => {
 
   const handleLogiWithSocial = async (value: IFormOtpPage, email: string) => {
     value.email = email;
-
     const results = (await dispatch(callAPIVerifyCodeLoginWithSocial(value)))
       .payload as IResponse<string>;
+    dispatch(setLoading(false));
     if (results.status) {
       if (data) {
         message.success('Tạo tài khoản thành công');
@@ -105,16 +107,16 @@ const VerifyOtp = ({ data }: Props) => {
   return (
     <>
       <form
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
           if (otp?.length != 6) {
             setErrOTP('Vui Lòng Nhập OTP đã được gửi');
           } else {
+            dispatch(setLoading(true));
             const valuesRequest: IFormOtpPage = {
               phone: myState.phone,
               code: otp,
             };
-            console.log('valueRequest', valuesRequest);
             data
               ? handleLogiWithSocial(valuesRequest, data.user?.email as string)
               : handleLogiWithPhone(valuesRequest);
@@ -137,10 +139,18 @@ const VerifyOtp = ({ data }: Props) => {
 
         {!myState.isValidOtp && (
           <Button
-            btnClass=""
-            isHaveIcon={true}
-            type="submit"
-            content="Tiếp tục"
+            btnClass={
+              myState.isLoading ? styleButtonLoading.sendOTP__btn__loading : ''
+            }
+            isHaveIcon={myState.isLoading ? false : true}
+            type={myState.isLoading ? 'button' : 'submit'}
+            content={
+              myState.isLoading ? (
+                <Spin style={{ color: '#fff' }} indicator={antIcon} />
+              ) : (
+                'Tiếp tục'
+              )
+            }
           />
         )}
         {myState.isValidOtp && (

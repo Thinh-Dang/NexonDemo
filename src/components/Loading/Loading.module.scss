@@ -7,5 +7,16 @@
     line-height: 100vh;
     font-weight: 800;
     color: $clr-neutral-0;
+    animation: identifier 1s ease-in-out;
+    @keyframes identifier {
+      0% {
+        transform: rotate(-540deg) scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+      }
+    }
   }
 }

@@ -10,16 +10,16 @@
       text-align: center;
       font-size: 1.6rem;
       outline: none;
-    }
-    span {
-      position: absolute;
-      width: 1.6rem;
-      height: 1.6rem;
-      bottom: 0;
-      left: 0;
-      transform: translate(50%, 100%);
-      border-radius: 100%;
-      background-color: $clr-neutral-20;
+      &::placeholder {
+        width: 1.6rem;
+        height: 1.6rem;
+        background-color: $clr-neutral-20;
+        user-select: none;
+        position: absolute;
+        bottom: 0;
+        transform: translate(50%, 1%);
+        border-radius: 100%;
+      }
     }
   }
 }

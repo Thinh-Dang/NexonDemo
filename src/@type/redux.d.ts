@@ -21,6 +21,7 @@ interface IInitialStateUser {
   isEmailVerify: boolean;
   isValidOtp: boolean;
   isValidOtpWhenEmailVerify: boolean;
+  isLoading: boolean;
 }
 
 // Slice Uer Profile Redux
