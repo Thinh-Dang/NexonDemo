@@ -72,6 +72,7 @@ const initialState: IInitialStateUser = {
   isHeader: true,
   isValidOtp: false,
   isValidOtpWhenEmailVerify: false,
+  isLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -79,6 +80,8 @@ export const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     resetState: (state) => {
+      state.isValidOtp = false;
+      state.isLoading = false;
       state.isEmailVerify && state.step === 3
         ? ((state.step = 1), (state.isEmailVerify = false))
         : '';
@@ -105,6 +108,9 @@ export const userSlice = createSlice({
     },
     resetLogin: (state) => {
       state.isLogin = false;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -183,5 +189,6 @@ export const {
   setStepLogin,
   setIsValidOtp,
   resetLogin,
+  setLoading,
 } = actions;
 export default reducer;

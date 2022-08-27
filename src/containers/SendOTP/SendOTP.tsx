@@ -1,22 +1,17 @@
 import { IResponse } from '@/@type/responses';
-import {
-  OTP_CANNOT_BE_CREATED_MORE_THAN_ONCE_IN_5_MINUTES,
-  PLEASE_TRY_AGAIN_AFTER_5_MINUES,
-  PLEASE_TRY_AGAIN_A_FEW_MINUTES,
-  USER_WAS_BLOCKED,
-} from '@/common/constantArlertErrors';
-import { useAppDispatch } from '@/redux';
+import { USER_WAS_BLOCKED } from '@/common/constantArlertErrors';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   addPhoneNumber,
   callAPISendOTP,
+  setLoading,
   setStepLogin,
 } from '@/redux/slice/userSlice';
 import { phoneValidationSchema } from '@/Validation/Validations';
-import { CloseCircleOutlined } from '@ant-design/icons';
-import { Input, message, Tag } from 'antd';
+import { CloseCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Input, message, Spin, Tag } from 'antd';
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 import imgFlagVN from '../../../public/assets/flag-vn.svg';
 import imgFillPhone from '../../../public/assets/images/img-phone.svg';
@@ -25,9 +20,13 @@ import Content from '../../components/Content/Content';
 import styleScss from './SendOTP.module.scss';
 
 const SendOTP = () => {
+  const myState = useAppSelector((state: RootState) => state.userSlice);
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
   const dispatch = useAppDispatch();
 
   const handleAfterCallApi = (results: IResponse<string>) => {
+    dispatch(setLoading(false));
     if (results.status) {
       message.success('Vui lòng điền OTP đã nhận được');
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -50,7 +49,6 @@ const SendOTP = () => {
     return false;
   };
   const handleKeyPress = (e: any) => {
-    console.log(e.target.value);
     if (/^[0-9]*$/.test(e.key)) {
       e.value = e.key;
     }
@@ -60,6 +58,7 @@ const SendOTP = () => {
     useFormik({
       initialValues: { phone: '' },
       onSubmit: async (values) => {
+        dispatch(setLoading(true));
         const results = (await dispatch(callAPISendOTP(values)))
           .payload as IResponse<string>;
         handleAfterCallApi(results);
@@ -110,12 +109,21 @@ const SendOTP = () => {
           )}
 
           <div className={styleScss.sendOTP__btn}>
-            <Button
-              btnClass=""
-              isHaveIcon={true}
-              type="submit"
-              content="Xác thực"
-            />
+            {myState.isLoading ? (
+              <Button
+                btnClass={styleScss.sendOTP__btn__loading}
+                isHaveIcon={false}
+                type="button"
+                content={<Spin style={{ color: '#fff' }} indicator={antIcon} />}
+              />
+            ) : (
+              <Button
+                btnClass=""
+                isHaveIcon={true}
+                type="submit"
+                content="Xác thực"
+              />
+            )}
           </div>
         </form>
       </div>
