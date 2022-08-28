@@ -1,7 +1,7 @@
 import { IItemReason } from '@/@type/components';
 import { FC } from 'react';
 import styleCss from './ItemReason.module.scss';
-import Image from 'next/image';
+import { Image } from 'antd';
 
 export const ItemReason: FC<IItemReason> = ({
   icon,
@@ -19,6 +19,8 @@ export const ItemReason: FC<IItemReason> = ({
             width={48}
             height={48}
             alt="icon"
+            preview={false}
+            fallback={'/assets/images/default.jpg'}
             src={icon ?? '/assets/images/default.jpg'}
           />
         </div>
