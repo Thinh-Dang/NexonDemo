@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styleCss from './Protected.module.scss';
 
-import { Alert } from 'antd';
 import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
 import { getProfile } from '@/redux/slice/userSlice';
 import { useAppSelector, RootState, useAppDispatch } from '@/redux';
+import Image from 'next/image';
 
 interface IProtected {
   children: React.ReactNode;
@@ -27,12 +27,9 @@ export const Protected = ({ children }: IProtected) => {
   }, []);
 
   useEffect(() => {
-    if (!myState.isLogin && localStorage.getItem('token')) {
-      fetchInfo();
-    } else {
-      setIsFetch(true);
-    }
-  }, []);
+    fetchInfo();
+    setIsFetch(false);
+  }, [myState.isLogin]);
 
   if (isMobile) {
     if (!isFetch) {
@@ -47,10 +44,12 @@ export const Protected = ({ children }: IProtected) => {
       location !== '/auth/loginsocial#_='
     ) {
       router.push('/');
+      return <></>;
     }
 
     if (location === '/auth/login' && myState.step === 0) {
       router.push('/');
+      return <></>;
     }
 
     if (
@@ -61,6 +60,7 @@ export const Protected = ({ children }: IProtected) => {
         location === '/auth/loginsocial#_=')
     ) {
       router.push('/finding');
+      return <></>;
     }
 
     return <>{children}</>;
@@ -68,11 +68,15 @@ export const Protected = ({ children }: IProtected) => {
 
   return (
     <div className={styleCss.protected}>
-      <Alert
-        message="CẢNH BÁO THIẾT BỊ"
-        description="Website chỉ hoạt động trên thiết bị mobile. Cảm ơn !!!"
-        type="error"
-        showIcon
+      <div>
+        <h1>CẢNH BÁO THIẾT BỊ</h1>
+        <p>Website chỉ hoạt động trên thiết bị mobile. Cảm ơn !!!</p>
+      </div>
+      <Image
+        src="/assets/images/device_warning.png"
+        width={'400px'}
+        height={'400px'}
+        alt="device warning image"
       />
     </div>
   );

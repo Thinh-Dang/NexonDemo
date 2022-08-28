@@ -88,6 +88,7 @@ interface ISettingWithSelect {
 
 interface ISettingWithInput {
   defaultValue: number | string;
+  numMax?: number;
   type: InputEnum;
   title: string;
   name: string;
@@ -253,4 +254,15 @@ interface ISimpleProfileInfo {
   birthday: Date;
   purposeTite: string | undefined;
   avatar: string;
+}
+
+// Component Item Notify
+interface IItemNotify {
+  notification: {
+    id: string;
+    message: string;
+    createAt: string;
+    type: string;
+    isRead: boolean;
+  };
 }

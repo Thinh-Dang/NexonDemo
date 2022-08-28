@@ -42,7 +42,7 @@ export const Header: FC<IHeader> = ({ isLogo }) => {
   return (
     <div className={styleScss.header}>
       {isLogo ? (
-        <h2 className={styleScss.header__title}>Tinder</h2>
+        <h2 className={styleScss.header__title}>Tinai</h2>
       ) : (
         <div style={{ marginLeft: '0.5rem', cursor: 'pointer' }}>
           <button onClick={myRouter}>

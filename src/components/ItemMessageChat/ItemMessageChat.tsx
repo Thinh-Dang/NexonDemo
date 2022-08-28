@@ -38,7 +38,7 @@ export const ItemMessageChat: FC<IItemMessageChat> = ({
         <p className={styleCss.itemMessageChat__message}>{content}</p>
       </div>
       <p className={styleCss.itemMessageChat__date}>
-        {moment(createAt).startOf('hour').fromNow()}
+        {moment(createAt).fromNow()}
       </p>
     </div>
   );

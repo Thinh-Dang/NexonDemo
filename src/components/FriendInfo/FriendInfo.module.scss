@@ -11,18 +11,32 @@
   width: -webkit-fill-available;
   border-radius: 25px;
   padding: 8px;
-  padding-bottom: 0px;
   box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
   .friend_info {
     display: flex;
     -webkit-flex-direction: row; /* Safari */
     flex-direction: row;
-
+    align-items: center;
+    &__info {
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      & h3 {
+        line-height: 3rem;
+        margin-bottom: 0.5rem;
+      }
+    }
     &__div_image {
       margin-right: 8px;
+      width: 84px;
+      height: 84px;
       &__image {
         border-radius: 20px;
         object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
     }
   }

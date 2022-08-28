@@ -22,7 +22,7 @@ export const SimpleProfileInfo: FC<ISimpleProfileInfo> = ({
       <Image
         className={styleScss.simpleInfo__image}
         alt="avatar"
-        src={avatar}
+        src={avatar || '/assets/images/default.jpg'}
         width={40}
         height={40}
       />

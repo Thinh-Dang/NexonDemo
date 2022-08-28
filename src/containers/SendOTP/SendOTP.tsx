@@ -1,7 +1,9 @@
 import { IResponse } from '@/@type/responses';
 import {
+  OTP_CANNOT_BE_CREATED_MORE_THAN_ONCE_IN_5_MINUTES,
   PLEASE_TRY_AGAIN_AFTER_5_MINUES,
   PLEASE_TRY_AGAIN_A_FEW_MINUTES,
+  USER_WAS_BLOCKED,
 } from '@/common/constantArlertErrors';
 import { useAppDispatch } from '@/redux';
 import {
@@ -14,6 +16,7 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import { Input, message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 import imgFlagVN from '../../../public/assets/flag-vn.svg';
 import imgFillPhone from '../../../public/assets/images/img-phone.svg';
@@ -27,19 +30,29 @@ const SendOTP = () => {
   const handleAfterCallApi = (results: IResponse<string>) => {
     if (results.status) {
       message.success('Vui lòng điền OTP đã nhận được');
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       dispatch(addPhoneNumber(values));
       dispatch(setStepLogin());
     } else {
       switch (results.message) {
-        case PLEASE_TRY_AGAIN_AFTER_5_MINUES:
-          message.error('Vui lòng thử lai sau 5 phút');
-          break;
-        case PLEASE_TRY_AGAIN_A_FEW_MINUTES:
-          message.error('Vui lòng thử lai sau giây lát');
+        case USER_WAS_BLOCKED:
+          message.error(
+            'Bạn đã bị chặn vui lòng liên hệ quản lý để được bỏ chặn',
+          );
           break;
         default:
-          message.error('Vui lòng thử lai sau giây lát');
+          message.error('Vui lòng thử lại sau 5 phút');
       }
+    }
+  };
+  const handleDisablePaste = (e: any) => {
+    e.preventDefault();
+    return false;
+  };
+  const handleKeyPress = (e: any) => {
+    console.log(e.target.value);
+    if (/^[0-9]*$/.test(e.key)) {
+      e.value = e.key;
     }
   };
 
@@ -47,14 +60,12 @@ const SendOTP = () => {
     useFormik({
       initialValues: { phone: '' },
       onSubmit: async (values) => {
-        const results: IResponse<string> = (
-          await dispatch(callAPISendOTP(values))
-        ).payload;
+        const results = (await dispatch(callAPISendOTP(values)))
+          .payload as IResponse<string>;
         handleAfterCallApi(results);
       },
       validationSchema: phoneValidationSchema,
     });
-
   return (
     <>
       <ToastContainer className={styleScss.toastContainer} />
@@ -72,12 +83,20 @@ const SendOTP = () => {
               <Image src={imgFlagVN} alt="Zodinet" />
             </div>
             <Input
+              onPaste={handleDisablePaste}
               maxLength={10}
               value={values.phone}
               placeholder="Nhập số điện thoại"
               name="phone"
-              onChange={handleChange}
+              onChange={(e: any) => {
+                if (isNaN(e.target.value)) {
+                  return false;
+                } else {
+                  handleChange(e);
+                }
+              }}
               onBlur={handleBlur}
+              onInput={(e: any) => handleKeyPress(e)}
             />
           </div>
           {touched.phone && errors.phone && (
