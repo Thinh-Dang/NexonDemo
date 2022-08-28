@@ -1,6 +1,7 @@
 import { IFormRegisterPage } from '@/@type/page';
 import { IResponse } from '@/@type/responses';
 import { ISignInWithSocial } from '@/@type/services';
+import { ERROR_EMAIL_CONFLICT } from '@/common/constantArlertErrors';
 import { Button } from '@/components/common/Button/Button';
 import Content from '@/components/Content/Content';
 import MyInput from '@/components/MyInput/MyInput';
@@ -8,10 +9,11 @@ import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import {
   callApiSignUpWithSocial,
   callAPIUpdateUser,
+  setLoading,
   setStepLogin,
 } from '@/redux/slice/userSlice';
 import { inForUserSchema } from '@/Validation/Validations';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 import { message, Tag } from 'antd';
 import { useFormik } from 'formik';
 import { Session } from 'next-auth';
@@ -27,6 +29,7 @@ type Props = {
 };
 
 const UpdateInfor = ({ data }: Props) => {
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
   const dispatch = useAppDispatch();
   const router = useRouter();
   const myState = useAppSelector((state: RootState) => state.userSlice);
@@ -45,9 +48,15 @@ const UpdateInfor = ({ data }: Props) => {
     };
     const result = (await dispatch(callAPIUpdateUser(valueRequest)))
       .payload as IResponse<string>;
+    dispatch(setLoading(false));
+
     if (result.status) {
       message.success('Tạo tài khoản thành công');
       router.push('/finding');
+    } else {
+      if (result.message === ERROR_EMAIL_CONFLICT) {
+        message.error('Email đã có người sử dụng vui lòng sử dụng email khác');
+      }
     }
   };
   const loginWithSocial = async ({ name, email }: INameAndEmail) => {
@@ -62,6 +71,8 @@ const UpdateInfor = ({ data }: Props) => {
     };
     const result = (await dispatch(callApiSignUpWithSocial(valueRequest)))
       .payload as IResponse<string>;
+    dispatch(setLoading(false));
+
     if (result.status) {
       message.success('Cập nhật thông tin thành công');
       dispatch(setStepLogin());
@@ -72,6 +83,7 @@ const UpdateInfor = ({ data }: Props) => {
     useFormik({
       initialValues: data ? userLoginWithSocial : myState.inforUser,
       onSubmit: async (value: INameAndEmail | any) => {
+        dispatch(setLoading(true));
         data
           ? loginWithSocial({
               email: data.user?.email as string,
@@ -163,8 +175,8 @@ const UpdateInfor = ({ data }: Props) => {
           />
         </div>
         <Button
-          content="Xong"
-          type="submit"
+          content={myState.isLoading ? antIcon : 'Xong'}
+          type={myState.isLoading ? 'button' : 'submit'}
           btnClass={styleScss.inforUserMain__form__btn}
         />
       </form>

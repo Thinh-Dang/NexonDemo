@@ -200,28 +200,22 @@ const MyInput: FC<IMyInput> = ({
     <>
       <div className={styleScss.otpInput}>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={firstRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={firstRef} placeholder=" " />
         </div>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={secondRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={secondRef} placeholder=" " />
         </div>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={thirdRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={thirdRef} placeholder=" " />
         </div>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={fourthRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={fourthRef} placeholder=" " />
         </div>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={fifthRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={fifthRef} placeholder=" " />
         </div>
         <div className={styleScss.otpInput__groupInput}>
-          <input type="text" maxLength={1} ref={sixthRef} />
-          <span></span>
+          <input type="text" maxLength={1} ref={sixthRef} placeholder=" " />
         </div>
       </div>
       {errorOTP ? (
