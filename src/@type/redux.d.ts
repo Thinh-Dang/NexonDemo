@@ -48,32 +48,20 @@ interface IUserProfile {
   hobbies: IUserHobbies[];
 }
 
-// Slice Chat Redux
-interface IMessage {
+// Slice Notification Redux
+
+interface INotification {
   id: string;
   senderId: string;
-  friendId: string;
-  conversationId: string;
+  message: string;
+  time: Date;
+}
+
+interface IInitialStateNotification {
+  data: INotification[];
+  unreadNotice: number;
+  isNotification: boolean;
   content: string;
-  image: string;
-  createAt: Date;
-}
-
-interface IConversation {
-  id: string;
-  user_id: string;
-  user_friend_id: string;
-  socket_id: string;
-  message: IMessage[];
-  sending: boolean;
-}
-
-interface IInitialStateChat {
-  loading: boolean;
-  error: string;
-  conversations: IConversation[] | undefined;
-  messages: IMessage[] | undefined;
-  loaded: boolean;
 }
 
 declare interface IUserNearby {

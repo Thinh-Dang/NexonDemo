@@ -135,3 +135,8 @@ export enum UpdateUserProfileEnum {
   EDUCATION = 'education',
   PURPOSEID = 'purposeId',
 }
+
+export enum NotificationTypeEmnum {
+  LIKE = 'like',
+  MATCH = 'match',
+}

@@ -51,11 +51,16 @@ export const findingSlice = createSlice({
         }
       },
     );
-    // builder.addCase(
-    //   // getMatchingFriends
-    //   getMatchingFriends.fulfilled,
-    //   (state, action: any) => {},
-    // );
+    builder.addCase(
+      // getMatchingFriends
+      getMatchingFriends.fulfilled,
+      (state, action: any) => {
+        if (action.payload.status) {
+          const { data } = action.payload;
+          state.matching = [...data];
+        }
+      },
+    );
     // builder.addCase(
     //   // deleteUserLikeStacks
     //   deleteUserLikeStacks.fulfilled,

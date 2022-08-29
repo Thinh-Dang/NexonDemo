@@ -14,6 +14,7 @@ interface IUserFriend {
 }
 
 interface IMessage {
+  conversationId: string;
   messageId: string;
   senderId: string;
   content: string;
@@ -69,4 +70,5 @@ interface INotifyContainer {
   children?: JSX.Element | null | string;
   hasCloseBtn?: boolean;
   onCloseCard?: () => void;
+  openMatchPage: () => void;
 }

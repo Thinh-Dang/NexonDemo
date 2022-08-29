@@ -8,13 +8,28 @@ export const NotifyContainer = React.forwardRef<
   HTMLDivElement,
   INotifyContainer
 >((props, ref) => {
+  function dateComparison(a: any, b: any) {
+    const date1: any = new Date(a.createdAt);
+    const date2: any = new Date(b.createdAt);
+
+    return date2 - date1;
+  }
+  const sortedArr = [...props.notifications];
+  sortedArr.sort(dateComparison);
+
   return (
     <div className={styleScss.notifyContainer} ref={ref}>
       <h4 className={styleScss.notifyContainerTitle}>Thông báo của bạn: </h4>
       <div className={styleScss.notifyList}>
-        {props.notifications.length !== 0 &&
-          props.notifications?.map((notify) => {
-            return <ItemNotify key={notify.id} notification={notify} />;
+        {sortedArr.length !== 0 &&
+          sortedArr?.map((notify) => {
+            return (
+              <ItemNotify
+                key={notify.id}
+                notification={notify}
+                openMatchPage={props.openMatchPage}
+              />
+            );
           })}
 
         <div className={styleScss.closeBtn}>

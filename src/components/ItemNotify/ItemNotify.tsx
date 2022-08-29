@@ -7,10 +7,25 @@ import * as timeago from 'timeago.js';
 import vi from 'timeago.js/lib/lang/vi';
 timeago.register('vi', vi);
 import { IItemNotify } from '../../@type/components';
+import { NotificationTypeEmnum } from '@/common/enums/enum';
+import { useRouter } from 'next/router';
 
-export const ItemNotify: FC<IItemNotify> = ({ notification }) => {
-  console.log(notification);
+export const ItemNotify: FC<IItemNotify> = ({
+  notification,
+  openMatchPage,
+}) => {
+  const router = useRouter();
+  const translateNotifyMessage = (type: string) => {
+    switch (type) {
+      case NotificationTypeEmnum.LIKE:
+        return 'Ai đó đã thích bạn';
 
+      case NotificationTypeEmnum.MATCH:
+        return 'Bạn đã sánh đôi với ai đó';
+      default:
+        break;
+    }
+  };
   return (
     <div className={styleScss.itemNotify} key={notification.id}>
       <Image
@@ -20,7 +35,14 @@ export const ItemNotify: FC<IItemNotify> = ({ notification }) => {
         src={'/assets/images/Union.svg'}
       />
       <div className={styleScss.itemNotify__content}>
-        <p>{notification.message}</p>
+        {notification.type === NotificationTypeEmnum.LIKE && (
+          <p>{translateNotifyMessage(notification.type)}</p>
+        )}
+        {notification.type === NotificationTypeEmnum.MATCH && (
+          <p onClick={openMatchPage}>
+            {translateNotifyMessage(notification.type)}
+          </p>
+        )}
         {/* <p>{moment(notification.createdAt).fromNow()}</p> */}
         <TimeAgo datetime={new Date(notification.createdAt)} locale="vi" />
       </div>

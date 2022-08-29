@@ -265,4 +265,11 @@ interface IItemNotify {
     type: string;
     isRead: boolean;
   };
+  openMatchPage: () => void;
+}
+
+// Component Item Item Notification
+interface IItemNotification {
+  content: string;
+  time?: number;
 }
