@@ -67,7 +67,7 @@ const initialState: IInitialStateUser = {
   },
   isEmailVerify: false,
   phone: '',
-  step: 0,
+  step: 2,
   stateSession: '',
   isHeader: true,
   isValidOtp: false,
