@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styleCss from './Protected.module.scss';
 
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { isMobile } from 'react-device-detect';
+import { ItemNotification } from '@/components';
+
 import { getProfile } from '@/redux/slice/userSlice';
+import { getNotification } from '@/redux/slice/notificationSlice';
 import { useAppSelector, RootState, useAppDispatch } from '@/redux';
-import Image from 'next/image';
 
 interface IProtected {
   children: React.ReactNode;
@@ -17,6 +20,9 @@ export const Protected = ({ children }: IProtected) => {
   const dispatch = useAppDispatch();
   const [isFetch, setIsFetch] = useState(false);
   const myState = useAppSelector((state: RootState) => state.userSlice);
+  // const notifications = useAppSelector(
+  //   (state: RootState) => state.notificationSlice,
+  // );
 
   const fetchInfo = useCallback(async () => {
     const check = (await dispatch(getProfile())).payload;
@@ -29,6 +35,10 @@ export const Protected = ({ children }: IProtected) => {
   useEffect(() => {
     fetchInfo();
     setIsFetch(false);
+
+    // if (myState.isLogin) {
+    //   dispatch(getNotification());
+    // }
   }, [myState.isLogin]);
 
   if (isMobile) {
@@ -63,7 +73,14 @@ export const Protected = ({ children }: IProtected) => {
       return <></>;
     }
 
-    return <>{children}</>;
+    return (
+      <>
+        {/* {!notifications.isNotification && (
+          <ItemNotification content={notifications.content} />
+        )} */}
+        {children}
+      </>
+    );
   }
 
   return (

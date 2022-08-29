@@ -2,13 +2,14 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import mapLocationSlice from '../slice/mapLocationSlice';
 import userSlice from '../slice/userSlice';
-import userProfileSlice from '../slice/userProfileSlice';
-import userLikeStackSlice from '../slice/userLikeStackSlice';
 import purposeSlice from '../slice/purposeSlice';
-import userBlockSlice from '../slice/userBlockSlice';
 import settingsSlice from '../slice/settingsSlice';
+import userBlockSlice from '../slice/userBlockSlice';
+import mapLocationSlice from '../slice/mapLocationSlice';
+import userProfileSlice from '../slice/userProfileSlice';
+import notificationSlice from '../slice/notificationSlice';
+import userLikeStackSlice from '../slice/userLikeStackSlice';
 
 const persistConfig = {
   key: 'root',
@@ -17,12 +18,13 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   userSlice,
+  purposeSlice,
+  settingsSlice,
+  userBlockSlice,
   userProfileSlice,
   mapLocationSlice,
+  notificationSlice,
   userLikeStackSlice,
-  purposeSlice,
-  userBlockSlice,
-  settingsSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

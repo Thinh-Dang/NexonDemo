@@ -266,3 +266,9 @@ interface IItemNotify {
     isRead: boolean;
   };
 }
+
+// Component Item Item Notification
+interface IItemNotification {
+  content: string;
+  time?: number;
+}

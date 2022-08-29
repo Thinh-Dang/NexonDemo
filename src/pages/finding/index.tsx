@@ -7,9 +7,8 @@ import 'swiper/css/effect-creative';
 import Image from 'next/image';
 import MatchPage from '../matching';
 import { NotifyContainer } from '@/containers';
-import { IItemNotify } from '../../@type/components';
-import { Card, Layout, Loading, UserCard } from '@/components';
 import UserDetail from '@/components/Finding/UserDetail';
+import { Card, Layout, UserCard } from '@/components';
 
 import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { createUserBlock } from '@/redux/slice/userBlockSlice';
@@ -24,13 +23,11 @@ import {
   getMatchingFriends,
 } from '@/redux/slice/userLikeStackSlice';
 
-import { useSocket } from '@/contexts/useSocket';
-import notificationApi from '../../services/notification.api';
+import { Badge } from 'antd';
 import Spinning from '@/components/Spinning/Spinning';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
-  const socket = useSocket();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const notifyRef = useRef<HTMLDivElement>(null);
@@ -43,10 +40,12 @@ const FindingPage = () => {
   const { matching } = useAppSelector(
     (state: RootState) => state.userLikeStackSlice,
   );
+  const notifications = useAppSelector(
+    (state: RootState) => state.notificationSlice,
+  );
 
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[]>([]);
   const [idSelected, setIdSelected] = useState<string | null>();
-  const [notifications, setNotifications] = useState<IItemNotify[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const onOverlayClick = useCallback(() => {
@@ -112,7 +111,6 @@ const FindingPage = () => {
 
   const onLike = (id: string) => {
     dispatch(createUserLikeStack({ toUserId: id }));
-    socket.emit('send-notification', id);
     setNearbyUsers(
       nearbyUsers.filter((user) => {
         return user.id !== id;
@@ -134,14 +132,6 @@ const FindingPage = () => {
     setIdSelected(user.id);
   };
 
-  const getNotification = async () => {
-    const notifications = await notificationApi.getNotificationByUserId();
-
-    if (notifications.status) {
-      setNotifications(notifications.data);
-    }
-  };
-
   const getUsers = async () => {
     const isGetFriendNearUser = await dispatch(getFriendNearUser());
 
@@ -155,24 +145,23 @@ const FindingPage = () => {
     dispatch(getLastLocation());
     dispatch(getMatchingFriends());
     matching?.length && openMatchPagePopUp();
-    getNotification();
   }, []);
 
   useEffect(() => {
     setNearbyUsers(friendsNearUser);
   }, [friendsNearUser]);
 
-  useEffect(() => {
-    if (socket) {
-      socket.on('notification-received', (data: IItemNotify) => {
-        setNotifications([...notifications, data]);
-      });
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.on('notification-received', (data: IItemNotify) => {
+  //       setNotifications([...notifications, data]);
+  //     });
 
-      return () => {
-        socket.off('notification-received');
-      };
-    }
-  }, [notifications]);
+  //     return () => {
+  //       socket.off('notification-received');
+  //     };
+  //   }
+  // }, [notifications]);
 
   return (
     <Layout
@@ -183,14 +172,22 @@ const FindingPage = () => {
     >
       <div className="findingPage">
         <div className="findingPage-header">
-          <h2 className="findingPage-header-brandName">Tinher</h2>
-          <Image
-            onClick={openNotify}
-            src="/assets/images/notification-bell.svg"
-            alt="bell"
-            width={'20px'}
-            height={'20px'}
-          />
+          <h2 className="findingPage-header-brandName">Tinai</h2>
+
+          <Badge
+            count={notifications.unreadNotice}
+            overflowCount={10}
+            color="purple"
+            style={{ lineHeight: 'auto' }}
+          >
+            <Image
+              onClick={openNotify}
+              src="/assets/images/notification-bell.svg"
+              alt="bell"
+              width={'20px'}
+              height={'20px'}
+            />
+          </Badge>
         </div>
         {!isLoading ? (
           <Swiper
@@ -274,7 +271,7 @@ const FindingPage = () => {
           ref={notifyRef}
           height={'100vh'}
           onCloseCard={onOverlayClick}
-          notifications={notifications}
+          notifications={notifications.data}
         />
         <div
           className="overlay"

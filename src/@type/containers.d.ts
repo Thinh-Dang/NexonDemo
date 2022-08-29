@@ -14,6 +14,7 @@ interface IUserFriend {
 }
 
 interface IMessage {
+  conversationId: string;
   messageId: string;
   senderId: string;
   content: string;
