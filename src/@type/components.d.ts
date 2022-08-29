@@ -261,7 +261,7 @@ interface IItemNotify {
   notification: {
     id: string;
     message: string;
-    createAt: string;
+    createdAt: string;
     type: string;
     isRead: boolean;
   };

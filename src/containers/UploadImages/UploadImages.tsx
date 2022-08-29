@@ -27,7 +27,7 @@ export const UploadImages: FC = () => {
   //   (state: RootState) => state.userProfileSlice.album.length,
   // );
 
-  const maxAlbum = parseInt(process.env.NEXT_PUBLIC_ALBUM_LENGTH ?? '0');
+  const maxAlbum = parseInt(process.env.NEXT_PUBLIC_ALBUM_LENGTH ?? '10');
 
   const [fileListPreview, setFileListPreview] = useState<UploadFile[]>([]);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -98,9 +98,6 @@ export const UploadImages: FC = () => {
         setIsFormSubmit(true);
         setIsEmty(false);
 
-        console.log('fileList', fileList);
-        console.log('albumLength', albumLength);
-
         const formdata = new FormData();
         for (let i = 0; i < fileList.length; i++) {
           formdata.append('images', fileList[i] as RcFile);
@@ -119,7 +116,7 @@ export const UploadImages: FC = () => {
       }}
     >
       <div className={styleScss.uploadImages__remind}>
-        Bạn chỉ có thể up tối đa {maxAlbum - albumLength} hình
+        Bạn chỉ có thể up thêm tối đa {maxAlbum - albumLength} hình
       </div>
       <div className={styleScss.uploadImages__images}>
         <Upload {...props}>

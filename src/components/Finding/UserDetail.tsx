@@ -126,8 +126,8 @@ const UserDetail = (props: IProps) => {
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
                 {friendProfile?.children != 0
-                  ? friendProfile?.children
-                  : 'Chưa có'}
+                  ? `${friendProfile?.children} con`
+                  : 'Chưa có con'}
               </span>
             </span>
             {/* EDUCATION */}
@@ -154,21 +154,23 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertGenderEnum(friendProfile?.gender)}
+                  {ConvertGenderEnum(friendProfile?.gender) || 'Không tiết lộ'}
                 </span>
               </span>
             )}
-            <span className="user-detail-infoContainer-detail-list-item">
-              <Image
-                src={iconList.height}
-                alt="icon"
-                width={'24px'}
-                height={'24px'}
-              />
-              <span className="user-detail-infoContainer-detail-list-item-content">
-                {friendProfile?.height}cm
+            {friendProfile?.height && friendProfile.height > 0 && (
+              <span className="user-detail-infoContainer-detail-list-item">
+                <Image
+                  src={iconList.height}
+                  alt="icon"
+                  width={'24px'}
+                  height={'24px'}
+                />
+                <span className="user-detail-infoContainer-detail-list-item-content">
+                  {friendProfile?.height}cm
+                </span>
               </span>
-            </span>
+            )}
             {/* MARITAL STATUS */}
             {friendProfile?.maritalStatus && (
               <span className="user-detail-infoContainer-detail-list-item">

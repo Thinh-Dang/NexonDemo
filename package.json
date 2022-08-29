@@ -66,6 +66,8 @@
     "socket.io-client": "4.5.1",
     "sweetalert2": "11.4.26",
     "swiper": "8.3.2",
+    "timeago-react": "3.0.5",
+    "timeago.js": "4.0.2",
     "yup": "0.32.11"
   },
   "devDependencies": {
