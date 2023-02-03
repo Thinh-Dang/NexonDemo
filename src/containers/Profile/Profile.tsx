@@ -184,7 +184,7 @@ export const Profile = () => {
         return (
           <SettingWithSelect
             defaultValue={profile.alcohol}
-            title={'Rựa bia'}
+            title={'Rượu bia'}
             name={'alcohol'}
             source={AlcoholSource()}
             onClosePopUp={onOverlayClick}
