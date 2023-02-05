@@ -8,6 +8,7 @@ import {
 import { getRadius } from '@/redux/slice/settingsSlice';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const MapPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,20 +18,24 @@ const MapPage: FC = () => {
   );
   useEffect(() => {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log('position.coords.latitude', position.coords.latitude);
-        console.log('position.coords.longitude', position.coords.longitude);
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          console.log('position.coords.latitude', position.coords.latitude);
+          console.log('position.coords.longitude', position.coords.longitude);
 
-        dispatch(
-          createOrUpdateLocation({
-            latitude: position.coords.latitude,
-            longtitude: position.coords.longitude,
-          }),
-        );
-        // dispatch(getFriendNearUser());
-      });
-    } else {
-      router.push('/profile');
+          dispatch(
+            createOrUpdateLocation({
+              latitude: position.coords.latitude,
+              longtitude: position.coords.longitude,
+            }),
+          );
+          dispatch(getFriendNearUser());
+        },
+        () => {
+          toast.error('Cant access to your location');
+          router.push('/profile');
+        },
+      );
     }
   }, []);
 

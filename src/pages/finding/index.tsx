@@ -162,7 +162,7 @@ const FindingPage = () => {
   };
 
   const getUsers = async () => {
-    const isGetFriendNearUser = await dispatch(getFriendNearUser());
+    // const isGetFriendNearUser = await dispatch(getFriendNearUser());
 
     // if (isGetFriendNearUser.payload) {
     setIsLoading(false);
@@ -175,7 +175,7 @@ const FindingPage = () => {
     getUsers();
     // dispatch(getLastLocation());
     // dispatch(getMatchingFriends());
-    matching?.length && openMatchPagePopUp();
+    // matching?.length && openMatchPagePopUp();
   }, []);
 
   useEffect(() => {
