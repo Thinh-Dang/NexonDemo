@@ -39,16 +39,25 @@ export const ImageCard: FC<IImageCard> = ({
         //objectPosition="top"
       />
       <div className={styleScss.imageCard__icons}>
-        <div className={styleScss.imageCard__icon} onClick={handleDelete}>
+        <div
+          className={styleScss.imageCard__icon}
+          // onClick={handleDelete}
+        >
           <img src="./assets/images/delete.svg" alt="delete" />
         </div>
         {isFavorite && (
-          <div className={styleScss.imageCard__icon} onClick={handleFavorite}>
+          <div
+            className={styleScss.imageCard__icon}
+            // onClick={handleFavorite}
+          >
             <img src="./assets/images/Union.svg" alt="heart" />
           </div>
         )}
         {!isFavorite && isAvailableFavorite && (
-          <div className={styleScss.imageCard__icon} onClick={handleFavorite}>
+          <div
+            className={styleScss.imageCard__icon}
+            // onClick={handleFavorite}
+          >
             <img src="./assets/images/UnFavorite.svg" alt="heart" />
           </div>
         )}

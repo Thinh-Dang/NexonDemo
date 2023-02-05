@@ -11,7 +11,14 @@ import { IResponse } from '@/@type/responses';
 import { IUserHobbies, IUserImages } from '@/@type/params';
 
 export const getUserProfile = createAsyncThunk('/users/profile', async () => {
-  return await UserProfileApi.getInfo();
+  // return await UserProfileApi.getInfo();
+  const user = localStorage.getItem('currentUser');
+  if (user)
+    return {
+      status: true,
+      data: JSON.parse(user),
+    };
+  else return { status: false, data: {} };
 });
 export const updateUserProfile = createAsyncThunk(
   '/users/update-profile',
@@ -105,10 +112,17 @@ export const userProfileSlice = createSlice({
           const res = action.payload.data;
           const keys = Object.keys(state);
           keys.forEach((element) => {
-            state[element] = res[element];
-            if (element === 'birthday') state[element] = new Date(res[element]);
-            else {
-              state[element] = res[element];
+            if (res[element]) {
+              if (element === 'birthday') {
+                const splitDate = res[element].split('/');
+                state[element] = new Date(
+                  +splitDate[2],
+                  splitDate[1] - 1,
+                  +splitDate[0],
+                );
+              } else {
+                state[element] = res[element];
+              }
             }
           });
         }

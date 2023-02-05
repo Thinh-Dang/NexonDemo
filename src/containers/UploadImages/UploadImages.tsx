@@ -97,22 +97,22 @@ export const UploadImages: FC = () => {
 
         setIsFormSubmit(true);
         setIsEmty(false);
+        router.push('/profile');
+        // const formdata = new FormData();
+        // for (let i = 0; i < fileList.length; i++) {
+        //   formdata.append('images', fileList[i] as RcFile);
+        // }
 
-        const formdata = new FormData();
-        for (let i = 0; i < fileList.length; i++) {
-          formdata.append('images', fileList[i] as RcFile);
-        }
+        // const res = (await dispatch(uploadImages(formdata)))
+        //   .payload as IResponse<string | IUserImages[]>;
 
-        const res = (await dispatch(uploadImages(formdata)))
-          .payload as IResponse<string | IUserImages[]>;
-
-        if (!res.status) {
-          message.error('Upload images fail.');
-          setIsFormSubmit(false);
-        } else {
-          message.success('Upload images success');
-          router.push('/profile');
-        }
+        // if (!res.status) {
+        //   message.error('Upload images fail.');
+        //   setIsFormSubmit(false);
+        // } else {
+        //   message.success('Upload images success');
+        //   router.push('/profile');
+        // }
       }}
     >
       <div className={styleScss.uploadImages__remind}>

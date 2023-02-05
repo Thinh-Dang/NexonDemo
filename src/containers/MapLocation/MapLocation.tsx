@@ -25,8 +25,7 @@ const MapLocationContainer: FC = () => {
   const { friendsNearUser, friendInfo } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
   );
-  const socket = useSocket();
-
+  // const socket = useSocket();
   const [selectedId, setSelectedId] = useState<string | null>('');
   const dispatch = useAppDispatch();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -71,7 +70,7 @@ const MapLocationContainer: FC = () => {
     } else {
       dispatch(updateFriendInfo(newList[0]));
     }
-    socket.emit('send-notification', id);
+    // socket.emit('send-notification', id);
     dispatch(updateFriendsNearUser(newList));
     dispatch(createUserLikeStack({ toUserId: id }));
   };
@@ -83,7 +82,7 @@ const MapLocationContainer: FC = () => {
     } else {
       dispatch(updateFriendInfo(newList[0]));
     }
-    socket.emit('send-notification', id);
+    // socket.emit('send-notification', id);
     dispatch(updateFriendsNearUser(newList));
     dispatch(createUserBlock({ blockedUserId: id }));
   };

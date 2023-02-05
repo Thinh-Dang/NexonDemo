@@ -33,9 +33,12 @@ export const callAPIVerifyCodeLoginWithSocial = createAsyncThunk(
 export const callAPIUpdateUser = createAsyncThunk(
   'users/update-dream-team',
   async (requestOption: IFormRegisterPage) => {
-    return await userApi
-      .createUserWithPhoneNumber(requestOption)
-      .then((res) => res);
+    // return await userApi
+    //   .createUserWithPhoneNumber(requestOption)
+    //   .then((res) => res);
+    return {
+      data: requestOption,
+    };
   },
 );
 
@@ -47,7 +50,14 @@ export const callApiSignUpWithSocial = createAsyncThunk(
 );
 
 export const getProfile = createAsyncThunk('auth/profile', async () => {
-  return await userApi.getProfile().then((res) => res);
+  // return await userApi.getProfile().then((res) => res);
+  const user = localStorage.getItem('currentUser');
+  if (user)
+    return {
+      status: true,
+      data: JSON.parse(user),
+    };
+  else return { status: false, data: {} };
 });
 
 export const checkUserVerified = createAsyncThunk(
@@ -127,17 +137,20 @@ export const userSlice = createSlice({
     });
 
     builder.addCase(callAPIUpdateUser.fulfilled, (state, action) => {
-      if (action.payload.status) {
-        localStorage.setItem('token', action.payload.data.token);
-        state.isLogin = true;
-      }
+      // if (action.payload.status) {
+      //   localStorage.setItem('token', action.payload.data.token);
+      //   state.isLogin = true;
+      // }
+      localStorage.setItem('currentUser', JSON.stringify(action.payload.data));
+      state.isLogin = true;
     });
 
     builder.addCase(getProfile.fulfilled, (state, action) => {
       if (action.payload.status) {
         state.isLogin = true;
-        state.id = action.payload.data.id;
+        state.inforUser = action.payload.data;
       }
+      console.log(state.inforUser);
     });
 
     builder.addCase(getProfile.rejected, (state) => {

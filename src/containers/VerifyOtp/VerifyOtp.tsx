@@ -14,6 +14,7 @@ import {
   callAPIVerifyCodeLoginWithSocial,
   setIsValidOtp,
   setLoading,
+  setStepLogin,
 } from '@/redux/slice/userSlice';
 import { LoadingOutlined } from '@ant-design/icons';
 import { message, Spin } from 'antd';
@@ -113,13 +114,17 @@ const VerifyOtp = ({ data }: Props) => {
             setErrOTP('Vui Lòng Nhập OTP đã được gửi');
           } else {
             dispatch(setLoading(true));
-            const valuesRequest: IFormOtpPage = {
-              phone: myState.phone,
-              code: otp,
-            };
-            data
-              ? handleLogiWithSocial(valuesRequest, data.user?.email as string)
-              : handleLogiWithPhone(valuesRequest);
+            setTimeout(() => {
+              dispatch(setLoading(false));
+              dispatch(setStepLogin());
+            }, 3000);
+            // const valuesRequest: IFormOtpPage = {
+            //   phone: myState.phone,
+            //   code: otp,
+            // };
+            // data
+            //   ? handleLogiWithSocial(valuesRequest, data.user?.email as string)
+            //   : handleLogiWithPhone(valuesRequest);
           }
         }}
         className={styleScss.verifyOtp}

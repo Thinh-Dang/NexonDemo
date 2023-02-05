@@ -244,7 +244,7 @@ export const Profile = () => {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     signOut({ callbackUrl: '/' });
     dispatch(resetLogin());
   };
@@ -266,7 +266,39 @@ export const Profile = () => {
         avatar={profile.avatar}
       />
 
-      <UserAlbum album={profile.album} />
+      <UserAlbum
+        album={
+          // profile.album ?
+          // profile.album :
+          [
+            {
+              id: 'https://i.pinimg.com/236x/dc/92/1e/dc921ec2e07f9437dc51f2a10694578d.jpg',
+              url: 'https://i.pinimg.com/236x/dc/92/1e/dc921ec2e07f9437dc51f2a10694578d.jpg',
+              isFavorite: true,
+            },
+            {
+              id: 'https://i.pinimg.com/236x/94/29/76/942976f5a1d91cbf8e51ab970044b1ae.jpg',
+              url: 'https://i.pinimg.com/236x/94/29/76/942976f5a1d91cbf8e51ab970044b1ae.jpg',
+              isFavorite: false,
+            },
+            {
+              id: 'https://i.pinimg.com/236x/0f/1c/15/0f1c15c001c3afc9b338e4fe50bb9acf.jpg',
+              url: 'https://i.pinimg.com/236x/0f/1c/15/0f1c15c001c3afc9b338e4fe50bb9acf.jpg',
+              isFavorite: false,
+            },
+            {
+              id: 'https://i.pinimg.com/236x/08/94/bc/0894bcf8403d83d0ee3eb6292aba11b7.jpg',
+              url: 'https://i.pinimg.com/236x/08/94/bc/0894bcf8403d83d0ee3eb6292aba11b7.jpg',
+              isFavorite: true,
+            },
+            {
+              id: 'https://i.pinimg.com/236x/d3/7c/33/d37c33b2921a5df2fc85040e32b28f6c.jpg',
+              url: 'https://i.pinimg.com/236x/d3/7c/33/d37c33b2921a5df2fc85040e32b28f6c.jpg',
+              isFavorite: true,
+            },
+          ]
+        }
+      />
       <div className={styleCss['profileFrame-settingInfo']}>
         <SettingInfo
           title={'Tại sao bạn lại ở đây'}
@@ -311,7 +343,7 @@ export const Profile = () => {
           />
           <InfoItem
             icon={<WhiteWineIcon />}
-            title={'Rựu bia'}
+            title={'Rượu bia'}
             value={ConvertAlcoholEnum(profile.alcohol)}
             onIconClick={openSetting}
             type={OpenSettingProfile.ALCOHOL}
@@ -348,7 +380,7 @@ export const Profile = () => {
           onEditClick={openSetting}
         />
         <div className={styleCss['profileFrame-hobby-hobbyItems']}>
-          {profile.hobbies.map((item, index) => (
+          {profile.hobbies?.map((item, index) => (
             <ItemHobby
               key={item.id}
               title={item.name}

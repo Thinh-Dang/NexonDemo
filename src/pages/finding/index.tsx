@@ -26,9 +26,12 @@ import {
 
 import { Badge, message } from 'antd';
 import Spinning from '@/components/Spinning/Spinning';
+import { useRouter } from 'next/router';
+import { map } from 'leaflet';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const notifyRef = useRef<HTMLDivElement>(null);
@@ -43,6 +46,9 @@ const FindingPage = () => {
   );
   const notifications = useAppSelector(
     (state: RootState) => state.notificationSlice,
+  );
+  const { userPosition } = useAppSelector(
+    (state: RootState) => state.mapLocationSlice,
   );
 
   const [nearbyUsers, setNearbyUsers] = useState<IGetFriendNearUser[] | null>(
@@ -158,15 +164,17 @@ const FindingPage = () => {
   const getUsers = async () => {
     const isGetFriendNearUser = await dispatch(getFriendNearUser());
 
-    if (isGetFriendNearUser.payload) {
-      setIsLoading(false);
-    }
+    // if (isGetFriendNearUser.payload) {
+    setIsLoading(false);
+    // }
   };
 
   useEffect(() => {
+    if (!userPosition || userPosition.lat === 0 || userPosition.long === 0)
+      router.push('/map');
     getUsers();
-    dispatch(getLastLocation());
-    dispatch(getMatchingFriends());
+    // dispatch(getLastLocation());
+    // dispatch(getMatchingFriends());
     matching?.length && openMatchPagePopUp();
   }, []);
 

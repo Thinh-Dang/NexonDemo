@@ -59,9 +59,13 @@ const SendOTP = () => {
       initialValues: { phone: '' },
       onSubmit: async (values) => {
         dispatch(setLoading(true));
-        const results = (await dispatch(callAPISendOTP(values)))
-          .payload as IResponse<string>;
-        handleAfterCallApi(results);
+        setTimeout(() => {
+          dispatch(setLoading(false));
+          dispatch(setStepLogin());
+        }, 3000);
+        // const results = (await dispatch(callAPISendOTP(values)))
+        //   .payload as IResponse<string>;
+        // handleAfterCallApi(results);
       },
       validationSchema: phoneValidationSchema,
     });

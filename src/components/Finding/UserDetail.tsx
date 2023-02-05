@@ -45,10 +45,10 @@ const UserDetail = (props: IProps) => {
     'đọc sách',
     'đi chơi',
     'games',
-    'gigachad',
-    'simp',
-    'fan MU',
-    'wibu',
+    // 'gigachad',
+    // 'simp',
+    // 'fan MU',
+    // 'wibu',
     'DIY',
     'IT',
   ];
@@ -95,7 +95,7 @@ const UserDetail = (props: IProps) => {
         </span>
         <span className="user-detail-infoContainer-quote">
           <span className="user-detail-infoContainer-quote-openQuote">“</span>
-          {friendProfile?.description}
+          {friendInfo?.description || 'No quote is the best quote'}
         </span>
         <section className="user-detail-infoContainer-detail">
           <p className="user-detail-infoContainer-detail-title">
@@ -103,7 +103,7 @@ const UserDetail = (props: IProps) => {
           </p>
           <div className="user-detail-infoContainer-detail-list">
             {/* ALCOHOL */}
-            {friendProfile?.alcohol && (
+            {friendInfo?.alcohol && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.alcohol}
@@ -112,7 +112,7 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertAlcoholEnum(friendProfile?.alcohol)}
+                  {ConvertAlcoholEnum(friendInfo?.alcohol)}
                 </span>
               </span>
             )}
@@ -125,13 +125,13 @@ const UserDetail = (props: IProps) => {
                 height={'24px'}
               />
               <span className="user-detail-infoContainer-detail-list-item-content">
-                {friendProfile?.children != 0
-                  ? `${friendProfile?.children} con`
+                {friendInfo?.children != 0 && friendInfo?.children
+                  ? `${friendInfo?.children} con`
                   : 'Chưa có con'}
               </span>
             </span>
             {/* EDUCATION */}
-            {friendProfile?.education && (
+            {friendInfo?.education && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.education}
@@ -140,12 +140,12 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertEducationEnum(friendProfile?.education)}
+                  {ConvertEducationEnum(friendInfo?.education)}
                 </span>
               </span>
             )}
             {/* GENDER */}
-            {friendProfile?.gender && (
+            {friendInfo?.gender && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.gender}
@@ -154,11 +154,11 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertGenderEnum(friendProfile?.gender) || 'Không tiết lộ'}
+                  {ConvertGenderEnum(friendInfo?.gender) || 'Không tiết lộ'}
                 </span>
               </span>
             )}
-            {friendProfile?.height && friendProfile.height > 0 && (
+            {friendInfo?.height && friendInfo.height > 0 && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.height}
@@ -167,12 +167,12 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {friendProfile?.height}cm
+                  {friendInfo?.height}cm
                 </span>
               </span>
             )}
             {/* MARITAL STATUS */}
-            {friendProfile?.maritalStatus && (
+            {friendInfo?.maritalStatus && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.marital_status}
@@ -181,12 +181,12 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertMaritalStatusEnum(friendProfile?.maritalStatus)}
+                  {ConvertMaritalStatusEnum(friendInfo?.maritalStatus)}
                 </span>
               </span>
             )}
             {/* RELIGION */}
-            {friendProfile?.religion && (
+            {friendInfo?.religion && (
               <span className="user-detail-infoContainer-detail-list-item">
                 <Image
                   src={iconList.religion}
@@ -195,7 +195,7 @@ const UserDetail = (props: IProps) => {
                   height={'24px'}
                 />
                 <span className="user-detail-infoContainer-detail-list-item-content">
-                  {ConvertReligionEnum(friendProfile?.religion)}
+                  {ConvertReligionEnum(friendInfo?.religion)}
                 </span>
               </span>
             )}
@@ -204,11 +204,11 @@ const UserDetail = (props: IProps) => {
         <section className="user-detail-infoContainer-hobby">
           <p className="user-detail-infoContainer-hobby-title">Tôi thích...</p>
           <div className="user-detail-infoContainer-hobby-list">
-            {friendProfile?.hobbies.length ? (
-              friendProfile?.hobbies.map((hobby, index) => {
+            {hobbies.length ? (
+              hobbies.map((hobby, index) => {
                 return (
                   <span
-                    key={hobby.id}
+                    key={index}
                     style={{
                       backgroundColor: `${
                         index < hobbyColors.length
@@ -218,7 +218,7 @@ const UserDetail = (props: IProps) => {
                     }}
                     className="user-detail-infoContainer-hobby-list-item"
                   >
-                    #{hobby.name}
+                    #{hobby}
                   </span>
                 );
               })
@@ -236,8 +236,8 @@ const UserDetail = (props: IProps) => {
         </section>
       </div>
       <div className="user-detail-gallery">
-        {friendProfile?.album.length ? (
-          friendProfile.album.map((image) => {
+        {friendInfo?.album.length ? (
+          friendInfo.album.map((image) => {
             return (
               <img
                 key={`img ${image.id}`}

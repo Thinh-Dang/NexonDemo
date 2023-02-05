@@ -6,10 +6,12 @@ import {
   getFriendNearUser,
 } from '@/redux/slice/mapLocationSlice';
 import { getRadius } from '@/redux/slice/settingsSlice';
+import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 
 const MapPage: FC = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { userPosition } = useAppSelector(
     (state: RootState) => state.mapLocationSlice,
   );
@@ -25,8 +27,10 @@ const MapPage: FC = () => {
             longtitude: position.coords.longitude,
           }),
         );
-        dispatch(getFriendNearUser());
+        // dispatch(getFriendNearUser());
       });
+    } else {
+      router.push('/profile');
     }
   }, []);
 
@@ -42,7 +46,7 @@ const MapPage: FC = () => {
     <div
       className="spinning-container"
       style={{
-        height: '80vh',
+        height: '100vh',
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',

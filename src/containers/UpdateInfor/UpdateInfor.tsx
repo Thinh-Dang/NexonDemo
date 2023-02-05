@@ -49,15 +49,16 @@ const UpdateInfor = ({ data }: Props) => {
     const result = (await dispatch(callAPIUpdateUser(valueRequest)))
       .payload as IResponse<string>;
     dispatch(setLoading(false));
-
-    if (result.status) {
-      message.success('Tạo tài khoản thành công');
-      router.push('/finding');
-    } else {
-      if (result.message === ERROR_EMAIL_CONFLICT) {
-        message.error('Email đã có người sử dụng vui lòng sử dụng email khác');
-      }
-    }
+    message.success('Tạo tài khoản thành công');
+    router.push('/finding');
+    // if (result.status) {
+    //   message.success('Tạo tài khoản thành công');
+    //   router.push('/finding');
+    // } else {
+    //   if (result.message === ERROR_EMAIL_CONFLICT) {
+    //     message.error('Email đã có người sử dụng vui lòng sử dụng email khác');
+    //   }
+    // }
   };
   const loginWithSocial = async ({ name, email }: INameAndEmail) => {
     const valueRequest: ISignInWithSocial = {
@@ -84,12 +85,17 @@ const UpdateInfor = ({ data }: Props) => {
       initialValues: data ? userLoginWithSocial : myState.inforUser,
       onSubmit: async (value: INameAndEmail | any) => {
         dispatch(setLoading(true));
-        data
-          ? loginWithSocial({
-              email: data.user?.email as string,
-              name: data.user?.name as string,
-            })
-          : loginWithPhone(value);
+        loginWithPhone(value);
+        // setTimeout(() => {
+        //   dispatch(setLoading(false))
+        //   router.push('/finding')
+        // }, 3000)
+        // data
+        //   ? loginWithSocial({
+        //       email: data.user?.email as string,
+        //       name: data.user?.name as string,
+        //     })
+        //   : loginWithPhone(value);
       },
       validationSchema: inForUserSchema,
     });

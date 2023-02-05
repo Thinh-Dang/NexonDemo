@@ -6,6 +6,9 @@ import { IFormCreateOrUpdateLocation } from '../../@type/page';
 import userApi from '@/services/user.api';
 import mapLocationApi from '@/services/map-location.api';
 
+import usersData from '@/assets/data/users.data.json';
+import { stat } from 'fs';
+
 const initialState: IInitialStateMapLocation = {
   centerPosition: { lat: 0, lng: 0 },
   userPosition: { lat: 0, lng: 0 },
@@ -18,13 +21,18 @@ const initialState: IInitialStateMapLocation = {
 export const createOrUpdateLocation = createAsyncThunk(
   'createOrUpdateLocation',
   async (requestOption: IFormCreateOrUpdateLocation) => {
-    return await mapLocationApi.createOrUpdateLocation(requestOption);
+    return { data: { ...requestOption } };
+    // return await mapLocationApi.createOrUpdateLocation(requestOption);
   },
 );
 export const getFriendNearUser = createAsyncThunk(
   'getFriendNearUser',
   async () => {
-    return await mapLocationApi.getFriendNearUser();
+    // return await mapLocationApi.getFriendNearUser();
+    return {
+      status: true,
+      data: usersData,
+    };
   },
 );
 export const getLastLocation = createAsyncThunk('getLastLocation', async () => {
@@ -63,14 +71,20 @@ export const mapLocationSlice = createSlice({
       // createOrUpdateLocation
       createOrUpdateLocation.fulfilled,
       (state: IInitialStateMapLocation, action: any) => {
-        if (action.payload.status) {
-          const { data } = action.payload;
-          state.userPosition = {
-            lat: data.latitude,
-            lng: data.longtitude,
-          };
-          state.centerPosition = state.userPosition;
-        }
+        // if (action.payload.status) {
+        //   const { data } = action.payload;
+        //   state.userPosition = {
+        //     lat: data.latitude,
+        //     lng: data.longtitude,
+        //   };
+        //   state.centerPosition = state.userPosition;
+        // }
+        const { data } = action.payload;
+        state.userPosition = {
+          lat: data.latitude,
+          lng: data.longtitude,
+        };
+        state.centerPosition = state.userPosition;
       },
     );
     builder.addCase(
@@ -78,8 +92,25 @@ export const mapLocationSlice = createSlice({
       getFriendNearUser.fulfilled,
       (state: IInitialStateMapLocation, action: any) => {
         if (action.payload.status) {
-          state.friendsNearUser = action.payload.data;
-          state.friendInfo = action.payload.data[0];
+          const users = action.payload.data.map((user: any) => ({
+            ...user,
+            latitude:
+              state.userPosition.lat && state.userPosition.lat !== 0
+                ? state.userPosition.lat + (Math.random() * 200 - 100) / 1000 // -99 to 99 then / 10000 = -0.0099 to 0.0099
+                : 10.7472272 + (Math.random() * 200 - 100) / 1000,
+            longtitude:
+              state.userPosition.lng && state.userPosition.lng !== 0
+                ? state.userPosition.lng + (Math.random() * 200 - 100) / 1000 // -99 to 99 then / 10000 = -0.0099 to 0.0099
+                : 106.7225045 + (Math.random() * 200 - 100) / 1000,
+            distance: Math.floor(Math.random() * 20),
+            unit: ['km', 'm'].at(Math.floor(Math.random() * 2)),
+          }));
+          state.friendsNearUser = users;
+          state.friendInfo = users[0];
+          state.centerPosition = {
+            lat: users[0] ? users[0].latitude : 0,
+            lng: users[0] ? users[0].longtitude : 0,
+          };
         }
       },
     );

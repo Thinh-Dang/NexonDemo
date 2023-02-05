@@ -10,7 +10,7 @@ import { Marker } from 'react-leaflet';
 const CustomMarker: FC<IMarkers> = ({ coord, icon, friendInfo }) => {
   const dispatch = useAppDispatch();
   const DefaultIcon = L.icon({
-    iconSize: [25, 41],
+    iconSize: [45, 41],
     iconAnchor: [10, 41],
     popupAnchor: [2, -40],
     iconUrl: icon.src,

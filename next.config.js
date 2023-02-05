@@ -7,7 +7,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'i.pinimg.com'],
   },
   env: {
     GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_ID,

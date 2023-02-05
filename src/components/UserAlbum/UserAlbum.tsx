@@ -203,7 +203,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
             <Col span={8}>
               <div
                 className={styleScss.userAlbum__upload}
-                onClick={handdleOpenUpLoad}
+                // onClick={handdleOpenUpLoad}
               >
                 <div>
                   <PlusIcons />
@@ -245,7 +245,7 @@ export const UserAlbum: FC<IUserAlbum> = ({ album }) => {
                   <ImageCard
                     id={image.id}
                     url={image.url}
-                    onFavorite={handleFavorite}
+                    // onFavorite={handleFavorite}
                     isFavorite={image.isFavorite}
                     isAvailableFavorite={countFavorite < maxFavorite}
                   />

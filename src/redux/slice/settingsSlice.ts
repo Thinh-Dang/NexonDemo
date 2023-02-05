@@ -2,7 +2,8 @@ import settingsApi from '@/services/settings.api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const getRadius = createAsyncThunk('getRadius', async () => {
-  return await settingsApi.getRadius();
+  // return await settingsApi.getRadius();
+  return { data: { radius: 50 } };
 });
 export const settingsSlice = createSlice({
   name: 'settingsSlice',
@@ -13,10 +14,12 @@ export const settingsSlice = createSlice({
       // createUserBlock
       getRadius.fulfilled,
       (state, action: any) => {
-        if (action.payload.status) {
-          const { data } = action.payload;
-          state.radius = data.radius;
-        }
+        // if (action.payload.status) {
+        //   const { data } = action.payload;
+        //   state.radius = data.radius;
+        // }
+        const { data } = action.payload;
+        state.radius = data.radius;
       },
     );
   },

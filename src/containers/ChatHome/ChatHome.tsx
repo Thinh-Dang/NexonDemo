@@ -67,10 +67,11 @@ export const ChatHome: FC<IChatHome> = ({
                 <button
                   onClick={() => router.push('/map')}
                   style={{
-                    padding: '.7rem 1rem',
+                    padding: '.7rem 4rem',
                     borderRadius: '.8rem',
                     backgroundColor: '#cabbff',
                     color: '#9b63ff',
+                    marginTop: '1rem',
                   }}
                 >
                   Tìm kiếm ngay
