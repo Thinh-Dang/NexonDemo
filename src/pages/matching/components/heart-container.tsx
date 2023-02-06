@@ -20,7 +20,8 @@ interface IProps {
 
 const HeartContainer = ({ matchedFriend }: IProps) => {
   const firstImgUrl =
-    'https://scontent.fsgn5-5.fna.fbcdn.net/v/t1.6435-9/107731654_1640419816124272_6053304466875974080_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=vts1kTF9ifcAX8zIwQR&tn=CSyiAD4g1J8RrLXt&_nc_ht=scontent.fsgn5-5.fna&oh=00_AT9PbkJzDlVqVPzzKRLC3fKSH_6ClqL-p7Rhvcoa1e6haQ&oe=63264DE3';
+    'https://i.pinimg.com/236x/20/5a/c8/205ac833d83d23c76ccb74f591cb6000.jpg';
+  // 'https://scontent.fsgn5-5.fna.fbcdn.net/v/t1.6435-9/107731654_1640419816124272_6053304466875974080_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=vts1kTF9ifcAX8zIwQR&tn=CSyiAD4g1J8RrLXt&_nc_ht=scontent.fsgn5-5.fna&oh=00_AT9PbkJzDlVqVPzzKRLC3fKSH_6ClqL-p7Rhvcoa1e6haQ&oe=63264DE3';
   // 'https://www.rollingstone.com/wp-content/uploads/2020/07/Screen-Shot-2020-07-15-at-11.24.37-AM.jpg';
   const [friendImg, setFriendImg] = useState<string>('');
   useEffect(() => {
@@ -74,7 +75,7 @@ const HeartContainer = ({ matchedFriend }: IProps) => {
         <Heart imgUrl={firstImgUrl} />
       </div>
       <div className="icon right ">
-        <Heart imgUrl={friendImg} />
+        <Heart imgUrl={matchedFriend[0]?.avatar} />
       </div>
       {/* <div className="icon pop-up">
         <svg className="heart-secondary" viewBox="0 0 512 512">

@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Image from 'next/image';
+import Spinning from '../Spinning/Spinning';
 
 interface IProps {
   user: IGetFriendNearUser;
@@ -16,6 +17,8 @@ export const UserCard: FC<IProps> = ({
   onCheckInfo,
   onInfoClick,
 }) => {
+  const [isDislikeLoading, setIsDislikeLoading] = useState(false);
+  const [isLikeLoading, setIsLikeLoading] = useState(false);
   const age = (birthday: Date): number => {
     return new Date().getFullYear() - new Date(birthday).getFullYear();
   };
@@ -51,25 +54,45 @@ export const UserCard: FC<IProps> = ({
         <div className="findingPage-card-content-btnGroup">
           <div
             className="findingPage-card-content-btnGroup-btn"
-            onClick={() => onDislike(user.id)}
+            onClick={() => {
+              setIsDislikeLoading(true);
+              setTimeout(() => {
+                onDislike(user.id);
+                setIsDislikeLoading(false);
+              }, 2000);
+            }}
           >
-            <Image
-              src="/assets/images/Close.svg"
-              alt="close"
-              width={'23px'}
-              height={'23px'}
-            />
+            {!isDislikeLoading ? (
+              <Image
+                src="/assets/images/Close.svg"
+                alt="close"
+                width={'23px'}
+                height={'23px'}
+              />
+            ) : (
+              <Spinning noTip />
+            )}
           </div>
           <div
             className="findingPage-card-content-btnGroup-btn"
-            onClick={() => onLike(user.id)}
+            onClick={() => {
+              setIsLikeLoading(true);
+              setTimeout(() => {
+                onLike(user.id);
+                setIsLikeLoading(false);
+              }, 2000);
+            }}
           >
-            <Image
-              src="/assets/images/Union.svg"
-              alt="heart"
-              width={'23px'}
-              height={'23px'}
-            />
+            {!isLikeLoading ? (
+              <Image
+                src="/assets/images/Union.svg"
+                alt="heart"
+                width={'23px'}
+                height={'23px'}
+              />
+            ) : (
+              <Spinning noTip />
+            )}
           </div>
         </div>
         <div className="findingPage-card-content-infoBtn">

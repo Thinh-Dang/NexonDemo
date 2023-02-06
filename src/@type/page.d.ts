@@ -51,4 +51,5 @@ interface IMatchingPage {
   matchingRef: RefObject<HTMLDivElement>;
   openMatchPagePopUp: () => void;
   closeMatchPagePopUp: () => void;
+  friendId?: string;
 }

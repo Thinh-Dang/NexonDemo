@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Spinning from '../Spinning/Spinning';
 
 interface IProps {
   userId: string;
@@ -9,35 +10,53 @@ interface IProps {
 }
 
 const BtnGroup = ({ userId, onLike, onDislike, onCloseModal }: IProps) => {
+  const [isLikeLoading, setIsLikeLoading] = useState(false);
+  const [isDislikeLoading, setIsDislikeLoading] = useState(false);
   return (
     <div className="btnGroup">
       <div
         className="btnGroup-btn"
         onClick={() => {
-          onDislike(userId);
-          onCloseModal();
+          setIsDislikeLoading(true);
+          setTimeout(() => {
+            onDislike(userId);
+            setIsDislikeLoading(false);
+            onCloseModal();
+          }, 2000);
         }}
       >
-        <Image
-          src="/assets/images/Close.svg"
-          alt="close"
-          width={'23px'}
-          height={'23px'}
-        />
+        {!isDislikeLoading ? (
+          <Image
+            src="/assets/images/Close.svg"
+            alt="close"
+            width={'23px'}
+            height={'23px'}
+          />
+        ) : (
+          <Spinning noTip />
+        )}
       </div>
       <div
         className="btnGroup-btn"
         onClick={() => {
-          onLike(userId);
-          onCloseModal();
+          setIsLikeLoading(true);
+          setTimeout(() => {
+            onLike(userId);
+            setIsLikeLoading(false);
+            onCloseModal();
+          }, 2000);
         }}
       >
-        <Image
-          src="/assets/images/Union.svg"
-          alt="heart"
-          width={'23px'}
-          height={'23px'}
-        />
+        {!isLikeLoading ? (
+          <Image
+            src="/assets/images/Union.svg"
+            alt="heart"
+            width={'23px'}
+            height={'23px'}
+          />
+        ) : (
+          <Spinning noTip />
+        )}
       </div>
     </div>
   );

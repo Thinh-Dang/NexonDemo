@@ -28,6 +28,8 @@ import { Badge, message } from 'antd';
 import Spinning from '@/components/Spinning/Spinning';
 import { useRouter } from 'next/router';
 import { map } from 'leaflet';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FindingPage = () => {
   const dispatch = useAppDispatch();
@@ -56,6 +58,7 @@ const FindingPage = () => {
   );
   const [idSelected, setIdSelected] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(true);
+  const [friendId, setFriendId] = useState('');
 
   const onOverlayClick = useCallback(() => {
     if (notifyRef.current && !notifyRef.current.hidden) {
@@ -97,22 +100,23 @@ const FindingPage = () => {
   };
 
   const openMatchPagePopUp = useCallback(() => {
-    dispatch(getMatchingFriends());
-    console.log(matching);
+    // dispatch(getMatchingFriends());
+    // console.log(matching);
+    // localStorage.setItem('friendId' ,id)
+    // setFriendId(id)
+    // if (matching?.length > 0) {
+    if (matchingRef.current) {
+      const matchingEl = matchingRef.current;
 
-    if (matching?.length > 0) {
-      if (matchingRef.current) {
-        const matchingEl = matchingRef.current;
+      matchingEl.hidden = false;
 
-        matchingEl.hidden = false;
-
-        setTimeout(() => {
-          matchingEl.classList.add('show');
-        }, 10);
-      }
-    } else {
-      message.info('Bạn đã xem hết người dùng đã kết đôi', 2);
+      setTimeout(() => {
+        matchingEl.classList.add('show');
+      }, 10);
     }
+    // } else {
+    //   message.info('Bạn đã xem hết người dùng đã kết đôi', 2);
+    // }
   }, [matching]);
 
   const closeMatchPagePopUp = useCallback(() => {
@@ -121,6 +125,8 @@ const FindingPage = () => {
       const ids = matching.map((el) => el.id);
       ids.length && dispatch(deleteUserLikeStacks({ ids: ids }));
       match.classList.remove('show');
+      localStorage.removeItem('friendId');
+      setFriendId('');
       return;
     }
   }, []);
@@ -134,25 +140,37 @@ const FindingPage = () => {
     } else {
       dispatch(updateFriendInfo(arr[0]));
     }
-    dispatch(createUserLikeStack({ toUserId: id }));
-    setNearbyUsers(
-      nearbyUsers?.filter((user) => {
-        return user.id !== id;
-      }),
-    );
+    // dispatch(createUserLikeStack({ toUserId: id }));
+    // toast.success("Thích thành công",{
+    //   autoClose: 1000,
+    //   position: "top-center",
+    //   hideProgressBar: true
+    // })
+    message.success('Thích thành công');
+
+    setFriendId(id);
+    openMatchPagePopUp();
+    setNearbyUsers(arr);
+    dispatch(updateFriendsNearUser(arr));
   };
 
   const onDislike = (id: string) => {
     const arr = nearbyUsers?.filter((user) => {
       return user.id !== id;
     });
+    dispatch(updateFriendsNearUser(arr));
     if (arr?.length === 0) {
       dispatch(updateFriendInfo(null));
     } else {
       dispatch(updateFriendsNearUser(arr));
     }
-    dispatch(createUserBlock({ blockedUserId: id }));
-
+    // dispatch(createUserBlock({ blockedUserId: id }));
+    // toast.success("Chặn thành công",{
+    //   autoClose: 1000,
+    //   position: "top-center",
+    //   hideProgressBar: true
+    // })
+    message.success('Chặn thành công');
     setNearbyUsers(arr);
   };
 
@@ -316,7 +334,9 @@ const FindingPage = () => {
           matchingRef={matchingRef}
           openMatchPagePopUp={openMatchPagePopUp}
           closeMatchPagePopUp={closeMatchPagePopUp}
+          friendId={friendId}
         />
+        <ToastContainer />
       </div>
     </Layout>
   );

@@ -8,7 +8,7 @@ import {
   ConvertReligionEnum,
 } from '@/utils';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import BtnGroup from './BtnGroup';
 interface IProps {
   id: string;

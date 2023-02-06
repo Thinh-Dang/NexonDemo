@@ -14,6 +14,7 @@ import {
   updateFriendsNearUser,
 } from '@/redux/slice/mapLocationSlice';
 import { useSocket } from '@/contexts/useSocket';
+import { message } from 'antd';
 
 const MapWithNoSSR: ComponentType = dynamic(
   () => import('@/components/MapLoaction/Map'),
@@ -71,8 +72,9 @@ const MapLocationContainer: FC = () => {
       dispatch(updateFriendInfo(newList[0]));
     }
     // socket.emit('send-notification', id);
+    message.success('Thích thành công');
     dispatch(updateFriendsNearUser(newList));
-    dispatch(createUserLikeStack({ toUserId: id }));
+    // dispatch(createUserLikeStack({ toUserId: id }));
   };
 
   const onDislike = (id: string) => {
@@ -83,8 +85,9 @@ const MapLocationContainer: FC = () => {
       dispatch(updateFriendInfo(newList[0]));
     }
     // socket.emit('send-notification', id);
+    message.success('Chặn thành công');
     dispatch(updateFriendsNearUser(newList));
-    dispatch(createUserBlock({ blockedUserId: id }));
+    // dispatch(createUserBlock({ blockedUserId: id }));
   };
   return (
     <Layout title="Map location" isHeader={false} isFooter={true}>

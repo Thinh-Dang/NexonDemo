@@ -1,21 +1,22 @@
 import { IMatchingPage } from '@/@type/page';
 import { IMatchingFriend } from '@/@type/services';
-import { useAppDispatch } from '@/redux';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux';
 import { deleteUserLikeStacks } from '@/redux/slice/userLikeStackSlice';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import HeartContainer from './components/heart-container';
+import users from '@/assets/data/users.data.json';
 
 const MatchPage: FC<IMatchingPage> = ({
   matching,
   matchingRef,
   openMatchPagePopUp,
   closeMatchPagePopUp,
+  friendId,
 }) => {
   const dispatch = useAppDispatch();
   const [greetMessage, setGreetMessage] = useState('');
   const [matchedFriends, setMatchedFriends] = useState<IMatchingFriend[]>([]);
-
   const handleOnChange = (e: any) => {
     setGreetMessage(e.target.value);
   };
@@ -46,7 +47,11 @@ const MatchPage: FC<IMatchingPage> = ({
             height="15px"
           />
         </div>
-        <HeartContainer matchedFriend={matchedFriends && matchedFriends[0]} />
+        <HeartContainer
+          matchedFriend={
+            users && users.filter((friend) => friend.id === friendId)
+          }
+        />
         <div className="matchingFrame-content">
           <h2 className="matchingFrame-content-title">IT&apos;S A MATCH</h2>
           <p className="matchingFrame-content-message">

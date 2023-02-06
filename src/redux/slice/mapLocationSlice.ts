@@ -63,7 +63,7 @@ export const mapLocationSlice = createSlice({
       state.zoomLevel = action.payload;
     },
     updateFriendsNearUser(state, action: any) {
-      state.friendsNearUser = action.payload;
+      state.friendsNearUser = [...action.payload];
     },
   },
   extraReducers: (builder) => {
